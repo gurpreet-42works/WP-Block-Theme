@@ -1,0 +1,101 @@
+/*
+Theme Name: Bloxby WP
+Theme URI: 
+Author: 42 Works
+Author URI: 
+Description: A custom block theme for Bloxby Assistant an AI-powered WordPress platform that streamlines website creation and management.
+Requires at least: 6.8
+Tested up to: 6.8
+Requires PHP: 5.7
+Version: 1.0.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: bloxbywp
+Tags: 
+*/
+
+
+/****** Bootstrap Overrides *****/
+:root{
+
+}
+
+@media (min-width: 1200px) {
+    .h3, h3 {
+        font-size: 1.25rem;
+    }
+}
+
+
+/****** Custom CSS for blocks styling. Donot use any custom backgrounds and colors  ******/
+
+.wp-block-columns >.wp-block-column {
+    height: fit-content;
+}
+
+header.wp-block-template-part {
+    background: var(--wp--preset--color--black) !important;
+}
+
+.common-padding {
+    padding: 50px 0;
+}
+
+ul.wp-block-post-template {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+ul.wp-block-post-template li.wp-block-post {
+    margin: 0;
+}
+
+.card-body .wp-block-post-title {
+    font-size: 23px;
+}
+
+.card-body {
+    margin: 0;
+}
+.card .wp-block-post-featured-image {
+    overflow: hidden;
+    border-radius: var(--bs-border-radius) var(--bs-border-radius) 0 0;
+}
+
+.card-body .wp-block-post-excerpt__excerpt {
+    margin-bottom: 25px;
+    margin-top: 10px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    overflow: hidden;
+}
+
+.card  a.wp-block-button {
+    max-width: 150px;
+}
+
+.wp-block-button.aligncenter a.wp-block-button__link {
+    max-width: 180px;
+    margin: auto;
+}
+
+.wp-block-button.aligncenter {
+    text-align: center;
+}
+
+.wp-block-media-text {
+    height: 100%;
+}
+
+figure.wp-block-media-text__media, figure.wp-block-media-text__media img {
+    height: 100%;
+    object-fit: cover;
+}
+
+.btn  a.wp-block-button__link {
+    background: none;
+    padding: 0;
+}
+
