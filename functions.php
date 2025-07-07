@@ -36,3 +36,5 @@
         true
     );
 });
+
+include_once 'includes/cli-builder.php';

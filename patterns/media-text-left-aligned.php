@@ -11,8 +11,8 @@
  */
 ?>
 
-<!-- wp:group {"className":"content-with-media-section commpn-padding"} -->
-<div class="wp-block-group content-with-media-section common-padding ">
+<!-- wp:group {"align":"full","className":"content-with-media-section commpn-padding"} -->
+<div class="wp-block-group alignfull content-with-media-section common-padding ">
 <!-- wp:group {"className":"container"} -->
 <div class="wp-block-group container">
     <!-- wp:group {"align":"wide", "className":"row align-items-center"} -->

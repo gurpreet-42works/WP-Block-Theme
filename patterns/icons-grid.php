@@ -12,8 +12,8 @@
  */
 ?>
 
-<!-- wp:group {"className":"images-grid-section commpn-padding"} -->
-<div class="wp-block-group images-grid-section common-padding ">
+<!-- wp:group {"align":"full","className":"images-grid-section commpn-padding"} -->
+<div class="wp-block-group alignfull images-grid-section common-padding ">
     <!-- wp:group {"className":"container"} -->
     <div class="wp-block-group container">
         <!-- wp:group {"className":"section-heading-wrap"} -->
