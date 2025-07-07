@@ -25,7 +25,7 @@
      wp_enqueue_style( 'bootstrap', get_stylesheet_directory_uri() . '/assets/css/bootstrap.min.css', array(), get_theme_mod('version') );
      wp_enqueue_style( 'style', get_stylesheet_uri(), array('bootstrap'), get_theme_mod('version') );
    }
-   add_action( 'wp_enqueue_scripts', 'add_bloxbywp_styles' );
+   add_action( 'enqueue_block_assets', 'add_bloxbywp_styles' );
 
    add_action('enqueue_block_editor_assets', function () {
     wp_enqueue_script(

@@ -4,7 +4,7 @@
  * Title: Hero Banner Medium Left
  * Slug: bloxbywp/banner-left-aligned
  * Categories: banner
- * Description: A hero banner with content contained in container.
+ * Description: A hero banner with image and content contained in container with image on left and content on right.
  *
  * @package WordPress
  * @subpackage Bloxby_WP
@@ -12,8 +12,8 @@
  */
 ?>
 
-<!-- wp:group {"className":"content-with-media-section commpn-padding"} -->
-<div class="wp-block-group hero-banner-content-left">
+<!-- wp:group {"align": "full", "className":"alignfull content-with-media-section commpn-padding"} -->
+<div class="wp-block-group alignfull hero-banner-content-left">
     <!-- wp:group {"className":"container"} -->
     <div class="wp-block-group container">
         <!-- wp:group {"align":"wide", "className":"row align-items-center"} -->

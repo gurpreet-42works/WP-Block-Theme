@@ -1,67 +1,58 @@
 <?php
 
 /**
- * Title: List of posts, 1 column
+ * Title: List of posts, No Pagination
  * Slug: bloxbywp/template-query-loop
  * Categories: query
  * Block Types: core/query
- * Description: A list of posts, 1 column, with featured image and post date.
+ * Description: A list of posts, with featured image and post date.
  *
  * @package WordPress
  * @subpackage Bloxby_WP
- * @since Twenty Twenty-Five 1.0
+ * @since 1.0
  */
 
 ?>
-<!-- wp:query {"query":{"perPage":3,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":true,"taxQuery":null,"parents":[]},"align":"full","layout":{"type":"default"}} -->
-<div class="wp-block-query alignfull container">
-	<!-- wp:post-template -->
+<!-- wp:query {"queryId":"list-posts-paged-bloxby","query":{"perPage":6,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false,"taxQuery":null,"parents":[],"format":[]},"metadata":{"categories":["posts"]},"className":"alignfull container"} -->
+<div class="wp-block-query alignfull">
+	<!-- wp:group {"className":"container"} -->
+	<div class="wp-block-group container">
+		<!-- wp:post-template -->
+		<!-- wp:group {"className":"card h-100 border-0"} -->
+		<div class="wp-block-group card h-100 border-0">
 
-	<!-- wp:group {"className":"card h-100 shadow-sm"} -->
-		<div class="wp-block-group card h-100 shadow-sm">
+			<!-- wp:post-featured-image {"className":"card-img-top rounded-0", "isLink":true} /-->
 
-			<!-- wp:post-featured-image {"className":"card-img-top"} /-->
+			<!-- wp:group {"className":"card-body p-0"} -->
+			<div class="wp-block-group card-body p-0">
+				<!-- wp:post-terms {"term":"category","className":"badge rounded-pill text-bg-primary"} /-->
 
-			<!-- wp:group {"className":"card-body"} -->
-			<div class="wp-block-group card-body">
+				<!-- wp:post-title {"level":3,"isLink":true,"className":"card-title h3 mt-2"} /-->
 
-				<!-- wp:post-title {"isLink":true,"level":3,"className":"card-title h5"} /-->
+				<!-- wp:post-excerpt {"className":"card-text mt-2"} /-->
 
-				<!-- wp:post-excerpt {"className":"card-text"} /-->
-
-				<!-- wp:post-date {"format":"F j, Y","className":"text-muted small"} /-->
-
-				<!-- wp:post-terms {"term":"category","className":"text-muted small"} /-->
-
-				<!-- wp:post-terms {"term":"post_tag","className":"text-muted small"} /-->
-
-				<!-- wp:post-link {"className":"btn btn-primary mt-3"} -->
-				<a class="wp-block-post-link btn btn-primary mt-3">Read More</a>
-				<!-- /wp:post-link -->
-
+				<!-- wp:buttons {"className":"mt-3"} -->
+				<div class="wp-block-buttons mt-3">
+					<!-- wp:button {"className":"btn btn-primary"} -->
+					<div class="wp-block-button btn btn-primary"><a class="wp-block-button__link wp-element-button">Read More</a></div>
+					<!-- /wp:button -->
+				</div>
+				<!-- /wp:buttons -->
 			</div>
 			<!-- /wp:group -->
-
 		</div>
-	<!-- /wp:group -->
+		<!-- /wp:group -->
+		<!-- /wp:post-template -->
 
-	<!-- /wp:post-template -->
-	<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|60"}}},"layout":{"type":"constrained"}} -->
-	<div class="wp-block-group" style="padding-top:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--60)">
 		<!-- wp:query-no-results -->
-		<!-- wp:paragraph -->
-		<p><?php echo esc_html_x('Sorry, but nothing was found. Please try a search with different keywords.', 'Message explaining that there are no results returned from a search.', 'bloxbywp'); ?></p>
-		<!-- /wp:paragraph -->
+		<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|60"}}},"layout":{"type":"constrained"}} -->
+		<div class="wp-block-group" style="padding-top:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--60)">
+			<!-- wp:paragraph -->
+			<p>Sorry, but nothing was found. Please try a search with different keywords.</p>
+			<!-- /wp:paragraph -->
+		</div>
+		<!-- /wp:group -->
 		<!-- /wp:query-no-results -->
-	</div>
-	<!-- /wp:group -->
-	<!-- wp:group {"align":"wide","layout":{"type":"constrained"}} -->
-	<div class="wp-block-group alignwide">
-		<!-- wp:query-pagination {"paginationArrow":"arrow","align":"wide","layout":{"type":"flex","justifyContent":"space-between"}} -->
-		<!-- wp:query-pagination-previous /-->
-		<!-- wp:query-pagination-numbers /-->
-		<!-- wp:query-pagination-next /-->
-		<!-- /wp:query-pagination -->
 	</div>
 	<!-- /wp:group -->
 </div>

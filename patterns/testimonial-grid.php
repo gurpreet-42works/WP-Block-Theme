@@ -1,0 +1,103 @@
+<?php
+
+/**
+ * Title: Testimonials Grid
+ * Slug: bloxbywp/testimonials-grid
+ * Categories: section
+ * Description: A section to show the testimonials grid.
+ *
+ * @package WordPress
+ * @subpackage Bloxby_WP
+ * @since 1.0
+ */
+?>
+
+<!-- wp:group {"metadata":{"categories":["section"],"patternName":"bloxbywp/images-grid","name":"Images Grid"},"className":"visual-highlight-grid common-padding"} -->
+<div class="wp-block-group visual-highlight-grid common-padding"><!-- wp:group {"className":"container"} -->
+    <div class="wp-block-group container"><!-- wp:group {"className":"section-heading-wrap text-center"} -->
+        <div class="wp-block-group section-heading-wrap text-center"><!-- wp:heading {"className":"mb-3"} -->
+            <h2 class="wp-block-heading mb-3">Title Goes Here</h2>
+            <!-- /wp:heading -->
+
+            <!-- wp:paragraph {"className":"mb-4","fontSize":"medium"} -->
+            <p class="mb-4 has-medium-font-size">Lorem ipsum dolor sit amet consectetur. Id viverra praesent in tellus lectus fusce dictum. <br>Risus gravida aliquam sed vestibulum nec.</p>
+            <!-- /wp:paragraph -->
+        </div>
+        <!-- /wp:group -->
+    </div>
+    <!-- /wp:group -->
+
+    <!-- wp:bloxby-blocks/testimonial-grid-container {"columns":3} -->
+    <div class="wp-block-bloxby-blocks-testimonial-grid-container save-block testimonial-block-container">
+        <div class="testimonial-grid-container 
+					columns-3
+					"><!-- wp:bloxby-blocks/testimonial-grid -->
+            <div class="wp-block-bloxby-blocks-testimonial-grid save-block testimonial-grid-block"><!-- wp:group {"align":"wide","style":{"spacing":{"padding":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40","left":"var:preset|spacing|40","right":"var:preset|spacing|40"}}}} -->
+                <div class="wp-block-group alignwide" style="padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)"><!-- wp:image {"id":385,"sizeSlug":"full","linkDestination":"none"} -->
+                    <figure class="wp-block-image size-full"><img src="http://localhost/wp_installations/bloxby/wp-content/uploads/2025/06/Untitled.gif" alt="" class="wp-image-385" /></figure>
+                    <!-- /wp:image -->
+
+                    <!-- wp:paragraph {"placeholder":"Enter testimonial here...","fontSize":"small"} -->
+                    <p class="has-small-font-size">Testimonial Title</p>
+                    <!-- /wp:paragraph -->
+
+                    <!-- wp:paragraph {"align":"center","placeholder":"Enter description here..."} -->
+                    <p class="has-text-align-center">“Lorem ipsum dolor sit amet consectetur. Nisi molestie dis nec mi in enim dolor tincidunt. Elementum nisi venenatis nisl quam nulla dignissim enim.</p>
+                    <!-- /wp:paragraph -->
+
+                    <!-- wp:paragraph {"placeholder":"Enter designation here...","style":{"spacing":{"padding":{"bottom":"30px"}},"typography":{"fontWeight":"600","fontStyle":"normal"}},"fontSize":"small"} -->
+                    <p class="has-small-font-size" style="padding-bottom:30px;font-style:normal;font-weight:600">Designation Goes Here</p>
+                    <!-- /wp:paragraph -->
+                </div>
+                <!-- /wp:group -->
+            </div>
+            <!-- /wp:bloxby-blocks/testimonial-grid -->
+
+            <!-- wp:bloxby-blocks/testimonial-grid -->
+            <div class="wp-block-bloxby-blocks-testimonial-grid save-block testimonial-grid-block"><!-- wp:group {"align":"wide","style":{"spacing":{"padding":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40","left":"var:preset|spacing|40","right":"var:preset|spacing|40"}}}} -->
+                <div class="wp-block-group alignwide" style="padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)"><!-- wp:image {"id":385,"sizeSlug":"full","linkDestination":"none"} -->
+                    <figure class="wp-block-image size-full"><img src="http://localhost/wp_installations/bloxby/wp-content/uploads/2025/06/Untitled.gif" alt="" class="wp-image-385" /></figure>
+                    <!-- /wp:image -->
+
+                    <!-- wp:paragraph {"placeholder":"Enter testimonial here...","fontSize":"small"} -->
+                    <p class="has-small-font-size">Testimonial Title</p>
+                    <!-- /wp:paragraph -->
+
+                    <!-- wp:paragraph {"align":"center","placeholder":"Enter description here..."} -->
+                    <p class="has-text-align-center">“Lorem ipsum dolor sit amet consectetur. Nisi molestie dis nec mi in enim dolor tincidunt. Elementum nisi venenatis nisl quam nulla dignissim enim.</p>
+                    <!-- /wp:paragraph -->
+
+                    <!-- wp:paragraph {"placeholder":"Enter designation here...","style":{"spacing":{"padding":{"bottom":"30px"}},"typography":{"fontWeight":"600","fontStyle":"normal"}},"fontSize":"small"} -->
+                    <p class="has-small-font-size" style="padding-bottom:30px;font-style:normal;font-weight:600">Designation Goes Here</p>
+                    <!-- /wp:paragraph -->
+                </div>
+                <!-- /wp:group -->
+            </div>
+            <!-- /wp:bloxby-blocks/testimonial-grid -->
+
+            <!-- wp:bloxby-blocks/testimonial-grid -->
+            <div class="wp-block-bloxby-blocks-testimonial-grid save-block testimonial-grid-block"><!-- wp:group {"align":"wide","style":{"spacing":{"padding":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40","left":"var:preset|spacing|40","right":"var:preset|spacing|40"}}}} -->
+                <div class="wp-block-group alignwide" style="padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)"><!-- wp:image {"id":385,"sizeSlug":"full","linkDestination":"none"} -->
+                    <figure class="wp-block-image size-full"><img src="http://localhost/wp_installations/bloxby/wp-content/uploads/2025/06/Untitled.gif" alt="" class="wp-image-385" /></figure>
+                    <!-- /wp:image -->
+
+                    <!-- wp:paragraph {"placeholder":"Enter testimonial here...","fontSize":"small"} -->
+                    <p class="has-small-font-size">Testimonial Title</p>
+                    <!-- /wp:paragraph -->
+
+                    <!-- wp:paragraph {"align":"center","placeholder":"Enter description here..."} -->
+                    <p class="has-text-align-center">“Lorem ipsum dolor sit amet consectetur. Nisi molestie dis nec mi in enim dolor tincidunt. Elementum nisi venenatis nisl quam nulla dignissim enim.</p>
+                    <!-- /wp:paragraph -->
+
+                    <!-- wp:paragraph {"placeholder":"Enter designation here...","style":{"spacing":{"padding":{"bottom":"30px"}},"typography":{"fontWeight":"600","fontStyle":"normal"}},"fontSize":"small"} -->
+                    <p class="has-small-font-size" style="padding-bottom:30px;font-style:normal;font-weight:600">Designation Goes Here</p>
+                    <!-- /wp:paragraph -->
+                </div>
+                <!-- /wp:group -->
+            </div>
+            <!-- /wp:bloxby-blocks/testimonial-grid -->
+        </div>
+    </div>
+    <!-- /wp:bloxby-blocks/testimonial-grid-container -->
+</div>
+<!-- /wp:group -->
