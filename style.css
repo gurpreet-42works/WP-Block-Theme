@@ -20,6 +20,40 @@ Tags:
 
 }
 
+
+/****** Custom Overflowed Overrides *****/
+@media (min-width: 576px) {
+    .container.one-side-fluid {
+        max-width:calc((100% - 540px)/2 + 540px)!important;
+    }
+}
+
+@media (min-width: 768px) {
+    .container.one-side-fluid {
+        max-width:calc((100% - 720px)/2 + 720px)!important;
+    }
+}
+
+@media (min-width: 992px) {
+    .container.one-side-fluid {
+        max-width:calc((100% - 960px)/2 + 960px)!important;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container.one-side-fluid {
+         max-width:calc((100% - 1140px)/2 + 1140px)!important;
+    }
+}
+
+@media (min-width: 1400px) {
+    .container.one-side-fluid {
+        max-width:calc((100% - 1320px)/2 + 1320px)!important;
+    }
+}
+
+
+
 @media (min-width: 1200px) {
     .h3, h3 {
         font-size: 1.25rem;
@@ -127,3 +161,6 @@ figure.wp-block-media-text__media, figure.wp-block-media-text__media img {
     border-color: #0d6efd;
 }
 
+.btn.wp-block-button__link {
+    width: auto;
+}

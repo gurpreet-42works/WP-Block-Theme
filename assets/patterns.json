@@ -1,0 +1,56 @@
+{
+    "hero_banner": {
+        "section_intent": "A hero banner section to be used on homepage.",
+        "available_patterns": {
+            "hero-banner-left-aligned": "Hero Banner section with content on left and image on right contained in bootstrap container"
+        },
+        "content_needed": {
+            "heading": "Add Main Heading. Create using: <!-- wp:heading {\"level\":1,\"className\":\"mb-3\"} --> ",
+            "description": "Add a suitable description. Generate using <!-- wp:paragraph {\"className\":\"mb-4\"} -->",
+            "button": "Generate a button block using <!-- wp:buttons --> <!-- wp:button {\"className\":\"btn btn-primary btn-lg\"} -->"
+        }
+    },
+    "media_and_text": {
+        "section_intent": "Use for: Feature explanations, service descriptions, about sections etc. where content with image is required.",
+        "available_patterns": {
+            "media-text-left-aligned": "Section with an image on left and content on right",
+            "media-text-right-aligned": "Section with an image on right and content on left"
+        },
+        "content_needed": {
+            "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
+            "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4\"} -->",
+            "bullet_lists": "If there is any points to include. Use <!-- wp:list {\"className\":\"mb-4\"} -->"
+        }
+    },
+    "images_grid": {
+        "section_intent": "Grid layout for displaying logos, icons, or images. Use for:Client logos, partner showcase, feature icons, gallery",
+        "available_patterns": {
+            "images-grid": "Image grid section with heading and description."
+        },
+        "content_needed": {
+            "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
+            "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4\"} -->"
+        }
+    },
+    "posts_grid": {
+        "section_intent": "A section to show list of posts, with featured image and post date.",
+        "available_patterns": {
+            "template-query-loop": "Image grid section with heading and description."
+        },
+        "content_needed": {
+            "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
+            "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->"
+        }
+    },
+    "call_to_action": {
+        "section_intent": "Call-to-action section with centered heading, description, and button.",
+        "available_patterns": {
+            "cta-box-medium": "Medium Call To Action with title and description and button."
+        },
+        "content_needed": {
+            "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
+            "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->",
+            "button": "Add a CTA button using <!-- wp:buttons {\"layout\":{\"type\":\"flex\",\"justifyContent\":\"center\"}} --> <!-- wp:button {\"className\":\"btn btn-dark btn-lg\"} -->"
+        }
+    }
+}

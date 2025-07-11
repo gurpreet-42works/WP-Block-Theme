@@ -13,9 +13,12 @@
 ?>
 
 <!-- wp:group {"align":"full","className":"testimonials-grid common-padding"} -->
-<div class="wp-block-group alignfull testimonials-grid common-padding"><!-- wp:group {"className":"container"} -->
-    <div class="wp-block-group container"><!-- wp:group {"className":"section-heading-wrap text-center"} -->
-        <div class="wp-block-group section-heading-wrap text-center"><!-- wp:heading {"className":"mb-3"} -->
+<div class="wp-block-group alignfull testimonials-grid common-padding">
+    <!-- wp:group {"className":"container"} -->
+    <div class="wp-block-group container">
+        <!-- wp:group {"className":"section-heading-wrap text-center"} -->
+        <div class="wp-block-group section-heading-wrap text-center">
+            <!-- wp:heading {"className":"mb-3"} -->
             <h2 class="wp-block-heading mb-3">Title Goes Here</h2>
             <!-- /wp:heading -->
 

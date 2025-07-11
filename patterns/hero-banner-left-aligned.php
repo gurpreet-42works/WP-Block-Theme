@@ -2,7 +2,7 @@
 
 /**
  * Title: Hero Banner Medium Left
- * Slug: bloxbywp/banner-left-aligned
+ * Slug: bloxbywp/hero-banner-left-aligned
  * Categories: banner
  * Description: A hero banner with image and content contained in container with image on left and content on right.
  *
