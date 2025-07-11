@@ -39,7 +39,8 @@
         },
         "content_needed": {
             "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
-            "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->"
+            "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->",
+            "posts_array": "Add 5-6 posts according to the section_title and website description. Return an array like this: [[ 'title1'=>'description1' ], [ 'title2'=>'description2' ], ...]"
         }
     },
     "call_to_action": {

@@ -30,6 +30,11 @@ function aibuilder_generate_pages_cli($args, $assoc_args)
         return;
     }
 
+    //Deleting sample data
+    wp_delete_post( 1, true );
+    wp_delete_post( 2, true );
+
+
     $page = $json['pages'][0];
 
     $website_title = $json['website_title'];
