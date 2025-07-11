@@ -23,7 +23,7 @@ function aibuilder_generate_pages_cli($args, $assoc_args)
         return;
     }
 
-    $json = unserialize($json_path);
+    $json = unserialize( base64_decode( $json_path ) );
 
     if (empty($json['pages'])) {
         WP_CLI::error("No pages found in site data.");
@@ -34,6 +34,9 @@ function aibuilder_generate_pages_cli($args, $assoc_args)
 
     $website_title = $json['website_title'];
     $website_description = $json['website_description'];
+
+    //Set GLobal Title and Description for webiste
+    update_option('blogname', $website_title);
 
     if( !empty($page) ){
     // foreach ($json['pages'] as $page) {

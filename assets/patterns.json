@@ -7,7 +7,7 @@
         "content_needed": {
             "heading": "Add Main Heading. Create using: <!-- wp:heading {\"level\":1,\"className\":\"mb-3\"} --> ",
             "description": "Add a suitable description. Generate using <!-- wp:paragraph {\"className\":\"mb-4\"} -->",
-            "button": "Generate a button block using <!-- wp:buttons --> <!-- wp:button {\"className\":\"btn btn-primary btn-lg\"} -->"
+            "button": "Generate a button block using <!-- wp:buttons --> and <!-- wp:button {\"className\":\"btn btn-primary btn-lg\"} -->"
         }
     },
     "media_and_text": {
@@ -50,7 +50,7 @@
         "content_needed": {
             "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
             "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->",
-            "button": "Add a CTA button using <!-- wp:buttons {\"layout\":{\"type\":\"flex\",\"justifyContent\":\"center\"}} --> <!-- wp:button {\"className\":\"btn btn-dark btn-lg\"} -->"
+            "button": "Add a CTA button using <!-- wp:buttons {\"layout\":{\"type\":\"flex\",\"justifyContent\":\"center\"}} --> and <!-- wp:button {\"className\":\"btn btn-dark btn-lg\"} -->"
         }
     }
 }
