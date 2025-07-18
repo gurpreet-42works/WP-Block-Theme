@@ -17,6 +17,17 @@
 <div class="wp-block-query alignfull common-padding">
 	<!-- wp:group {"className":"container"} -->
 	<div class="wp-block-group container">
+		<!-- wp:group {"className":"section-heading-wrap text-center"} -->
+        <div class="wp-block-group section-heading-wrap text-center">
+            <!-- wp:heading {"className":"mb-3"} -->
+            <h2 class="wp-block-heading mb-3">Title Goes Here</h2>
+            <!-- /wp:heading -->
+
+            <!-- wp:paragraph {"className":"mb-4","fontSize":"medium"} -->
+            <p class="mb-4 has-medium-font-size">Lorem ipsum dolor sit amet consectetur. Id viverra praesent in tellus lectus fusce dictum. <br>Risus gravida aliquam sed vestibulum nec.</p>
+            <!-- /wp:paragraph -->
+        </div>
+        <!-- /wp:group -->
 		<!-- wp:post-template -->
 		<!-- wp:group {"className":"card h-100 border-0"} -->
 		<div class="wp-block-group card h-100 border-0">
@@ -25,19 +36,10 @@
 
 			<!-- wp:group {"className":"card-body p-0"} -->
 			<div class="wp-block-group card-body p-0">
-				<!-- wp:post-terms {"term":"category","className":"badge rounded-pill text-bg-primary"} /-->
-
+				
 				<!-- wp:post-title {"level":3,"isLink":true,"className":"card-title h3 mt-2"} /-->
 
-				<!-- wp:post-excerpt {"className":"card-text mt-2"} /-->
-
-				<!-- wp:buttons {"className":"mt-3"} -->
-				<div class="wp-block-buttons mt-3">
-					<!-- wp:button {"className":"btn btn-primary"} -->
-					<div class="wp-block-button btn btn-primary"><a class="wp-block-button__link wp-element-button">Read More</a></div>
-					<!-- /wp:button -->
-				</div>
-				<!-- /wp:buttons -->
+				<!-- wp:post-excerpt {"moreText":"Read More", "className":"card-text mt-2"} /-->
 			</div>
 			<!-- /wp:group -->
 		</div>

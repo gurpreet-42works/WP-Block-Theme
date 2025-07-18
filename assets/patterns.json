@@ -2,11 +2,12 @@
     "hero_banner": {
         "section_intent": "A hero banner section to be used on homepage.",
         "available_patterns": {
-            "hero-banner-left-aligned": "Hero Banner section with content on left and image on right contained in bootstrap container"
+            "hero-banner-left-aligned": "Hero Banner section with content on left and image on right contained in a bootstrap container",
+            "hero-banner-right-aligned": "Hero Banner section with content on right and image on left contained in a bootstrap container"
         },
         "content_needed": {
             "heading": "Add Main Heading. Create using: <!-- wp:heading {\"level\":1,\"className\":\"mb-3\"} --> ",
-            "description": "Add a suitable description. Generate using <!-- wp:paragraph {\"className\":\"mb-4\"} -->",
+            "description": "Add a suitable description. Generate using <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->",
             "button": "Generate a button block using <!-- wp:buttons --> and <!-- wp:button {\"className\":\"btn btn-primary btn-lg\"} -->"
         }
     },
@@ -29,7 +30,7 @@
         },
         "content_needed": {
             "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
-            "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4\"} -->"
+            "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->"
         }
     },
     "posts_grid": {
@@ -40,7 +41,29 @@
         "content_needed": {
             "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
             "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->",
-            "posts_array": "Add 5-6 posts according to the section_title and website description. Return an array like this: [[ 'title1'=>'description1' ], [ 'title2'=>'description2' ], ...]"
+            "posts_array": "Generate 7-8 real blog posts and blog content according to the section_title and website description.  Return an array like this: [{\"title\":\"title1\",\"content\":\"blog_content1\"},{\"title\":\"title2\",\"content\":\"blog_content2\"} ...]"
+        }
+    },
+    "testimonials": {
+        "section_intent": "Section to show testimonials from partners, clients or any source in a grid view.",
+        "available_patterns": {
+            "testimonials-grid": "A 3 column layout to show testimonials in grid view."
+        },
+        "content_needed": {
+            "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
+            "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->",
+            "testimonials_array": "Generate a minimum 5 to 6 testimonials according to the section_title and website description. Use dummy names and designations for the testimonials. Return an JSON array like this: [{\"title\":\"testimonial-title1\",\"description\":\"testimonial-description1\",\"designation\":\"designation1\"},{\"title\":\"testimonial-title2\",\"description\":\"testimonial-description2\",\"designation\":\"designation2\"} ...]"
+        }
+    },
+    "statistics_bar": {
+        "section_intent": "A grid of stats to show statistics number as title and a small description. Use it to show achievements, client numbers, projects completed, uptime, or other trust-building figures according to the website description.",
+        "available_patterns": {
+            "statistics-bar-without-logos": "A 4-column statistic grid. Each with a bold numeric stat (1M+, 500k+, etc.). A small label (Lorem Ipsum)."
+        },
+        "content_needed": {
+            "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
+            "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->",
+            "stats_html": "A custom Gutenberg block for a statistics grid using my theme's bloxby-blocks/statistics-bar-without-arrow-parent and bloxby-blocks/statistics-bar-without-arrow-child. HTML structure: <!-- wp:bloxby-blocks/statistics-bar-without-arrow-parent{\"columns\":4}--><div class=\"wp-block-bloxby-blocks-statistics-bar-without-arrow-parent save-block stats-no-arrow-block-container\"><div class=\"stats-no-arrow-grid-container stats-no-arrow-columns-4\"><!-- wp:bloxby-blocks/statistics-bar-without-arrow-child --><div class=\"wp-block-bloxby-blocks-statistics-bar-without-arrow-child save-block stats-no-arrow-grid-block\"><!-- wp:group{\"align\":\"wide\"}--><div class=\"wp-block-group alignwide\"><!-- wp:heading{\"textAlign\":\"center\",\"placeholder\":\"Enter text here...\",\"fontSize\":\"xx-large\"}--><h2 class=\"wp-block-heading has-text-align-center has-xx-large-font-size\">{Stat Number(e.g.,99.9%,10K+,etc.)}</h2><!--/wp:heading --><!-- wp:paragraph{\"placeholder\":\"Enter text here...\",\"style\":{\"spacing\":{\"padding\":{\"bottom\":\"10px\"}}},\"fontSize\":\"medium\"}--><p class=\"has-medium-font-size\" style=\"padding-bottom:10px\">{Stat labels(e.g.Projects Delivered,Satisfied Clients,Global Reach,Uptime)}</p><!--/wp:paragraph --></div><!--/wp:group --></div><!--/wp:bloxby-blocks/statistics-bar-without-arrow-child --></div>{More stats childs here.Repeat<!-- wp:bloxby-blocks/statistics-bar-without-arrow-child -->}</div><!--/wp:bloxby-blocks/statistics-bar-without-arrow-parent -->"
         }
     },
     "call_to_action": {

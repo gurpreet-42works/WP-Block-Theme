@@ -51,7 +51,7 @@ Tags:
         max-width:calc((100% - 1320px)/2 + 1320px)!important;
     }
 }
-
+/****** Custom Overflowed Overrides End *****/
 
 
 @media (min-width: 1200px) {
@@ -62,6 +62,11 @@ Tags:
 
 
 /****** Custom CSS for blocks styling. Donot use any custom backgrounds and colors  ******/
+
+:root :where(.is-layout-flow) > * {
+    margin-block-start: 15px;
+    margin-block-end: 0;
+}
 
 .wp-block-columns >.wp-block-column {
     height: fit-content;
@@ -132,6 +137,7 @@ figure.wp-block-media-text__media, figure.wp-block-media-text__media img {
 .btn .wp-block-button__link {
     background: none;
     padding: 0;
+    color: inherit;
 }
 
 .badge.rounded-pill a {
@@ -163,4 +169,16 @@ figure.wp-block-media-text__media, figure.wp-block-media-text__media img {
 
 .btn.wp-block-button__link {
     width: auto;
+}
+
+
+/** Bloxby Overrides **/
+.stats-no-arrow-grid-container .stats-no-arrow-grid-block::after {
+    background-color: rgba( var( --bs-primary-rgb ) , .2) !important;
+}
+.stats-no-arrow-grid-container .stats-no-arrow-grid-block .wp-block-heading {
+    color: var(--bs-primary);
+}
+.stats-no-arrow-grid-container .stats-no-arrow-grid-block p {
+    margin-top: 10px;
 }

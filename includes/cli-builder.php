@@ -10,20 +10,20 @@ if (defined('WP_CLI') && WP_CLI) {
 
 function aibuilder_generate_pages_cli($args, $assoc_args)
 {
-    $json_path = get_option( 'sitedata', []);
+    $json_path = get_option('sitedata', '');
     $apiKey = isset($assoc_args['apikey']) ? $assoc_args['apikey'] : '';
-    
+
     if (empty($apiKey)) {
         WP_CLI::error("API key should not be empty. Add a api key with --apikey");
         return;
     }
 
-    if ( empty($json_path) ) {
+    if (empty($json_path)) {
         WP_CLI::error("Site data not found.");
         return;
     }
 
-    $json = unserialize( base64_decode( $json_path ) );
+    $json = unserialize(base64_decode($json_path));
 
     if (empty($json['pages'])) {
         WP_CLI::error("No pages found in site data.");
@@ -31,8 +31,8 @@ function aibuilder_generate_pages_cli($args, $assoc_args)
     }
 
     //Deleting sample data
-    wp_delete_post( 1, true );
-    wp_delete_post( 2, true );
+    wp_delete_post(1, true);
+    wp_delete_post(2, true);
 
 
     $page = $json['pages'][0];
@@ -43,9 +43,9 @@ function aibuilder_generate_pages_cli($args, $assoc_args)
     //Set GLobal Title and Description for webiste
     update_option('blogname', $website_title);
 
-    if( !empty($page) ){
-    // foreach ($json['pages'] as $page) {
-        
+    if (!empty($page)) {
+        // foreach ($json['pages'] as $page) {
+
         $page_title = $page['page_title'];
         $page_description = $page['page_description'];
         $page_id = wp_insert_post([
@@ -107,13 +107,13 @@ function aibuilder_generate_pages_cli($args, $assoc_args)
  */
 function handle_openai_pattern_call_generation_cli($api_key, $website_title, $website_description, $page_title, $page_description, $section_json)
 {
-    $patterns_string = file_get_contents(  get_stylesheet_directory() . '/assets/patterns.json' );
+    $patterns_string = file_get_contents(get_stylesheet_directory() . '/assets/patterns.json');
 
     $systemPrompt = 'You are an expert WordPress FSE block builder that generates creative Gutenberg block HTML using Bootstrap 5 classes.';
     $aiPrompt = 'You are a professional WordPress content generator that builds section HTML using block patterns.
     
         Here are the available **WordPress block patterns**:
-        '.$patterns_string.'
+        ' . $patterns_string . '
         
         Each pattern includes:
         - `available_patterns`: a list of valid slugs to randomly pick from
@@ -124,7 +124,7 @@ function handle_openai_pattern_call_generation_cli($api_key, $website_title, $we
         ---
         
         Here is the input JSON from the client describing desired page sections:
-        '.$section_json.'
+        ' . $section_json . '
 
         WEBSITE DETAILS:
         WEBSITE NAME: ' . $website_title . '
@@ -209,10 +209,9 @@ function handle_openai_pattern_call_generation_cli($api_key, $website_title, $we
         } else {
             return false;
         }
-        
     }
 
-    
+
     curl_close($ch);
     return false; //Default Fallback
 }
@@ -221,24 +220,24 @@ function parse_generated_blocks($blocks)
 {
     $cleaned_output = clean_ai_html_output($blocks);
     $final_html = '';
-    if( !empty($cleaned_output)  ) {
+    if (!empty($cleaned_output)) {
         $output_arr = json_decode($cleaned_output);
-        
-        foreach( $output_arr as $output ) {
+
+        foreach ($output_arr as $output) {
             $pattern_slug = $output->slug;
             $pattern_path = get_stylesheet_directory() . "/patterns/static/{$pattern_slug}.html";
-            WP_CLI::print_value( $pattern_path );
-            if( file_exists( $pattern_path ) ){
-                $pattern_content = file_get_contents( $pattern_path );
+            WP_CLI::print_value($pattern_path);
+            if (file_exists($pattern_path)) {
+                $pattern_content = file_get_contents($pattern_path);
 
-                if( !empty($pattern_content) ){
-                    if( isset( $output->content->heading ) ) {
+                if (!empty($pattern_content)) {
+                    if (isset($output->content->heading)) {
                         $pattern_content = str_replace(
                             '<!--section-heading-->',
                             $output->content->heading,
                             $pattern_content
                         );
-                    }else {
+                    } else {
                         $pattern_content = str_replace(
                             '<!--section-heading-->',
                             '',
@@ -246,27 +245,27 @@ function parse_generated_blocks($blocks)
                         );
                     }
 
-                    if( isset( $output->content->description ) ) {
+                    if (isset($output->content->description)) {
                         $pattern_content = str_replace(
                             '<!--section-description-->',
                             $output->content->description,
                             $pattern_content
                         );
-                    }else {
+                    } else {
                         $pattern_content = str_replace(
                             '<!--section-description-->',
                             '',
                             $pattern_content
                         );
                     }
-                    
-                    if( isset( $output->content->button ) ) {
+
+                    if (isset($output->content->button)) {
                         $pattern_content = str_replace(
                             '<!--cta-button-->',
                             $output->content->button,
                             $pattern_content
                         );
-                    }else {
+                    } else {
                         $pattern_content = str_replace(
                             '<!--cta-button-->',
                             '',
@@ -274,27 +273,121 @@ function parse_generated_blocks($blocks)
                         );
                     }
 
-                    if( isset( $output->content->bullet_lists ) ) {
+                    if (isset($output->content->bullet_lists)) {
                         $pattern_content = str_replace(
                             '<!--list-group-->',
                             $output->content->bullet_lists,
                             $pattern_content
                         );
-                    }else {
+                    } else {
                         $pattern_content = str_replace(
                             '<!--list-group-->',
                             '',
                             $pattern_content
                         );
                     }
-                    
+
+                    if (isset($output->content->statistics_bar)) {
+                        $pattern_content = str_replace(
+                            '<!--statistics-bar-html-->',
+                            $output->content->bullet_lists,
+                            $pattern_content
+                        );
+                    } else{
+                        $pattern_content = str_replace(
+                            '<!--statistics-bar-html-->',
+                            '',
+                            $pattern_content
+                        );
+                    }
+
+                    if (isset($output->content->testimonials_array)) {
+                        $testimonials_array = json_decode($output->content->testimonials_array);
+                        $testimonials_pattern_html = '';
+
+                        foreach ($testimonials_array as $testimonial) {
+                            $testimonials_pattern_html .= '<!-- wp:bloxby-blocks/testimonial-grid -->
+                                <div class="wp-block-bloxby-blocks-testimonial-grid save-block testimonial-grid-block"><!-- wp:group {"align":"wide","style":{"spacing":{"padding":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40","left":"var:preset|spacing|40","right":"var:preset|spacing|40"}}}} -->
+                                    <div class="wp-block-group alignwide" style="padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)"><!-- wp:image {"id":385,"sizeSlug":"full","linkDestination":"none"} -->
+                                        <figure class="wp-block-image size-full"><img src="https://placehold.co/400?text=Testimonial" alt="" class="wp-image-385" /></figure>
+                                        <!-- /wp:image -->
+
+                                        <!-- wp:paragraph {"placeholder":"Enter testimonial here...","fontSize":"small"} -->
+                                        <p class="has-small-font-size">'.$testimonial->title.'</p>
+                                        <!-- /wp:paragraph -->
+
+                                        <!-- wp:paragraph {"align":"center","placeholder":"Enter description here..."} -->
+                                        <p class="has-text-align-center">'.$testimonial->description.'</p>
+                                        <!-- /wp:paragraph -->
+
+                                        <!-- wp:paragraph {"placeholder":"Enter designation here...","style":{"spacing":{"padding":{"bottom":"30px"}},"typography":{"fontWeight":"600","fontStyle":"normal"}},"fontSize":"small"} -->
+                                        <p class="has-small-font-size" style="padding-bottom:30px;font-style:normal;font-weight:600">'.$testimonial->designation.'</p>
+                                        <!-- /wp:paragraph -->
+                                    </div>
+                                    <!-- /wp:group -->
+                                </div>
+                                <!-- /wp:bloxby-blocks/testimonial-grid -->';
+                        }
+                        $pattern_content = str_replace(
+                            '<!--all-testimonials-here-->',
+                            $testimonials_pattern_html,
+                            $pattern_content
+                        );
+                    } else {
+                        $pattern_content = str_replace(
+                            '<!--all-testimonials-here-->',
+                            '',
+                            $pattern_content
+                        );
+                    }
+
+                    if (isset($output->content->posts_array)) {
+                        $posts_array = json_decode($output->content->posts_array);
+                        if( !empty($posts_array) ){
+                            //Upload a dummy Image
+                            $image_url = 'https://placehold.co/1200x800.jpg'; // your image URL
+                            $image_name = 'blog-image.jpg';
+                            $upload_file = wp_upload_bits($image_name, null, file_get_contents($image_url));
+
+                            $attach_id = 0;
+                            if (!$upload_file['error']) {
+                                $wp_filetype = wp_check_filetype($upload_file['file'], null);
+                                $attachment = [
+                                    'post_mime_type' => $wp_filetype['type'],
+                                    'post_title'     => sanitize_file_name($image_name),
+                                    'post_content'   => '',
+                                    'post_status'    => 'inherit',
+                                    'post_author'  => 1, // ID of the author
+                                ];
+
+                                $attach_id = wp_insert_attachment($attachment, $upload_file['file']);
+                                require_once(ABSPATH . 'wp-admin/includes/image.php');
+
+                                $attach_data = wp_generate_attachment_metadata($attach_id, $upload_file['file']);
+                                wp_update_attachment_metadata($attach_id, $attach_data);
+
+                            }
+                            
+                            foreach( $posts_array as $post ) {
+                                $post_id = wp_insert_post([
+                                    'post_title'   => $post->title,
+                                    'post_content' => $post->content,
+                                    'post_status'  => 'publish',
+                                    'post_author'  => 1, // ID of the author
+                                ]);
+                                
+                                if( !is_wp_error($post_id) && $attach_id ) {
+                                    set_post_thumbnail($post_id, $attach_id);
+                                }
+                            }
+                        }
+                    }
                 }
                 $final_html .= $pattern_content;
             }
         }
-
     }
-    
+
     return $final_html;
 }
 

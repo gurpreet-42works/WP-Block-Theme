@@ -4,7 +4,7 @@
  * Title: Hero Banner Medium Left
  * Slug: bloxbywp/hero-banner-left-aligned
  * Categories: banner
- * Description: A hero banner with image and content contained in container with image on left and content on right.
+ * Description: A hero banner with image and content contained in container with image on right and content on left.
  *
  * @package WordPress
  * @subpackage Bloxby_WP
@@ -28,8 +28,8 @@
                     <h1 class="wp-block-heading mb-3">Heading Goes Here</h1>
                     <!-- /wp:heading -->
 
-                    <!-- wp:paragraph {"className":"mb-4"} -->
-                    <p class="mb-4">Lorem ipsum dolor sit amet consectetur. Porta nulla erat integer fames pellentesque lacinia amet integer fringilla. Vel consectetur consectetur id amet pharetra molestie massa pharetra mauris.</p>
+                    <!-- wp:paragraph {"className":"mb-4","fontSize":"medium"} -->
+                    <p class="mb-4 has-medium-font-size">Lorem ipsum dolor sit amet consectetur. Porta nulla erat integer fames pellentesque lacinia amet integer fringilla. Vel consectetur consectetur id amet pharetra molestie massa pharetra mauris.</p>
                     <!-- /wp:paragraph -->
 
                     <!-- wp:buttons -->
