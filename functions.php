@@ -39,9 +39,6 @@ add_action( 'wp_head', function () {
    $site_data = get_option('sitedata', '');
    if( !empty($site_data) ){
       $data_array = unserialize(base64_decode($site_data));
-      // echo "<pre>";
-      // print_r($data_array);
-      // echo "</pre>";
 
       $site_theme = $data_array['theme'];
       $site_font = $data_array['fonts'];

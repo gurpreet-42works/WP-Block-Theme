@@ -61,7 +61,7 @@ function aibuilder_generate_pages_cli($args, $assoc_args)
             return false;
         }
 
-        if ($page['page_type'] == 'home') {
+        if (  strpos($page['page_type'], 'home') !== FALSE ) {
             // Set 'Front page displays' to 'A static page'
             update_option('show_on_front', 'page');
 
@@ -222,7 +222,7 @@ function parse_generated_blocks($blocks)
     $final_html = '';
     if (!empty($cleaned_output)) {
         $output_arr = json_decode($cleaned_output);
-
+        WP_CLI::print_value($output_arr);
         foreach ($output_arr as $output) {
             $pattern_slug = $output->slug;
             $pattern_path = get_stylesheet_directory() . "/patterns/static/{$pattern_slug}.html";
