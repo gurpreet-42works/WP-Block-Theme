@@ -72,9 +72,27 @@ Tags:
     height: fit-content;
 }
 
+.navbar-nav a {
+    text-decoration: none;
+}
+
 header.wp-block-template-part {
     background: var(--wp--preset--color--black) !important;
     color: var(--bs-white) !important;
+}
+
+.navigation-main .navbar-nav a {
+    text-decoration: none;
+    color: var(--bs-white);
+}
+
+.navigation-footer nav.navbar a {
+    text-decoration: none;
+}
+
+.navigation-main .navbar-nav .current-menu-item  a {
+    text-decoration: none;
+    color: var(--bs-primary);
 }
 
 .common-padding {

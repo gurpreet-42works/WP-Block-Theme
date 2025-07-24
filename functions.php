@@ -7,16 +7,32 @@
  *
  * @package Bloxby_WP
  */
+
 function register_bloxbywp_menus()
 {
    register_nav_menus(
       array(
          'header-menu' => __('Header Menu'),
+         'footer-menu' => __('Footer Menu'),
          'extra-menu' => __('Extra Menu')
       )
    );
 }
 add_action('init', 'register_bloxbywp_menus');
+
+function register_bloxbywp_supports()
+{
+   add_theme_support('custom-logo', array(
+    'height'      => 512,
+    'width'       => 512,
+    'flex-height' => true,
+    'flex-width'  => true,
+    'header-text' => array('site-title', 'site-description'),
+));
+
+}
+add_action('after_setup_theme', 'register_bloxbywp_supports');
+
 
 function add_bloxbywp_scripts()
 {
@@ -27,6 +43,7 @@ add_action('wp_enqueue_scripts', 'add_bloxbywp_scripts');
 function add_bloxbywp_styles()
 {
    wp_enqueue_style('bootstrap', get_stylesheet_directory_uri() . '/assets/css/bootstrap.min.css', array(), get_theme_mod('version'));
+   wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css', array(), get_theme_mod('version'));
    wp_enqueue_style('style', get_stylesheet_uri(), array('bootstrap'), get_theme_mod('version'));
 }
 add_action('enqueue_block_assets', 'add_bloxbywp_styles');
@@ -93,6 +110,12 @@ add_action( 'wp_head', function () {
          --bs-border-radius-xl: <?php echo $border_radius ?>;
 
       }
+      /* Wordpress Defaults */
+      :root :where(.wp-block-button__link.btn) {
+         background-color: var(--bs-primary);
+         border-width: 1px;
+         border-color: var(--bs-primary);
+      }
       body {
          font-family: <?php echo $font_primary_family; ?>;
       }
@@ -138,3 +161,5 @@ add_action('enqueue_block_editor_assets', function () {
 });
 
 include_once 'includes/cli-builder.php';
+include_once 'includes/shortcodes.php';
+include_once 'includes/sso.php';

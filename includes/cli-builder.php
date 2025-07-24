@@ -40,11 +40,14 @@ function aibuilder_generate_pages_cli($args, $assoc_args)
     $website_title = $json['website_title'];
     $website_description = $json['website_description'];
 
-    //Set GLobal Title and Description for webiste
+    //Set Global Title and Description for webiste
     update_option('blogname', $website_title);
 
-    if (!empty($page)) {
-        // foreach ($json['pages'] as $page) {
+    //Set a sitelogo and set it globally
+    generate_website_logo($website_title, $website_description, $apiKey);
+    
+    // if (!empty($page)) {
+    foreach ($json['pages'] as $page) {
 
         $page_title = $page['page_title'];
         $page_description = $page['page_description'];
@@ -96,6 +99,31 @@ function aibuilder_generate_pages_cli($args, $assoc_args)
             'ID' => $page_id,
             'post_content' => $all_blocks
         ]);
+
+        //Add Page to Navigation
+        $header_menu = wp_get_nav_menu_object("header-menu"); //Header Menu
+        if ( $header_menu ) {
+            $menu_id = $header_menu->term_id;
+            wp_update_nav_menu_item($menu_id, 0, array(
+                'menu-item-title' => wp_strip_all_tags($page_title),
+                'menu-item-object' => 'page',
+                'menu-item-object-id' => $page_id,
+                'menu-item-type' => 'post_type',
+                'menu-item-status' => 'publish'
+            ));
+        }
+
+        $footer_menu = wp_get_nav_menu_object("footer-menu"); //Header Menu
+        if ( $footer_menu ) {
+            $menu_id = $footer_menu->term_id;
+            wp_update_nav_menu_item($menu_id, 0, array(
+                'menu-item-title' => wp_strip_all_tags($page_title),
+                'menu-item-object' => 'page',
+                'menu-item-object-id' => $page_id,
+                'menu-item-type' => 'post_type',
+                'menu-item-status' => 'publish'
+            ));
+        }
 
         WP_CLI::success("Generated page: $page_title (ID: $page_id)");
     }
@@ -401,4 +429,81 @@ function clean_ai_html_output($raw_output)
     // Fallback: remove any lingering code fences and return raw HTML
     $cleaned = preg_replace('/```(?:json)?/i', '', $raw_output);
     return trim(str_replace('```', '', $cleaned));
+}
+
+function generate_website_logo($siteName, $siteDesc, $apiKey) {
+    // Construct prompt
+    $prompt = "Create a bold minimalist round logo for website Name: {$siteName}, Description of website: {$siteDesc}, covering the full 1:1 image from edge to edge with no empty space, on a black background.";
+
+    // Prepare CURL
+    $ch = curl_init("https://api.openai.com/v1/images/generations");
+
+    $data = [
+        "model" => "dall-e-3",
+        "prompt" => $prompt,
+        "size" => "1024x1024",
+        "quality" => "standard",
+        "n" => 1
+    ];
+
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        "Content-Type: application/json",
+        "Authorization: Bearer {$apiKey}"
+    ]);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+
+    // Execute
+    $response = curl_exec($ch);
+
+    if (curl_errno($ch)) {
+        echo 'Curl error: ' . curl_error($ch);
+        exit;
+    }
+
+    curl_close($ch);
+
+    // Parse and display the generated logo URL
+    $result = json_decode($response, true);
+    
+
+    if (isset($result['data'][0]['url'])) {
+        $logoUrl = $result['data'][0]['url'];
+        
+        if( $logoUrl ) {
+            //Handle File Upload
+            require_once(ABSPATH . 'wp-admin/includes/file.php');
+            require_once(ABSPATH . 'wp-admin/includes/media.php');
+            require_once(ABSPATH . 'wp-admin/includes/image.php');
+
+            $tmp = download_url($logoUrl);
+            if (is_wp_error($tmp)) {
+                return false;
+            }
+
+            $filename = sanitize_title($siteName . '-logo');
+
+            $file_array = [
+                'name' => $filename . '.png',
+                'tmp_name' => $tmp
+            ];
+
+            $attachment_id = media_handle_sideload($file_array, 0); //Upload to media gallery
+
+            if (is_wp_error($attachment_id)) {
+                @unlink($file_array['tmp_name']);
+                return false;
+            }
+
+            // Step 3: Set as site logo
+            if (function_exists('set_theme_mod')) {
+                set_theme_mod('custom_logo', $attachment_id);
+            }
+
+        }
+    } else {
+        WP_CLI::print_value(  "Error in generation: " . $response . PHP_EOL );
+        return false;
+    }
 }

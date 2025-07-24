@@ -1,11 +1,47 @@
-<!-- wp:group {"layout":{"inherit":true}} -->
-<div class="wp-block-group">
-	<!-- wp:group {"style":{"spacing":{"padding":{"top":"80px","bottom":"30px"}}}} -->
-	<div class="wp-block-group" style="padding-top:80px;padding-bottom:30px">
-		<!-- wp:paragraph {"align":"center"} -->
-		<p class="has-text-align-center">Proudly Powered by <a href="https://wordpress.org" rel="nofollow">WordPress</a></p>
-		<!-- /wp:paragraph -->
+<!-- wp:group {"layout":{"inherit":true}, "className": "py-3"} -->
+<div class="wp-block-group py-3">
+
+	<!-- wp:group {"className": "navigation-footer d-flex flex-wrap justify-content-center"} -->
+		<div class="wp-block-group col-lg-6 navigation-footer d-flex flex-wrap justify-content-center">
+			<!-- wp:shortcode -->
+			[get_footer_menu]
+			<!-- /wp:shortcode -->
+		</div>
+	<!-- /wp:group -->
+
+	<!-- wp:group {"className": "d-flex flex-wrap justify-content-between align-items-center m-0 py-3 border-top"} -->
+	<div class="wp-block-group d-flex flex-wrap justify-content-between align-items-center m-0 py-3 border-top">
+		<!-- wp:group {"className": "col-md-4 d-flex align-items-center"} -->
+		<div class="wp-block-group col-md-4 d-flex align-items-center">
+			<!-- wp:shortcode -->[copyright_text]<!-- /wp:shortcode -->
+		</div>
+		<!-- /wp:group -->
+		<!-- wp:html -->
+		<ul class="nav col-md-4 justify-content-end list-unstyled d-flex m-0">
+			<li class="ms-3">
+				<a class="text-body-secondary" href="#" aria-label="Facebook">
+					<i class="fa-brands fa-facebook-f"></i>
+				</a>
+			</li>
+			<li class="ms-3">
+				<a class="text-body-secondary" href="#" aria-label="Instagram">
+					<i class="fa-brands fa-instagram"></i>
+				</a>
+			</li>
+			<li class="ms-3">
+				<a class="text-body-secondary" href="#" aria-label="Linkedin">
+					<i class="fa-brands fa-linkedin"></i>
+				</a>
+			</li>
+			<li class="ms-3">
+				<a class="text-body-secondary" href="#" aria-label="X">
+					<i class="fa-brands fa-x-twitter"></i>
+				</a>
+			</li>
+		</ul>
+		<!-- /wp:html -->
 	</div>
+
 	<!-- /wp:group -->
 </div>
 <!-- /wp:group -->
