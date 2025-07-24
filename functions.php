@@ -145,6 +145,22 @@ add_action( 'wp_head', function () {
          --bs-btn-disabled-bg: rgba( var( --color-primary-rgb ) , .2);
          --bs-btn-disabled-border-color: rgba( var( --color-primary-rgb ) , .2);
       }
+
+      .btn-outline-primary {
+         --bs-btn-color: var( --color-primary );
+         --bs-btn-border-color: var( --color-primary );
+         --bs-btn-hover-color: var(  --bs-light );
+         --bs-btn-hover-bg: var( --color-primary );
+         --bs-btn-hover-border-color: var( --color-primary );
+         --bs-btn-active-color: var(  --bs-light );
+         --bs-btn-active-bg: rgba( var( --color-primary-rgb ) , .2);
+         --bs-btn-active-border-color: rgba( var( --color-primary-rgb ) , .5);
+         --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+         --bs-btn-disabled-color: var( --color-primary );
+         --bs-btn-disabled-bg: rgba( var( --color-primary-rgb ) , .2);
+         --bs-btn-disabled-border-color: rgba( var( --color-primary-rgb ) , .2);
+         --bs-gradient: none;
+      }
    </style>
 <?php
    }

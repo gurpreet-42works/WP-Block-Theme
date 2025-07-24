@@ -1,20 +1,25 @@
 <!-- wp:template-part {"slug":"header"} /-->
 
 
-<!-- wp:group {"tagName":"main","layout":{"type":"constrained"}} -->
-<main class="wp-block-group">
+<!-- wp:group {"tagName":"main", "className": "wp-block-group", "style":{"spacing":{"margin":{"top":"0"}}}} -->
+<main class="wp-block-group" style="margin-top:0">
+	<!-- wp:group {"align":"full","className":"d-flex align-items-center inner-page-hero centered-hero px-4 py-5 text-center"} -->
+	<div class="wp-block-group alignfull d-flex align-items-center bg-body-tertiary inner-page-hero centered-hero px-4 py-5 text-center">
+		<!-- wp:group {"layout":{"type":"constrained","contentSize":"750px"},"className":"mx-auto"} -->
+		<div class="wp-block-group mx-auto">
+			<!-- wp:query-title {"type":"archive", "className":"text-body-emphasis"} /-->
 
-	<!-- wp:group {"className":"section-archive common-padding container"} -->
-	<div class="wp-block-group section-archive common-padding container">
+			<!-- wp:term-description {"className":"has-text-align-center lead mb-4"} /-->
+		</div>
+		<!-- /wp:group -->
 
-		<!-- wp:heading {"level":2,"className":"text-center mb-4"} -->
-		<h2 class="wp-block-heading text-center mb-4">
-			<!-- wp:query-title {"type":"archive"} /-->
-		</h2>
-		<!-- /wp:heading -->
+	</div>
+	<!-- /wp:group -->
 
-		<!-- wp:query {"queryId":"posts-archive-bloxby","query":{"perPage":12,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false,"taxQuery":null,"parents":[],"format":[]},"metadata":{"categories":["posts"]},"className":"alignfull container"} -->
-		<div class="wp-block-query alignfull">
+	<!-- wp:group {"className":"section-archive common-padding"} -->
+	<div class="wp-block-group section-archive common-padding">
+		<!-- wp:query {"className":"alignfull container"} -->
+		<div class="wp-block-query alignfull container">
 			<!-- wp:post-template -->
 			<!-- wp:group {"className":"card h-100 border-0"} -->
 			<div class="wp-block-group card h-100 border-0">
@@ -27,16 +32,7 @@
 
 					<!-- wp:post-title {"level":3,"isLink":true,"className":"card-title h3 mt-2"} /-->
 
-					<!-- wp:post-excerpt {"className":"card-text mt-2"} /-->
-
-					<!-- wp:buttons {"className":"mt-3"} -->
-					<div class="wp-block-buttons mt-3">
-						<!-- wp:button {"className":"btn btn-primary"} -->
-						<div class="wp-block-button btn btn-primary"><a
-								class="wp-block-button__link wp-element-button">Read More</a></div>
-						<!-- /wp:button -->
-					</div>
-					<!-- /wp:buttons -->
+					<!-- wp:post-excerpt {"moreText":"Read More", "className":"card-text mt-2"} /-->
 				</div>
 				<!-- /wp:group -->
 			</div>
@@ -70,9 +66,6 @@
 		<!-- /wp:query -->
 
 	</div>
-
-	</div>
-	<!-- /wp:group -->
 </main>
 <!-- /wp:group -->
 

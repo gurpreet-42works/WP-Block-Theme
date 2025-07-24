@@ -14,13 +14,12 @@ function handle_auto_login(WP_REST_Request $request)
     $payload = $request->get_param('payload');
     $site_id = get_option( 'boxby_siteid', false );
 
-    // if (!$payload || !$site_id) {
-    //     return new WP_REST_Response(['error' => 'Missing parameters'], 400);
-    // }
+    if (!$payload || !$site_id) {
+        return new WP_REST_Response(['error' => 'Missing parameters'], 400);
+    }
 
     $secret_key = 'Bloxby_website_#000009';
     $site_id = 'site_id_' . $site_id;
-    $site_id = 'site_id_' . 125;
 
     echo $calculated_signature = hash_hmac('sha256', $site_id, $secret_key);
    

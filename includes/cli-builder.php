@@ -72,6 +72,10 @@ function aibuilder_generate_pages_cli($args, $assoc_args)
             update_option('page_on_front', $page_id);
         }
 
+        if (  strpos($page['page_type'], 'blog') !== FALSE ) {
+            update_option('page_for_posts', $page_id);
+        }
+
         $all_blocks = '';
 
         $sections_array = array();
