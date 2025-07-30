@@ -34,23 +34,26 @@ function aibuilder_generate_pages_cli($args, $assoc_args)
     wp_delete_post(1, true);
     wp_delete_post(2, true);
 
-
-    $page = $json['pages'][0];
-
     $website_title = $json['website_title'];
     $website_description = $json['website_description'];
+    $industry = $json['website_industry'];
+    $search_keys = $json['search_query'];
 
+    $images_array = fetch_images_from_unsplash($apiKey, "wEaTTFCyEpJYE8XjPti48CK0ff74g5Hl0-B8hJ5g9Yk", $search_keys);
+    
     //Set Global Title and Description for webiste
     update_option('blogname', $website_title);
 
     //Set a sitelogo and set it globally
-    generate_website_logo($website_title, $website_description, $apiKey);
-    
+    generate_website_logo($apiKey, $website_title, $website_description);
+
+    // $page = $json['pages'][0];
     // if (!empty($page)) {
     foreach ($json['pages'] as $page) {
 
         $page_title = $page['page_title'];
         $page_description = $page['page_description'];
+        $page_type = $page['page_type'];
         $page_id = wp_insert_post([
             'post_title'   => wp_strip_all_tags($page_title),
             'post_excerpt' => $page_description,
@@ -64,7 +67,7 @@ function aibuilder_generate_pages_cli($args, $assoc_args)
             return false;
         }
 
-        if (  strpos($page['page_type'], 'home') !== FALSE ) {
+        if (strpos($page['page_type'], 'home') !== FALSE) {
             // Set 'Front page displays' to 'A static page'
             update_option('show_on_front', 'page');
 
@@ -72,9 +75,9 @@ function aibuilder_generate_pages_cli($args, $assoc_args)
             update_option('page_on_front', $page_id);
         }
 
-        if (  strpos($page['page_type'], 'blog') !== FALSE ) {
-            update_option('page_for_posts', $page_id);
-        }
+        // if (strpos($page['page_type'], 'blog') !== FALSE) {
+        //     update_option('page_for_posts', $page_id);
+        // }
 
         $all_blocks = '';
 
@@ -87,7 +90,7 @@ function aibuilder_generate_pages_cli($args, $assoc_args)
         }
 
         $section_json = json_encode($sections_array, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-        $html = handle_openai_pattern_call_generation_cli($apiKey, $website_title, $website_description,  $page_title, $page_description, $section_json); // now returns HTML
+        $html = handle_openai_pattern_call_generation_cli($apiKey, $website_title, $website_description, $page_type, $page_title, $page_description, $section_json, $images_array); // now returns HTML
 
         if (!$html) {
             WP_CLI::warning("Failed to create page section: $section");
@@ -95,7 +98,7 @@ function aibuilder_generate_pages_cli($args, $assoc_args)
             return false;
         }
 
-        $html = clean_ai_html_output($html);
+        $html = clean_ai_json_output($html);
 
         $all_blocks .= "\n" . trim($html);
 
@@ -106,7 +109,7 @@ function aibuilder_generate_pages_cli($args, $assoc_args)
 
         //Add Page to Navigation
         $header_menu = wp_get_nav_menu_object("header-menu"); //Header Menu
-        if ( $header_menu ) {
+        if ($header_menu) {
             $menu_id = $header_menu->term_id;
             wp_update_nav_menu_item($menu_id, 0, array(
                 'menu-item-title' => wp_strip_all_tags($page_title),
@@ -118,7 +121,7 @@ function aibuilder_generate_pages_cli($args, $assoc_args)
         }
 
         $footer_menu = wp_get_nav_menu_object("footer-menu"); //Header Menu
-        if ( $footer_menu ) {
+        if ($footer_menu) {
             $menu_id = $footer_menu->term_id;
             wp_update_nav_menu_item($menu_id, 0, array(
                 'menu-item-title' => wp_strip_all_tags($page_title),
@@ -137,7 +140,7 @@ function aibuilder_generate_pages_cli($args, $assoc_args)
  * Functions for creating blocks using Structured output
  * 
  */
-function handle_openai_pattern_call_generation_cli($api_key, $website_title, $website_description, $page_title, $page_description, $section_json)
+function handle_openai_pattern_call_generation_cli($api_key, $website_title, $website_description, $page_type, $page_title, $page_description, $section_json, $images_array)
 {
     $patterns_string = file_get_contents(get_stylesheet_directory() . '/assets/patterns.json');
 
@@ -148,10 +151,10 @@ function handle_openai_pattern_call_generation_cli($api_key, $website_title, $we
         ' . $patterns_string . '
         
         Each pattern includes:
-        - `available_patterns`: a list of valid slugs to randomly pick from
-        - `content_needed`: Each field contains the WordPress block format required
-        - You MUST generate valid HTML for gutenberg block editor for each field using these WordPress blocks
-        
+        - `section_intent`: It is an important rule to follow before selecting the pattern.
+        - `available_designs`: A list of valid design slugs to randomly pick for each pattern. Try not to pick same designs repeatedly like left image then right image design. 
+        - `content_needed`: Each field contains the WordPress block format required.
+        - You MUST generate valid HTML for gutenberg block editor for each field using these WordPress blocks.
         
         ---
         
@@ -163,6 +166,7 @@ function handle_openai_pattern_call_generation_cli($api_key, $website_title, $we
         WEBSITE DESCRIPTION: ' . $website_description . '
 
         INPUT PROCESSING:        
+        PAGE TYPE: ' . $page_type . '
         PAGE TITLE: ' . $page_title . '
         PAGE DESCRIPTION: ' . $page_description . '
         
@@ -177,7 +181,7 @@ function handle_openai_pattern_call_generation_cli($api_key, $website_title, $we
         - Do the same for paragraphs, buttons, and lists — use actual `<p>`, `<a>`, `<ul>`, `<li>` etc. inside the comment blocks.
         - Do not generate placeholders. Always return complete HTML code for each field.
 
-         **Processing Rules:**
+        **Processing Rules:**
         Critical: In JSON describing desired page sections Dont copy the description as it is instead generate a description
         - section_type: Use as primary design direction and layout guide
         - section_prompt: Reference only for context - DO NOT copy as literal content
@@ -185,7 +189,13 @@ function handle_openai_pattern_call_generation_cli($api_key, $website_title, $we
         - Cohesive Design: Ensure all sections work together harmoniously with consistent styling
         - Industry Adaptation: Tailor content, CTAs, and messaging to match the business type implied by page title
 
+        **Pattern Selection Rules:**
+        - If the Page Type is home select hero_banner pattern else select inner_banner pattern.
+        - Use posts_grid pattern to display a curated list of latest 6 posts without pagination.
+        - Use posts_archive_loop pattern in archive or listing pages for example pages like /blog, /projects or wordpress archive pages where we need to show all the blogs with pagination.
+
         **Your task:**
+        - Critical: Before choosing an pattern read the conditions written in section_intent.
         - For each section in the input, select the best-matching pattern based on section type and intent.
         - Randomly pick one of the available pattern slugs for that type.
         - Use the corresponding `content_needed` to format each field to generate the WordPress Gutenberg block HTML and generate the data in each field in content_needed according to the section_description.
@@ -236,7 +246,7 @@ function handle_openai_pattern_call_generation_cli($api_key, $website_title, $we
         if ($httpcode >= 200 && $httpcode < 300) {
             $responseData = json_decode($result, true);
             $responseContent = $responseData['choices'][0]['message']['content'] ?? 'Error: No content returned';
-            $responseHtml = parse_generated_blocks($responseContent);
+            $responseHtml = parse_generated_blocks($api_key, $responseContent, $images_array);
             return $responseHtml;
         } else {
             return false;
@@ -248,17 +258,17 @@ function handle_openai_pattern_call_generation_cli($api_key, $website_title, $we
     return false; //Default Fallback
 }
 
-function parse_generated_blocks($blocks)
+function parse_generated_blocks($api_key, $blocks, $images_array)
 {
-    $cleaned_output = clean_ai_html_output($blocks);
+    $cleaned_output = clean_ai_json_output($blocks);
     $final_html = '';
     if (!empty($cleaned_output)) {
         $output_arr = json_decode($cleaned_output);
-        WP_CLI::print_value($output_arr);
+
         foreach ($output_arr as $output) {
             $pattern_slug = $output->slug;
             $pattern_path = get_stylesheet_directory() . "/patterns/static/{$pattern_slug}.html";
-            WP_CLI::print_value($pattern_path);
+
             if (file_exists($pattern_path)) {
                 $pattern_content = file_get_contents($pattern_path);
 
@@ -325,7 +335,7 @@ function parse_generated_blocks($blocks)
                             $output->content->bullet_lists,
                             $pattern_content
                         );
-                    } else{
+                    } else {
                         $pattern_content = str_replace(
                             '<!--statistics-bar-html-->',
                             '',
@@ -345,15 +355,15 @@ function parse_generated_blocks($blocks)
                                         <!-- /wp:image -->
 
                                         <!-- wp:paragraph {"placeholder":"Enter testimonial here...","fontSize":"small"} -->
-                                        <p class="has-small-font-size">'.$testimonial->title.'</p>
+                                        <p class="has-small-font-size">' . $testimonial->title . '</p>
                                         <!-- /wp:paragraph -->
 
                                         <!-- wp:paragraph {"align":"center","placeholder":"Enter description here..."} -->
-                                        <p class="has-text-align-center">'.$testimonial->description.'</p>
+                                        <p class="has-text-align-center">' . $testimonial->description . '</p>
                                         <!-- /wp:paragraph -->
 
                                         <!-- wp:paragraph {"placeholder":"Enter designation here...","style":{"spacing":{"padding":{"bottom":"30px"}},"typography":{"fontWeight":"600","fontStyle":"normal"}},"fontSize":"small"} -->
-                                        <p class="has-small-font-size" style="padding-bottom:30px;font-style:normal;font-weight:600">'.$testimonial->designation.'</p>
+                                        <p class="has-small-font-size" style="padding-bottom:30px;font-style:normal;font-weight:600">' . $testimonial->designation . '</p>
                                         <!-- /wp:paragraph -->
                                     </div>
                                     <!-- /wp:group -->
@@ -375,41 +385,20 @@ function parse_generated_blocks($blocks)
 
                     if (isset($output->content->posts_array)) {
                         $posts_array = json_decode($output->content->posts_array);
-                        if( !empty($posts_array) ){
-                            //Upload a dummy Image
-                            $image_url = 'https://placehold.co/1200x800.jpg'; // your image URL
-                            $image_name = 'blog-image.jpg';
-                            $upload_file = wp_upload_bits($image_name, null, file_get_contents($image_url));
-
-                            $attach_id = 0;
-                            if (!$upload_file['error']) {
-                                $wp_filetype = wp_check_filetype($upload_file['file'], null);
-                                $attachment = [
-                                    'post_mime_type' => $wp_filetype['type'],
-                                    'post_title'     => sanitize_file_name($image_name),
-                                    'post_content'   => '',
-                                    'post_status'    => 'inherit',
-                                    'post_author'  => 1, // ID of the author
-                                ];
-
-                                $attach_id = wp_insert_attachment($attachment, $upload_file['file']);
-                                require_once(ABSPATH . 'wp-admin/includes/image.php');
-
-                                $attach_data = wp_generate_attachment_metadata($attach_id, $upload_file['file']);
-                                wp_update_attachment_metadata($attach_id, $attach_data);
-
-                            }
+                        if (!empty($posts_array)) {
+                            //https://placehold.co/1200x800
                             
-                            foreach( $posts_array as $post ) {
-                                $post_id = wp_insert_post([
-                                    'post_title'   => $post->title,
-                                    'post_content' => $post->content,
-                                    'post_status'  => 'publish',
-                                    'post_author'  => 1, // ID of the author
-                                ]);
+                            foreach ($posts_array as $post) {
+                                //Upload a dummy Image
+                                $randomKey = array_rand($images_array);
+                                $random_image = $images_array[$randomKey];
                                 
-                                if( !is_wp_error($post_id) && $attach_id ) {
-                                    set_post_thumbnail($post_id, $attach_id);
+                                $image_url = $random_image['url'] . '&w=1200&h=800&&fit=crop' ; //Crop to required size
+                                $image_name = $random_image['image_name'];
+                                $attach_id = upload_media_to_library($image_url, $image_name);
+
+                                if( $attach_id ){
+                                    generate_post($api_key, $post->title, $post->content, $attach_id);
                                 }
                             }
                         }
@@ -423,19 +412,8 @@ function parse_generated_blocks($blocks)
     return $final_html;
 }
 
-function clean_ai_html_output($raw_output)
+function generate_website_logo($apiKey, $siteName, $siteDesc)
 {
-    // Try to extract content within ```html ... ```
-    if (preg_match('/```json\s*(.*?)```/is', $raw_output, $matches)) {
-        return trim($matches[1]);
-    }
-
-    // Fallback: remove any lingering code fences and return raw HTML
-    $cleaned = preg_replace('/```(?:json)?/i', '', $raw_output);
-    return trim(str_replace('```', '', $cleaned));
-}
-
-function generate_website_logo($siteName, $siteDesc, $apiKey) {
     // Construct prompt
     $prompt = "Create a bold minimalist round logo for website Name: {$siteName}, Description of website: {$siteDesc}, covering the full 1:1 image from edge to edge with no empty space, on a black background.";
 
@@ -470,12 +448,12 @@ function generate_website_logo($siteName, $siteDesc, $apiKey) {
 
     // Parse and display the generated logo URL
     $result = json_decode($response, true);
-    
+
 
     if (isset($result['data'][0]['url'])) {
         $logoUrl = $result['data'][0]['url'];
-        
-        if( $logoUrl ) {
+
+        if ($logoUrl) {
             //Handle File Upload
             require_once(ABSPATH . 'wp-admin/includes/file.php');
             require_once(ABSPATH . 'wp-admin/includes/media.php');
@@ -504,10 +482,263 @@ function generate_website_logo($siteName, $siteDesc, $apiKey) {
             if (function_exists('set_theme_mod')) {
                 set_theme_mod('custom_logo', $attachment_id);
             }
-
         }
     } else {
-        WP_CLI::print_value(  "Error in generation: " . $response . PHP_EOL );
+        WP_CLI::error("Error in generation: " . $response . PHP_EOL);
         return false;
     }
+}
+
+function generate_post($api_key, $post_title, $post_desc, $attach_id, $post_type = 'post')
+{
+    $prompt = "
+        Write a comprehensive blog article with:
+        Multiple H2 and H3 subheadings to break up content
+        Use bullet points wherever appropriate to improve readability
+        Around 1000-1500 words with detailed explanations
+
+        REQUIREMENTS:
+        Use proper HTML formatting. Include:
+
+        Do not include article, section, div or H1 tags. Just use formatting Rich Text tags like heading tags except H1 tag, paragraph tags, list tags. Use bootstrap classes to format the content.
+
+        Do not include any information about legal assistance resources such as specific legal services programs, clinics, or advocacy groups.
+
+        The blog post title is: {$post_title}
+
+        The blog post should be about: {$post_desc}
+    ";
+
+    $ch = curl_init("https://api.openai.com/v1/chat/completions");
+
+    $data = [
+        "model" => "gpt-4o-mini",
+        "messages" => [
+            [
+                "role" => "system",
+                "content" => "You are a helpful SEO blog writer who writes well-formatted, detailed HTML blog posts ready for WordPress publishing."
+            ],
+            [
+                "role" => "user",
+                "content" => $prompt
+            ]
+        ],
+        "temperature" => 0.5
+    ];
+
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        "Content-Type: application/json",
+        "Authorization: Bearer {$api_key}"
+    ]);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+
+    // Execute the request
+    $response = curl_exec($ch);
+
+    if (curl_errno($ch)) {
+        return false;
+    }
+
+    curl_close($ch);
+
+    // Parse the response
+    $result = json_decode($response, true);
+
+    if (isset($result['choices'][0]['message']['content'])) {
+        $generatedContent = $result['choices'][0]['message']['content'];
+        if ($generatedContent) {
+            $post_content = clean_ai_html_output($generatedContent);
+            // Insert a new post if 
+            $post_id = wp_insert_post([
+                'post_title'   => $post_title,
+                'post_content' => $post_content,
+                'post_excerpt'  => $post_desc,
+                'post_status'  => 'publish',
+                'post_type' => $post_type,
+                'post_author'  => 1, // ID of the author
+            ]);
+            if ($attach_id) {
+                set_post_thumbnail($post_id, $attach_id);
+            }
+            return true;
+        }
+    } else {
+        return false;
+    }
+}
+
+function fetch_images_from_unsplash($api_key, $unsplash_key, $search_keys)
+{
+    if ($search_keys) {
+        $url = "https://api.unsplash.com/photos/random?" . http_build_query([
+            'client_id' => $unsplash_key,
+            'query' => $search_keys,
+            'count' => 30,
+            'orientation' => "landscape"
+        ]);
+
+        $ch = curl_init($url);
+
+        curl_setopt_array($ch, [
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_FAILONERROR => true,
+            CURLOPT_HTTPHEADER => [
+                'Accept-Version: v1',
+                'Content-Type: application/json'
+            ]
+        ]);
+
+        $response = curl_exec($ch);
+
+        if (curl_errno($ch)) {
+            curl_close($ch);
+            return [];
+        }
+
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        if ($httpCode !== 200) {
+            return [];
+        }
+
+        $data = json_decode($response, true);
+        $imageUrls = [];
+        
+        if (is_array($data)) {
+            foreach ($data as $image) {
+                if (isset($image['urls']['full'])) {
+                    $image_slug = $image['slug'];
+                    $image_url = $image['urls']['full'];
+                    
+                    $imageUrls[] = array(
+                        'attachment_id' => 0,
+                        'image_name' => $image_slug,
+                        'url' => $image_url //URL can be appended like &w=1200&h=900&&fit=crop to get proper resolution
+                    );
+                }
+            }
+        }
+
+        return $imageUrls;
+    }
+}
+
+/**
+ * Helpers
+ */
+function generate_search_queries($api_key, $website_name, $website_description, $industry)
+{
+    $prompt = '
+        Based on the following website information, generate 3-5 relevant search terms for finding appropriate images on Unsplash. 
+        The search terms should be relevant, professional, and suitable for the website\'s purpose.
+
+        Website Name: ' . $website_name . '
+        Website Description: ' . $website_description . '
+        Industry: ' . $industry . '
+
+        Return only the search terms as a comma-separated list, nothing else.
+        Examples: "modern office, technology, business meeting" or "coffee beans, cafe interior, barista"
+        ';
+
+    $ch = curl_init("https://api.openai.com/v1/chat/completions");
+
+    $data = [
+        "model" => "gpt-4o-mini",
+        "messages" => [
+            [
+                "role" => "system",
+                "content" => "You are an expert at generating relevant search terms for stock photography based on business descriptions."
+            ],
+            [
+                "role" => "user",
+                "content" => $prompt
+            ]
+        ],
+        "temperature" => 0.5
+    ];
+
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        "Content-Type: application/json",
+        "Authorization: Bearer {$api_key}"
+    ]);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+
+    // Execute the request
+    $response = curl_exec($ch);
+
+    if (curl_errno($ch)) {
+        return false;
+    }
+
+    curl_close($ch);
+
+    // Parse the response
+    $result = json_decode($response, true);
+
+    if (isset($result['choices'][0]['message']['content'])) {
+        $termsContent = $result['choices'][0]['message']['content'];
+        if ($termsContent) {
+            return $termsContent;
+        }
+    } else {
+        return false;
+    }
+}
+
+function upload_media_to_library($image_url, $image_name) {
+    //Upload the Image
+    $upload_file = wp_upload_bits($image_name . '.jpg', null, file_get_contents($image_url));
+
+    $attach_id = 0;
+
+    if (!$upload_file['error']) {
+        $wp_filetype = wp_check_filetype($upload_file['file'], null);
+
+        $attachment = [
+            'post_mime_type' => $wp_filetype['type'],
+            'post_title'     => sanitize_file_name($image_name),
+            'post_content'   => '',
+            'post_status'    => 'inherit',
+            'post_author'  => 1, // ID of the author
+        ];
+
+        $attach_id = wp_insert_attachment($attachment, $upload_file['file']);
+        require_once(ABSPATH . 'wp-admin/includes/image.php');
+
+        $attach_data = wp_generate_attachment_metadata($attach_id, $upload_file['file']);
+        wp_update_attachment_metadata($attach_id, $attach_data);
+
+        return $attach_id;
+    }
+
+    return $attach_id;
+}
+
+function clean_ai_json_output($raw_output)
+{
+    // Try to extract content within ```json ... ```
+    if (preg_match('/```json\s*(.*?)```/is', $raw_output, $matches)) {
+        return trim($matches[1]);
+    }
+
+    // Fallback: remove any lingering code fences and return raw HTML
+    $cleaned = preg_replace('/```(?:json)?/i', '', $raw_output);
+    return trim(str_replace('```', '', $cleaned));
+}
+
+function clean_ai_html_output($raw_output)
+{
+    // Try to extract content within ```html ... ```
+    if (preg_match('/```html\s*(.*?)```/is', $raw_output, $matches)) {
+        return trim($matches[1]);
+    }
+
+    // Fallback: remove any lingering code fences and return raw HTML
+    $cleaned = preg_replace('/```(?:html)?/i', '', $raw_output);
+    return trim(str_replace('```', '', $cleaned));
 }

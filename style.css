@@ -85,7 +85,8 @@ header.wp-block-template-part {
     z-index: 9999;
 }
 
-.navigation-main .navbar-nav a {
+.navigation-main .navbar-nav a,
+.navigation-footer .navbar a {
     text-decoration: none;
     color: var(--bs-dark);
 }
@@ -94,7 +95,8 @@ header.wp-block-template-part {
     text-decoration: none;
 }
 
-.navigation-main .navbar-nav .current-menu-item  a {
+.navigation-main .navbar-nav .current-menu-item  a,
+.navigation-footer .navbar .current-menu-item a {
     text-decoration: none;
     color: var(--bs-primary);
 }
@@ -201,6 +203,45 @@ figure.wp-block-media-text__media, figure.wp-block-media-text__media img {
 .inner-page-hero {
     min-height: 380px;
 }
+
+.category-pills a{
+    --bs-badge-padding-x: 0.65em;
+    --bs-badge-padding-y: 0.35em;
+    --bs-badge-font-size: 0.75em;
+    --bs-badge-font-weight: 700;
+    --bs-badge-color: #fff;
+    --bs-badge-border-radius: var(--bs-border-radius);
+    display: inline-block;
+    padding: var(--bs-badge-padding-y) var(--bs-badge-padding-x);
+    font-size: var(--bs-badge-font-size);
+    line-height: 1;
+    color: var(--bs-badge-color);
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: var(--bs-badge-border-radius);
+    background-color: RGBA(var(--bs-primary-rgb), var(--bs-bg-opacity, 1)) !important;
+    text-decoration: none;
+}
+
+.sidebar-posts-column .wp-block-latest-posts__list > li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.wp-block-post-content :first-child{
+    margin-top: 0 !important;
+}
+
+.position-sticky.single-sidebar {
+    top: 150px;
+} 
+
+.wp-block-query-no-results {
+	text-align: center;
+}
+
 
 /** Bloxby Overrides **/
 .stats-no-arrow-grid-container .stats-no-arrow-grid-block::after {

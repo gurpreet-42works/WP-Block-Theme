@@ -2,10 +2,10 @@
 
 /**
  * Title: List of posts, No Pagination
- * Slug: bloxbywp/template-query-loop
+ * Slug: bloxbywp/post-cards-with-image
  * Categories: query
  * Block Types: core/query
- * Description: A list of posts, with featured image and post date.
+ * Description: A list of posts, with featured image and post date no pagination.
  *
  * @package WordPress
  * @subpackage Bloxby_WP
