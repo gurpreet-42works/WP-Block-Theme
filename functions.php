@@ -84,10 +84,10 @@ add_action( 'wp_head', function () {
       @import url('<?php echo $font_primary; ?>');
       @import url('<?php echo $font_secondary; ?>');
       :root{
-         --color-primary: rgb(<?php echo implode(",", $site_colors[0][0]) ?>);
-         --color-primary-rgb: <?php echo implode(",", $site_colors[0][0]) ?>;
-         --color-secondary: rgb(<?php echo implode(",", $site_colors[0][1]) ?>);
-         --color-secondary-rgb: <?php echo implode(",", $site_colors[0][1]) ?>;
+         --color-primary: rgb(<?php echo implode(",", $site_colors[0]) ?>);
+         --color-primary-rgb: <?php echo implode(",", $site_colors[0]) ?>;
+         --color-secondary: rgb(<?php echo implode(",", $site_colors[1]) ?>);
+         --color-secondary-rgb: <?php echo implode(",", $site_colors[1]) ?>;
 
          --bs-primary: var( --color-primary );
          --bs-primary-rgb: var( --color-primary-rgb );
@@ -100,7 +100,7 @@ add_action( 'wp_head', function () {
          --bs-dark: #343A40;
 
          /* Btn Link Colors */
-         --bs-link-color-rgb: <?php echo implode(",", $site_colors[0][0]) ?>;
+         --bs-link-color-rgb: <?php echo implode(",", $site_colors[0]) ?>;
          --bs-link-hover-color-rgb: var(--bs-dark);
 
          /* Border Radius */
