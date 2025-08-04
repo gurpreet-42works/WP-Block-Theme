@@ -73,6 +73,8 @@ function aibuilder_generate_pages_cli($args, $assoc_args)
 
             // Set the page as the homepage
             update_option('page_on_front', $page_id);
+
+            die; //Stop on homepage only no section building
         }
 
         // if (strpos($page['page_type'], 'blog') !== FALSE) {
@@ -187,17 +189,16 @@ function handle_openai_pattern_call_generation_cli($api_key, $website_title, $we
         - section_prompt: Reference only for context - DO NOT copy as literal content
         - Content Generation: Create professional, industry-specific copy based on page title/description  
         - Cohesive Design: Ensure all sections work together harmoniously with consistent styling
-        - Industry Adaptation: Tailor content, CTAs, and messaging to match the business type implied by page title
+        - Industry Adaptation: Tailor content, CTAs, and messaging to match the business type implied by page title.
+        - Make sure not to use same design patterns with matching design like centered content banner followed by centered content section. 
 
         **Pattern Selection Rules:**
         - If the Page Type is home select hero_banner pattern else select inner_banner pattern.
-        - Use posts_grid pattern to display a curated list of latest 6 posts without pagination.
-        - Use posts_archive_loop pattern in archive or listing pages for example pages like /blog, /projects or wordpress archive pages where we need to show all the blogs with pagination.
-
+        
         **Your task:**
         - Critical: Before choosing an pattern read the conditions written in section_intent.
         - For each section in the input, select the best-matching pattern based on section type and intent.
-        - Randomly pick one of the available pattern slugs for that type.
+        - Randomly pick one of the available design slugs for that pattern.
         - Use the corresponding `content_needed` to format each field to generate the WordPress Gutenberg block HTML and generate the data in each field in content_needed according to the section_description.
         - Generate **professional, relevant content** in WordPress HTML (no placeholders, no lorem ipsum).
         - Return only a JSON array like:
@@ -264,11 +265,12 @@ function parse_generated_blocks($api_key, $blocks, $images_array)
     $final_html = '';
     if (!empty($cleaned_output)) {
         $output_arr = json_decode($cleaned_output);
-
+        // WP_CLI::print_value($output_arr);
+        // die;
         foreach ($output_arr as $output) {
             $pattern_slug = $output->slug;
             $pattern_path = get_stylesheet_directory() . "/patterns/static/{$pattern_slug}.html";
-
+           
             if (file_exists($pattern_path)) {
                 $pattern_content = file_get_contents($pattern_path);
 
@@ -282,6 +284,20 @@ function parse_generated_blocks($api_key, $blocks, $images_array)
                     } else {
                         $pattern_content = str_replace(
                             '<!--section-heading-->',
+                            '',
+                            $pattern_content
+                        );
+                    }
+
+                    if (isset($output->content->subheading)) {
+                        $pattern_content = str_replace(
+                            '<!--section-sub-heading-->',
+                            $output->content->subheading,
+                            $pattern_content
+                        );
+                    } else {
+                        $pattern_content = str_replace(
+                            '<!--section-sub-heading-->',
                             '',
                             $pattern_content
                         );
@@ -403,6 +419,25 @@ function parse_generated_blocks($api_key, $blocks, $images_array)
                             }
                         }
                     }
+
+
+                    //Check if pattern selected has image URL needed then use a random image
+                    $image_required = detect_image_tag($pattern_content);
+                    if( $image_required['found'] ) {
+                        $img_width = $image_required['width'];
+                        $img_height =  $image_required['height'];
+                        $full_tag = $image_required['full_tag'];
+
+                        $randomKey = array_rand($images_array);
+                        $random_image = $images_array[$randomKey];
+                        $image_url = $random_image['url'] . '&w='.$img_width.'&h='.$img_height.'&&fit=crop' ; //Crop to required size
+                        $img_tag = '<img src="'.$image_url.'" alt="Dynamic Image">';
+                        $pattern_content = str_replace(
+                            $full_tag,
+                            $img_tag,
+                            $pattern_content
+                        );
+                    }
                 }
                 $final_html .= $pattern_content;
             }
@@ -512,7 +547,7 @@ function generate_post($api_key, $post_title, $post_desc, $attach_id, $post_type
     $ch = curl_init("https://api.openai.com/v1/chat/completions");
 
     $data = [
-        "model" => "gpt-4o-mini",
+        "model" => "gpt-4o",
         "messages" => [
             [
                 "role" => "system",
@@ -629,67 +664,6 @@ function fetch_images_from_unsplash($api_key, $unsplash_key, $search_keys)
 /**
  * Helpers
  */
-function generate_search_queries($api_key, $website_name, $website_description, $industry)
-{
-    $prompt = '
-        Based on the following website information, generate 3-5 relevant search terms for finding appropriate images on Unsplash. 
-        The search terms should be relevant, professional, and suitable for the website\'s purpose.
-
-        Website Name: ' . $website_name . '
-        Website Description: ' . $website_description . '
-        Industry: ' . $industry . '
-
-        Return only the search terms as a comma-separated list, nothing else.
-        Examples: "modern office, technology, business meeting" or "coffee beans, cafe interior, barista"
-        ';
-
-    $ch = curl_init("https://api.openai.com/v1/chat/completions");
-
-    $data = [
-        "model" => "gpt-4o-mini",
-        "messages" => [
-            [
-                "role" => "system",
-                "content" => "You are an expert at generating relevant search terms for stock photography based on business descriptions."
-            ],
-            [
-                "role" => "user",
-                "content" => $prompt
-            ]
-        ],
-        "temperature" => 0.5
-    ];
-
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, [
-        "Content-Type: application/json",
-        "Authorization: Bearer {$api_key}"
-    ]);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-
-    // Execute the request
-    $response = curl_exec($ch);
-
-    if (curl_errno($ch)) {
-        return false;
-    }
-
-    curl_close($ch);
-
-    // Parse the response
-    $result = json_decode($response, true);
-
-    if (isset($result['choices'][0]['message']['content'])) {
-        $termsContent = $result['choices'][0]['message']['content'];
-        if ($termsContent) {
-            return $termsContent;
-        }
-    } else {
-        return false;
-    }
-}
-
 function upload_media_to_library($image_url, $image_name) {
     //Upload the Image
     $upload_file = wp_upload_bits($image_name . '.jpg', null, file_get_contents($image_url));
@@ -741,4 +715,22 @@ function clean_ai_html_output($raw_output)
     // Fallback: remove any lingering code fences and return raw HTML
     $cleaned = preg_replace('/```(?:html)?/i', '', $raw_output);
     return trim(str_replace('```', '', $cleaned));
+}
+
+function detect_image_tag($pattern_content) {
+    $pattern = '/<!--image\s*\{width\}(\d+)\{\/width\}\s*\{height\}(\d+)\{\/height\}-->/s';
+
+    if (preg_match($pattern, $pattern_content, $matches)) {
+        // Debugging all matches
+        print_r($matches); // Optional
+
+        return [
+            'found' => true,
+            'width' => (int)$matches[1],
+            'height' => (int)$matches[2],
+            'full_tag' => isset($matches[0]) ? $matches[0] : ''
+        ];
+    }
+
+    return ['found' => false];
 }

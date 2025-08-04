@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Title: Inner Banner content content
+ * Title: Inner Banner content centered
  * Slug: bloxbywp/inner-banner-centered
  * Categories: banner
  * Description: A small banner section to use in innner pages or any featured content.

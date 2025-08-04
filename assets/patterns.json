@@ -3,18 +3,30 @@
         "section_intent": "A hero section to be used only on page with title home. Else use inner_banner",
         "available_designs": {
             "hero-banner-left-aligned": "Hero section with content on left and image on right contained in a bootstrap container",
-            "hero-banner-right-aligned": "Hero section with content on right and image on left contained in a bootstrap container"
+            "hero-banner-right-aligned": "Hero section with content on right and image on left contained in a bootstrap container",
+            "hero-banner-bg-content-center": "A hero banner section with title, sub heading, description and CTA button with full height and verticle centered content. Supports background images."
         },
         "content_needed": {
             "heading": "Add Main Heading. Create using: <!-- wp:heading {\"level\":1,\"className\":\"mb-3\"} --> ",
+            "subheading": "Add a subheading related to  this section. Create using: <!-- wp:heading {\"textAlign\":\"center\",\"fontSize\":\"medium\"} -->",
             "description": "Add a suitable description. Generate using <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->",
-            "button": "Generate a button block using <!-- wp:buttons --> and <!-- wp:button {\"className\":\"btn btn-primary btn-lg\"} -->"
+            "button": "Generate a button block using <!-- wp:buttons --> and <!-- wp:button {\"className\":\"btn btn-primary btn-lg\"} -->",
         }
     },
     "inner_banner": {
-        "section_intent": "A small banner section to use in innner or sub pages or any featured content. Can be used for:  As a banner for inner or sub pages, Category or Archive or any featured section intros.",
+        "section_intent": "A small banner section to use in innner or sub pages or any featured content. Can be used for:  As a banner for inner or sub pages.",
         "available_designs": {
             "inner-banner-centered": "This block pattern consists of a centered heading followed by a short paragraph and is used to introduce the section or page cleanly."
+        },
+        "content_needed": {
+            "heading": "Add Main Heading. Create using: <!-- wp:heading {\"level\":1,\"className\":\"mb-3\"} --> ",
+            "description": "Add a suitable description. Generate using <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->"
+        }
+    },
+    "featured_content": {
+        "section_intent": "A centered hightlight section to use as a descriptive content. Can be used for: To add full width centered section intros or highlight or describe a section.",
+        "available_designs": {
+            "featured-content-centered": "This block pattern consists of a centered heading followed by a short paragraph and is used to introduce the section cleanly."
         },
         "content_needed": {
             "heading": "Add Main Heading. Create using: <!-- wp:heading {\"level\":1,\"className\":\"mb-3\"} --> ",
@@ -51,16 +63,16 @@
         "content_needed": {
             "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
             "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->",
-            "posts_array": "Add 2-3 posts according to the section_title and website description. Return an array like this: [{\"title\":\"title1\",\"content\":\"blog_content1\"},{\"title\":\"title2\",\"content\":\"blog_content2\"} ...]"
+            "posts_array": "Add 4-5 posts according to the section_title and website description. Return an array like this: [{\"title\":\"title1\",\"content\":\"blog_content1\"},{\"title\":\"title2\",\"content\":\"blog_content2\"} ...]"
         }
     },
-    "posts_archive_loop": {
+    "posts_grid_loop": {
         "section_intent": "A list of posts, with featured image and post date with pagination. Can be used in Archive or listing pages where we need to show all the blogs. Use on blog listing or archive pages with pagination.",
         "available_designs": {
             "loop-post-cards-with-image": "A list of posts with featured image shown in a 3 column grid view using bootstrap cards."
         },
         "content_needed": {
-            "posts_array": "Add 2-3 posts according to the section_title and website description. Return an array like this: [{\"title\":\"title1\",\"content\":\"blog_content1\"},{\"title\":\"title2\",\"content\":\"blog_content2\"} ...]"
+            "posts_array": "Add 4-5 posts according to the section_title and website description. Return an array like this: [{\"title\":\"title1\",\"content\":\"blog_content1\"},{\"title\":\"title2\",\"content\":\"blog_content2\"} ...]"
         }
     },
     "testimonials": {

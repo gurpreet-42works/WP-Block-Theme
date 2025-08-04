@@ -242,6 +242,14 @@ figure.wp-block-media-text__media, figure.wp-block-media-text__media img {
 	text-align: center;
 }
 
+.banner-height {
+    min-height: 70vh;
+}
+
+.banner-content-centered * {
+    justify-content: center;
+}
+
 
 /** Bloxby Overrides **/
 .stats-no-arrow-grid-container .stats-no-arrow-grid-block::after {
