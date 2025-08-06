@@ -29,8 +29,8 @@
 
         <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
         <div class="wp-block-buttons">
-            <!-- wp:button {"className":"btn btn-dark btn-lg"} -->
-            <div class="wp-block-button btn btn-dark btn-lg"><a class="wp-block-button__link wp-element-button" rel="">CTA BUTTON</a></div>
+            <!-- wp:button {"className":"btn btn-primary btn-lg"} -->
+            <div class="wp-block-button btn btn-primary btn-lg"><a class="wp-block-button__link wp-element-button" rel="">CTA BUTTON</a></div>
             <!-- /wp:button -->
         </div>
         <!-- /wp:buttons -->
