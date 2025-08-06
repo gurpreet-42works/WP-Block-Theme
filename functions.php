@@ -59,22 +59,67 @@ add_action( 'wp_head', function () {
 
       $site_theme = $data_array['theme'];
       $site_font = $data_array['fonts'];
+      
       switch ($site_theme) {
-         case 'soft':
+         case 'classic':
             $font_primary = 'https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap';
             $font_primary_family = '"Noto Sans", sans-serif';
             $font_secondary = 'https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap';
-            $font_secondary_family = ' "Noto Serif", serif';
-            $border_radius = '25px';
+            $font_secondary_family = '"Noto Serif", serif';
+            $border_radius = '0px';
+            $border_radius_sm = '0px';
+            $border_radius_lg = '0px';
+
+            $box_shadow = '0 0 10px rgba(0, 0, 0, 0.2)';
+            $box_shadow_sm = '0 0 10px rgba(0, 0, 0, 0.2)';
+            $box_shadow_lg = '0 0 10px rgba(0, 0, 0, 0.2)';
+            break;
+         case 'material':
+            $font_primary = 'https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap';
+            $font_primary_family = '"Roboto", sans-serif';
+            $font_secondary = 'https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap';
+            $font_secondary_family = '"Lato", sans-serif';
+            $border_radius = '10px';
+            $border_radius_sm = '5px';
+            $border_radius_lg = '10px';
+            break;
+         case 'minimal':
+            $font_primary = 'https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap';
+            $font_primary_family = '"Roboto", sans-serif';
+            $font_secondary = 'https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap';
+            $font_secondary_family = '"Roboto", sans-serif';
+            $border_radius = '10px';
+            $border_radius_sm = '5px';
+            $border_radius_lg = '10px';
+            break;
+         case 'flat':
+            $font_primary = 'https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap';
+            $font_primary_family = '"PT Sans", sans-serif';
+            $font_secondary = 'https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap';
+            $font_secondary_family = '"PT Sans", sans-serif';
+            $border_radius = '5px';
+            $border_radius_sm = '5px';
+            $border_radius_lg = '5px';
+            break;
+         case 'soft':
+            $font_primary = 'https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap';
+            $font_primary_family = '"Poppins", sans-serif';
+            $font_secondary = 'https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap';
+            $font_secondary_family = '"Nunito", sans-serif';
+            $border_radius = '15px';
+            $border_radius_sm = '10px';
+            $border_radius_lg = '25px';
             break;
          
          default:
             # code...
             $font_primary = 'https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap';
-            $font_primary_family = ' "Poppins", sans-serif';
+            $font_primary_family = '"Poppins", sans-serif';
             $font_secondary = 'https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap';
-            $font_secondary_family = ' "Noto Serif", serif';
+            $font_secondary_family = '"Noto Serif", serif';
             $border_radius = '5px';
+            $border_radius_sm = '5px';
+            $border_radius_lg = '5px';
             break;
       }
       $site_colors = $data_array['colors'];
@@ -95,7 +140,6 @@ add_action( 'wp_head', function () {
          --bs-secondary: var( --color-secondary );
          --bs-secondary-bg-rgb: var(--color-secondary-rgb);
 
-         
          --bs-light: #F8F9FA;
          --bs-dark: #343A40;
 
@@ -105,8 +149,8 @@ add_action( 'wp_head', function () {
 
          /* Border Radius */
          --bs-border-radius: <?php echo $border_radius ?>;
-         --bs-border-radius-sm: <?php echo $border_radius ?>;
-         --bs-border-radius-lg: <?php echo $border_radius ?>;
+         --bs-border-radius-sm: <?php echo $border_radius_sm ?>;
+         --bs-border-radius-lg: <?php echo $border_radius_lg ?>;
          --bs-border-radius-xl: <?php echo $border_radius ?>;
 
       }

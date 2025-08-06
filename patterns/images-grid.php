@@ -29,29 +29,29 @@
         <!-- /wp:group -->
         <!-- wp:gallery {"columns":4,"linkTo":"none"} -->
         <figure class="wp-block-gallery has-nested-images columns-4 is-cropped">
-            <!-- wp:image -->
-            <figure class="wp-block-image size-large"><img src="https://placehold.co/480x320" alt="" /></figure>
+            <!-- wp:image {"className":"overflow-hidden rounded shadow-sm"} -->
+            <figure class="wp-block-image size-large overflow-hidden rounded shadow-sm"><img src="https://placehold.co/480x320" alt="" /></figure>
             <!-- /wp:image -->
-            <!-- wp:image -->
-            <figure class="wp-block-image size-large"><img src="https://placehold.co/480x320" alt="" /></figure>
+            <!-- wp:image {"className":"overflow-hidden rounded shadow-sm"} -->
+            <figure class="wp-block-image size-large overflow-hidden rounded shadow-sm"><img src="https://placehold.co/480x320" alt="" /></figure>
             <!-- /wp:image -->
-            <!-- wp:image -->
-            <figure class="wp-block-image size-large"><img src="https://placehold.co/480x320" alt="" /></figure>
+            <!-- wp:image {"className":"overflow-hidden rounded shadow-sm"} -->
+            <figure class="wp-block-image size-large overflow-hidden rounded shadow-sm"><img src="https://placehold.co/480x320" alt="" /></figure>
             <!-- /wp:image -->
-            <!-- wp:image -->
-            <figure class="wp-block-image size-large"><img src="https://placehold.co/480x320" alt="" /></figure>
+            <!-- wp:image {"className":"overflow-hidden rounded shadow-sm"} -->
+            <figure class="wp-block-image size-large overflow-hidden rounded shadow-sm"><img src="https://placehold.co/480x320" alt="" /></figure>
             <!-- /wp:image -->
-            <!-- wp:image -->
-            <figure class="wp-block-image size-large"><img src="https://placehold.co/480x320" alt="" /></figure>
+            <!-- wp:image {"className":"overflow-hidden rounded shadow-sm"} -->
+            <figure class="wp-block-image size-large overflow-hidden rounded shadow-sm"><img src="https://placehold.co/480x320" alt="" /></figure>
             <!-- /wp:image -->
-            <!-- wp:image -->
-            <figure class="wp-block-image size-large"><img src="https://placehold.co/480x320" alt="" /></figure>
+            <!-- wp:image {"className":"overflow-hidden rounded shadow-sm"} -->
+            <figure class="wp-block-image size-large overflow-hidden rounded shadow-sm"><img src="https://placehold.co/480x320" alt="" /></figure>
             <!-- /wp:image -->
-            <!-- wp:image -->
-            <figure class="wp-block-image size-large"><img src="https://placehold.co/480x320" alt="" /></figure>
+            <!-- wp:image {"className":"overflow-hidden rounded shadow-sm"} -->
+            <figure class="wp-block-image size-large overflow-hidden rounded shadow-sm"><img src="https://placehold.co/480x320" alt="" /></figure>
             <!-- /wp:image -->
-            <!-- wp:image -->
-            <figure class="wp-block-image size-large"><img src="https://placehold.co/480x320" alt="" /></figure>
+            <!-- wp:image {"className":"overflow-hidden rounded shadow-sm"} -->
+            <figure class="wp-block-image size-large overflow-hidden rounded shadow-sm"><img src="https://placehold.co/480x320" alt="" /></figure>
             <!-- /wp:image -->
         </figure>
         <!-- /wp:gallery -->

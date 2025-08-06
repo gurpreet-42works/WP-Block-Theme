@@ -12,8 +12,8 @@
  */
 ?>
 
-<!-- wp:group {"className":"d-flex py-5 align-items-center banner-content-centered banner-height bg-body-secondary","layout":{"type":"constrained","contentSize":""}} -->
-<div class="wp-block-group d-flex py-5 align-items-center banner-content-centered banner-height bg-body-secondary">
+<!-- wp:group {"className":"d-flex py-5 align-items-center banner-content-centered banner-height bg-body-secondary text-white","style":{"background":{"backgroundImage":{"url":"https://placehold.co/1600x900/dddddd/dddddd/png","title":"banner-bg-image"},"backgroundSize":"cover"}},"layout":{"type":"constrained","contentSize":""}} -->
+<div class="wp-block-group d-flex py-5 align-items-center banner-content-centered banner-height bg-body-secondary text-white">
     <!-- wp:group {"layout":{"type":"constrained"}} -->
     <div class="wp-block-group">
         <!-- wp:group {"className":"container text-center","layout":{"type":"constrained","contentSize":"750px"}} -->

@@ -32,7 +32,7 @@
 		<!-- wp:group {"className":"card h-100 border-0"} -->
 		<div class="wp-block-group card h-100 border-0">
 
-			<!-- wp:post-featured-image {"className":"card-img-top rounded-0", "isLink":true} /-->
+			<!-- wp:post-featured-image {"className":"card-img-top rounded shadow-sm", "isLink":true} /-->
 
 			<!-- wp:group {"className":"card-body p-0"} -->
 			<div class="wp-block-group card-body p-0">

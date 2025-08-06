@@ -41,13 +41,13 @@
             <div class="row g-3">
                 <div class="col-md-6 m-0">
                     <div class="form-floating">
-                        <input type="text" class="form-control" id="inputFirstName" placeholder="First Name" required>
+                        <input type="text" class="form-control rounded-3" id="inputFirstName" placeholder="First Name" required>
                         <label for="inputFirstName">First Name</label>
                     </div>
                 </div>
                 <div class="col-md-6 m-0">
                     <div class="form-floating">
-                        <input type="text" class="form-control" id="inputLastName" placeholder="Last Name">
+                        <input type="text" class="form-control rounded-3" id="inputLastName" placeholder="Last Name">
                         <label for="inputLastName">Last Name</label>
                     </div>
                 </div>
@@ -56,13 +56,13 @@
             <div class="row g-3 mt-3">
                 <div class="col-md-6 m-0">
                     <div class="form-floating">
-                        <input type="email" class="form-control" id="emailInput" placeholder="name@example.com" required>
+                        <input type="email" class="form-control rounded-3" id="emailInput" placeholder="name@example.com" required>
                         <label for="emailInput">Email address</label>
                     </div>
                 </div>
                 <div class="col-md-6 m-0">
                     <div class="form-floating">
-                        <input type="tel" class="form-control" id="phoneInput" placeholder="+1 9876543210" required>
+                        <input type="tel" class="form-control rounded-3" id="phoneInput" placeholder="+1 9876543210" required>
                         <label for="emailInput">Phone Number</label>
                     </div>
                 </div>
@@ -71,7 +71,7 @@
             <div class="row g-3 mt-3">
             <div class="col-12">
                 <div class="form-floating">
-                    <textarea class="form-control" placeholder="Message" id="floatingTextarea" style="height: 150px;"></textarea>
+                    <textarea class="form-control rounded-3" placeholder="Message" id="floatingTextarea" style="height: 150px;"></textarea>
                     <label for="floatingTextarea">Message</label>
                 </div>
             </div>

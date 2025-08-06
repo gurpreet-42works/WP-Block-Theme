@@ -18,8 +18,8 @@
     <div class="wp-block-group container">
         <!-- wp:group {"align":"wide","className":"row align-items-center"} -->
         <div class="wp-block-group alignwide row align-items-center">
-            <!-- wp:media-text {"align":"wide","mediaType":"image","className":"col-md-12"} -->
-            <div class="wp-block-media-text alignwide is-stacked-on-mobile col-md-12">
+            <!-- wp:media-text {"align":"wide","mediaType":"image","className":"col-md-12 media-rounded-lg media-shadow"} -->
+            <div class="wp-block-media-text alignwide is-stacked-on-mobile col-md-12 media-rounded-lg media-shadow">
                 <figure class="wp-block-media-text__media"><img src="https://placehold.co/900x900"
                         alt="Placeholder image" /></figure>
                 <div class="wp-block-media-text__content"><!-- wp:heading {"level":1,"className":"mb-3"} -->

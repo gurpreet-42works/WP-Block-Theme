@@ -37,7 +37,8 @@
                 <!-- wp:bloxby-blocks/testimonial-grid -->
                 <div class="wp-block-bloxby-blocks-testimonial-grid save-block testimonial-grid-block">
                     <!-- wp:group {"align":"wide","style":{"spacing":{"padding":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40","left":"var:preset|spacing|40","right":"var:preset|spacing|40"}}}} -->
-                    <div class="wp-block-group alignwide" style="padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)"><!-- wp:image {"id":385,"sizeSlug":"full","linkDestination":"none"} -->
+                    <div class="wp-block-group alignwide" style="padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)">
+                        <!-- wp:image {"id":385,"sizeSlug":"full","linkDestination":"none"} -->
                         <figure class="wp-block-image size-full"><img src="https://placehold.co/400?text=Testimonial" alt="" class="wp-image-385" /></figure>
                         <!-- /wp:image -->
 

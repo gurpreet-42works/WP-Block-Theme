@@ -16,46 +16,80 @@ Tags:
 
 
 /****** Bootstrap Overrides *****/
-:root{
+:root {}
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--bs-primary);
+    font-weight: 700 !important;
+}
+
+.text-white * {
+    color: rgba(var(--bs-white-rgb), var(--bs-text-opacity));
+}
+
+.btn {
+    border-radius: var(--bs-border-radius-lg) !important;
+}
+
+.media-rounded img {
+    border-radius: var(--bs-border-radius);
+    box-shadow: var(--bs-box-shadow);
+}
+
+.media-rounded-sm img {
+    border-radius: var(--bs-border-radius-sm);
+    box-shadow: var(--bs-box-shadow-sm);
+}
+
+.media-rounded-lg img {
+    border-radius: var(--bs-border-radius-lg);
+    box-shadow: var(--bs-box-shadow);
 }
 
 
 /****** Custom Overflowed Overrides *****/
 @media (min-width: 576px) {
     .container.one-side-fluid {
-        max-width:calc((100% - 540px)/2 + 540px)!important;
+        max-width: calc((100% - 540px)/2 + 540px) !important;
     }
 }
 
 @media (min-width: 768px) {
     .container.one-side-fluid {
-        max-width:calc((100% - 720px)/2 + 720px)!important;
+        max-width: calc((100% - 720px)/2 + 720px) !important;
     }
 }
 
 @media (min-width: 992px) {
     .container.one-side-fluid {
-        max-width:calc((100% - 960px)/2 + 960px)!important;
+        max-width: calc((100% - 960px)/2 + 960px) !important;
     }
 }
 
 @media (min-width: 1200px) {
     .container.one-side-fluid {
-         max-width:calc((100% - 1140px)/2 + 1140px)!important;
+        max-width: calc((100% - 1140px)/2 + 1140px) !important;
     }
 }
 
 @media (min-width: 1400px) {
     .container.one-side-fluid {
-        max-width:calc((100% - 1320px)/2 + 1320px)!important;
+        max-width: calc((100% - 1320px)/2 + 1320px) !important;
     }
 }
+
 /****** Custom Overflowed Overrides End *****/
 
 
 @media (min-width: 1200px) {
-    .h3, h3 {
+
+    .h3,
+    h3 {
         font-size: 1.25rem;
     }
 }
@@ -63,12 +97,12 @@ Tags:
 
 /****** Custom CSS for blocks styling. Donot use any custom backgrounds and colors  ******/
 
-:root :where(.is-layout-flow) > * {
+:root :where(.is-layout-flow)>* {
     margin-block-start: 15px;
     margin-block-end: 0;
 }
 
-.wp-block-columns >.wp-block-column {
+.wp-block-columns>.wp-block-column {
     height: fit-content;
 }
 
@@ -89,13 +123,16 @@ header.wp-block-template-part {
 .navigation-footer .navbar a {
     text-decoration: none;
     color: var(--bs-dark);
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.3px;
 }
 
 .navigation-footer nav.navbar a {
     text-decoration: none;
 }
 
-.navigation-main .navbar-nav .current-menu-item  a,
+.navigation-main .navbar-nav .current-menu-item a,
 .navigation-footer .navbar .current-menu-item a {
     text-decoration: none;
     color: var(--bs-primary);
@@ -122,6 +159,7 @@ ul.wp-block-post-template li.wp-block-post {
 .card-body {
     margin: 0;
 }
+
 .card .wp-block-post-featured-image {
     overflow: hidden;
     border-radius: var(--bs-border-radius) var(--bs-border-radius) 0 0;
@@ -136,8 +174,17 @@ ul.wp-block-post-template li.wp-block-post {
     overflow: hidden;
 }
 
-.card  a.wp-block-button {
+.card a.wp-block-button {
     max-width: 150px;
+}
+
+.card .wp-block-post-featured-image {
+    transition: all ease 0.2s;
+}
+
+.card .wp-block-post-featured-image:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--bs-box-shadow) !important;
 }
 
 .wp-block-button.aligncenter a.wp-block-button__link {
@@ -153,7 +200,8 @@ ul.wp-block-post-template li.wp-block-post {
     height: 100%;
 }
 
-figure.wp-block-media-text__media, figure.wp-block-media-text__media img {
+figure.wp-block-media-text__media,
+figure.wp-block-media-text__media img {
     height: 100%;
     object-fit: cover;
 }
@@ -177,7 +225,7 @@ figure.wp-block-media-text__media, figure.wp-block-media-text__media img {
 .wp-block-query-pagination .page-numbers {
     display: block;
     padding: 0.375rem 0.75rem;
-    color: var( --color-primary );
+    color: var(--color-primary);
     background-color: #fff;
     border: 1px solid #dee2e6;
     text-decoration: none;
@@ -187,8 +235,8 @@ figure.wp-block-media-text__media, figure.wp-block-media-text__media img {
 
 .wp-block-query-pagination .page-numbers.current {
     color: var(--bs-light);
-    background-color: var( --color-primary );
-    border-color: var( --color-primary );
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
 }
 
 .btn.wp-block-button__link {
@@ -204,7 +252,7 @@ figure.wp-block-media-text__media, figure.wp-block-media-text__media img {
     min-height: 380px;
 }
 
-.category-pills a{
+.category-pills a {
     --bs-badge-padding-x: 0.65em;
     --bs-badge-padding-y: 0.35em;
     --bs-badge-font-size: 0.75em;
@@ -224,22 +272,22 @@ figure.wp-block-media-text__media, figure.wp-block-media-text__media img {
     text-decoration: none;
 }
 
-.sidebar-posts-column .wp-block-latest-posts__list > li {
+.sidebar-posts-column .wp-block-latest-posts__list>li {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
 }
 
-.wp-block-post-content :first-child{
+.wp-block-post-content :first-child {
     margin-top: 0 !important;
 }
 
 .position-sticky.single-sidebar {
     top: 150px;
-} 
+}
 
 .wp-block-query-no-results {
-	text-align: center;
+    text-align: center;
 }
 
 .banner-height {
@@ -250,14 +298,71 @@ figure.wp-block-media-text__media, figure.wp-block-media-text__media img {
     justify-content: center;
 }
 
+.banner-content-centered.banner-height::after {
+    content: "";
+    background: #00000038;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.banner-content-centered.banner-height * {
+    z-index: 1;
+}
+
+.wp-block-media-text figure {
+    position: relative;
+}
+
+.wp-block-media-text figure::before {
+    content: "";
+    position: absolute;
+    top: -10%;
+    left: -50px;
+    width: calc(100% - 50px);
+    height: 120%;
+    background: rgba( var(--bs-secondary-bg-rgb), 0.4 ) !important;
+    border-radius: var(--bs-border-radius-lg);
+}
+
+.wp-block-media-text.has-media-on-the-right figure::before {
+    left: unset;
+    right: -50px;
+}
+
+
+
+.wp-block-media-text figure img {
+    z-index: 1;
+    position: relative;
+}
+
 
 /** Bloxby Overrides **/
 .stats-no-arrow-grid-container .stats-no-arrow-grid-block::after {
-    background-color: rgba( var( --bs-primary-rgb ) , .2) !important;
+    background-color: rgba(var(--bs-primary-rgb), .2) !important;
 }
+
 .stats-no-arrow-grid-container .stats-no-arrow-grid-block .wp-block-heading {
     color: var(--bs-primary);
 }
+
 .stats-no-arrow-grid-container .stats-no-arrow-grid-block p {
     margin-top: 10px;
+}
+
+i.testimonials-icon {
+    display: flex;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    color: var(--bs-primary);
+    background: #ddd;
+    border-radius: 15px;
 }
