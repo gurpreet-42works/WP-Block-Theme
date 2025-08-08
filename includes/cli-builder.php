@@ -213,7 +213,7 @@ function handle_openai_pattern_call_generation_cli($api_key, $website_title, $we
         1. For each input section, locate the matching pattern object in the provided PATTERNS JSON.
         2. **You MUST choose exactly one value from that pattern objects "VALID_SLUGS" list (or object keys)** — the chosen value is the final "slug" in output.
         3. **Do NOT output the pattern objects top-level key** (e.g., do NOT return "posts_grid_without_pagination"). Only return one of the actual design slugs such as "post-cards-with-image".
-        4. Make sure not to use same slug with matching design like centered content banner followed by centered content section or left-aligned followed by another left-aligned slug. 
+        4.  **Do NOT repeat same slug with matching design like centered content banner followed by centered content section or left-aligned followed by another left-aligned slug. 
 
         **Your task:**
         - For each section in the input, select the best-matching pattern based on section type and intent.
