@@ -45,7 +45,7 @@ function aibuilder_generate_pages_cli($args, $assoc_args)
     update_option('blogname', $website_title);
 
     //Set a sitelogo and set it globally
-    // generate_website_logo($apiKey, $website_title, $website_description);
+    generate_website_logo($apiKey, $website_title, $website_description);
 
     //Add main CF7 Contact form
     create_bloxby_contact_form();
