@@ -14,7 +14,7 @@
         }
     },
     "inner_banner": {
-        "section_intent": "A small banner section to use in innner or sub pages or any featured content. Can be used for:  As a banner for inner or sub pages.",
+        "section_intent": "A small banner section to use in innner or sub pages. Can be used for:  As a banner for inner or sub pages.",
         "available_patterns": {
             "inner-banner-centered": "This block pattern consists of a centered heading followed by a short paragraph and is used to introduce the section or page cleanly."
         },
@@ -24,13 +24,26 @@
         }
     },
     "featured_content": {
-        "section_intent": "A centered hightlight section to use as a descriptive content. Can be used for: To add full width centered section intros or highlight or describe a section.",
+        "section_intent": "A centered hightlight section to use as a descriptive content. Can be used for: To add full width centered section intros or highlight or describe a section. Not to be used if the section has extra features like services, benefits etc. Only to be used as a descriptive section.",
         "available_patterns": {
             "featured-content-centered": "This block pattern consists of a centered heading followed by a short paragraph and is used to introduce the section cleanly."
         },
         "content_needed": {
-            "heading": "Add Main Heading. Create using: <!-- wp:heading {\"level\":1,\"className\":\"mb-3\"} --> ",
-            "description": "Add a suitable description. Generate using <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->"
+            "heading": "Add Main Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} --> ",
+            "description": "Add a suitable description. Generate using <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->",
+            "button": "Generate a button block using <!-- wp:buttons {\"layout\":{\"type\":\"flex\",\"justifyContent\":\"center\"}} --> and <!-- wp:button {\"className\":\"btn btn-primary btn-lg\"} --> only if there is an inner page for this section details else return an empty string ''.",
+        }
+    },
+    "featured_highlight_content_with_grid": {
+        "section_intent": "A hightlight section to to visually highlight key content in a grid layout. Ideal for service listings, feature or benefits sections, solution highlights, onboarding steps, process overviews, or showcasing proof points.",
+        "available_patterns": {
+            "feature-content-grid-right": "A featured section with title, description and button on left and feature cards grid on right."
+        },
+        "content_needed": {
+            "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
+            "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4\"} -->",
+            "button": "Generate a button block using <!-- wp:buttons --> and <!-- wp:button {\"className\":\"btn btn-primary btn-lg\"} --> only if there is an inner page for this section details else return an empty string ''.",
+            "features_array": "Generate feature hightlights this section supports. Keep description short in about 25 words. Return an array like this: Return an array like this: [{\"heading\":\"heading1\",\"description\":\"description1\"},{\"heading\":\"heading2\",\"description\":\"description2\"} ...]"
         }
     },
     "media_and_text": {

@@ -59,7 +59,7 @@ add_action( 'wp_head', function () {
 
       $site_theme = $data_array['theme'];
       $site_font = $data_array['fonts'];
-      
+
       switch ($site_theme) {
          case 'classic':
             $font_primary = 'https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap';
@@ -83,7 +83,7 @@ add_action( 'wp_head', function () {
             $border_radius_sm = '5px';
             $border_radius_lg = '10px';
             break;
-         case 'minimal':
+         case 'minimalistic':
             $font_primary = 'https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap';
             $font_primary_family = '"Roboto", sans-serif';
             $font_secondary = 'https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap';
@@ -210,11 +210,11 @@ add_action( 'wp_head', function () {
    }
 } );
 
-add_action('enqueue_block_editor_assets', function () {
+add_action('wp_enqueue_scripts', function () {
    wp_enqueue_script(
-      'block-inserter',
-      get_theme_file_uri('/assets/js/block-inserter.js'),
-      ['wp-blocks', 'wp-element', 'wp-editor', 'wp-data'],
+      'site-main',
+      get_theme_file_uri('/assets/js/site.js'),
+      ['jquery'],
       false,
       true
    );

@@ -16,9 +16,9 @@
 <!-- wp:group {"className":"container"} -->
 <div class="wp-block-group container"><!-- wp:group {"align":"wide","className":"row align-items-center"} -->
 		<div class="wp-block-group alignwide row align-items-center">
-			<!-- wp:media-text {"align":"wide","mediaPosition":"right","mediaType":"image","className":"col-md-12 media-rounded-lg media-shadow pt-5"} -->
+			<!-- wp:media-text {"align":"wide","mediaPosition":"right","mediaType":"image","className":"col-md-12 media-rounded-lg media-shadow pb-md-5 pb-0 pt-5"} -->
 			<div
-				class="wp-block-media-text alignwide has-media-on-the-right is-stacked-on-mobile col-md-12 media-rounded-lg media-shadow pt-5">
+				class="wp-block-media-text alignwide has-media-on-the-right is-stacked-on-mobile col-md-12 media-rounded-lg media-shadow pb-md-5 pb-0 pt-5">
 				<div class="wp-block-media-text__content"><!-- wp:heading {"className":"mb-3"} -->
 					<h2 class="wp-block-heading mb-3">[Heading]</h2>
 					<!-- /wp:heading -->

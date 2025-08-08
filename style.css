@@ -28,6 +28,10 @@ h6 {
     font-weight: 700 !important;
 }
 
+p:empty {
+    display: none;
+}
+
 .text-white * {
     color: rgba(var(--bs-white-rgb), var(--bs-text-opacity));
 }
@@ -139,7 +143,7 @@ header.wp-block-template-part {
 }
 
 .common-padding {
-    padding: 70px 0;
+    padding: 70px 10px;
 }
 
 ul.wp-block-post-template {
@@ -300,7 +304,7 @@ figure.wp-block-media-text__media img {
 
 .banner-content-centered.banner-height::after {
     content: "";
-    background: #00000038;
+    background: #0000004a;
     position: absolute;
     left: 0;
     top: 0;
@@ -311,6 +315,11 @@ figure.wp-block-media-text__media img {
 
 .banner-content-centered.banner-height * {
     z-index: 1;
+}
+
+.banner-content-centered.text-white .btn:hover {
+	color: var(--bs-light);
+	border-color: var(--bs-light);
 }
 
 .wp-block-media-text figure {
@@ -324,7 +333,7 @@ figure.wp-block-media-text__media img {
     left: -50px;
     width: calc(100% - 50px);
     height: 120%;
-    background: rgba( var(--bs-secondary-bg-rgb), 0.4 ) !important;
+    background: rgba(var(--bs-secondary-bg-rgb), 0.4) !important;
     border-radius: var(--bs-border-radius-lg);
 }
 
@@ -365,4 +374,154 @@ i.testimonials-icon {
     color: var(--bs-primary);
     background: #ddd;
     border-radius: 15px;
+}
+
+.testimonial-grid-block .wp-block-image {
+    height: 60px !important;
+    width: 60px !important;
+    background: rgba(var(--bs-secondary-bg-rgb), 0.4);
+    border-radius: var(--bs-border-radius-lg);
+    padding: 10px;
+}
+
+.testimonial-grid-block {
+	text-align: center;
+}
+
+.bloxby-contact-form .wpcf7-form-control-wrap {
+	position: relative;
+	display: block;
+}
+
+.bloxby-contact-form textarea.form-control {
+	max-height: 180px;
+}
+
+.bloxby-contact-form .wpcf7-not-valid-tip {
+	text-align: right;
+	font-size: 11px;
+	position: absolute;
+	right: 0;
+	width: 100%;
+	bottom: 0;
+    padding: 0 10px;
+}
+.bloxby-contact-form p {
+    margin: 0;
+}
+.form-submit-wrap p {
+	display: flex;
+	align-items: center;
+}
+
+
+
+/** Responsive */
+
+
+
+@media (max-width: 991px) {
+    #headerNavbarContent {
+        position: fixed;
+        right: 0;
+        z-index: 99;
+        right: 0;
+        width: 0%;
+        text-align: center;
+        top: 0;
+        background: #fff;
+        height: 100% !important;
+        transition: all ease 0.5s;
+        white-space: nowrap;
+    }
+
+    #headerNavbarContent #menu-header-menu {
+        padding: 150px calc(var(--bs-gutter-x) * .5);
+        align-items: center;
+    }
+
+    #headerNavbarContent.active {
+        width: 60%;
+    }
+
+    .header-menu-toggle {
+        z-index: 999;
+    }
+
+    .header-menu-toggle {
+        border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        padding: 5px;
+    }
+
+    .header-menu-toggle span {
+        width: 30px;
+        display: block;
+        height: 3px;
+        background: var(--bs-navbar-color);
+        border-radius: 20px;
+        overflow: hidden;
+        transition: all ease 0.5s;
+    }
+
+    .header-menu-toggle:not(.collapsed) span:nth-child(2) {
+        display: none;
+    }
+
+    .header-menu-toggle:not(.collapsed) span {
+        transform: rotate(45deg);
+        transform-origin: 30% 50%;
+    }
+
+    .header-menu-toggle:not(.collapsed) span:last-child {
+        transform: rotate(-45deg);
+        transform-origin: 30% 50%;
+    }
+
+    ul.wp-block-post-template {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .testimonial-grid-container {
+        grid-auto-flow: column;
+        grid-auto-columns: calc(50% - 20px);
+        grid-template-columns: unset !important;
+        grid-template-rows: unset !important;
+        overflow: scroll;
+    }
+    .feature-cards-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .common-padding {
+        padding: 40px 10px;
+    }    
+    
+}
+
+@media (max-width: 600px) {
+    .wp-block-media-text.is-stacked-on-mobile {
+        gap: 60px;
+    }
+
+    .wp-block-site-logo img {
+        max-width: 60px;
+    }
+
+    ul.wp-block-post-template {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .testimonial-grid-container {
+        grid-auto-columns: calc(65% - 20px);
+    }
+    .feature-cards-grid {
+        grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+    }
 }

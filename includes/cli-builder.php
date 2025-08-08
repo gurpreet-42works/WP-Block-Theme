@@ -45,7 +45,7 @@ function aibuilder_generate_pages_cli($args, $assoc_args)
     update_option('blogname', $website_title);
 
     //Set a sitelogo and set it globally
-    generate_website_logo($apiKey, $website_title, $website_description);
+    // generate_website_logo($apiKey, $website_title, $website_description);
 
     $allPages = [];
     foreach ($json['pages'] as $page) {
@@ -278,7 +278,7 @@ function parse_generated_blocks($api_key, $blocks, $images_array)
         foreach ($output_arr as $output) {
             $pattern_slug = $output->slug;
             $pattern_path = get_stylesheet_directory() . "/patterns/static/{$pattern_slug}.html";
-           
+            WP_CLI::print_value($pattern_path );
             if (file_exists($pattern_path)) {
                 $pattern_content = file_get_contents($pattern_path);
 
@@ -370,14 +370,15 @@ function parse_generated_blocks($api_key, $blocks, $images_array)
                     if (isset($output->content->testimonials_array)) {
                         $testimonials_array = json_decode($output->content->testimonials_array);
                         $testimonials_pattern_html = '';
+                        $icon_url = get_stylesheet_directory_uri() . "/assets/icons/user-alt.svg";
 
                         foreach ($testimonials_array as $testimonial) {
                             $testimonials_pattern_html .= '<!-- wp:bloxby-blocks/testimonial-grid -->
                                 <div class="wp-block-bloxby-blocks-testimonial-grid save-block testimonial-grid-block"><!-- wp:group {"align":"wide","style":{"spacing":{"padding":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40","left":"var:preset|spacing|40","right":"var:preset|spacing|40"}}}} -->
-                                    <div class="wp-block-group alignwide" style="padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)"><!-- wp:image {"id":385,"sizeSlug":"full","linkDestination":"none"} -->
-                                        <!-- wp:html -->
-                                            <i class="testimonials-icon fa-regular fa-user"></i>
-                                        <!-- /wp:html -->
+                                    <div class="wp-block-group alignwide" style="padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)">
+                                        <!-- wp:image {"sizeSlug":"full","linkDestination":"none"} -->
+                                            <figure class="wp-block-image size-full"><img src="'. $icon_url .'" alt=""/></figure>
+                                        <!-- /wp:image -->
 
                                         <!-- wp:paragraph {"placeholder":"Enter testimonial here...","fontSize":"small"} -->
                                         <p class="has-small-font-size">' . $testimonial->title . '</p>
@@ -411,8 +412,6 @@ function parse_generated_blocks($api_key, $blocks, $images_array)
                     if (isset($output->content->posts_array)) {
                         $posts_array = json_decode($output->content->posts_array);
                         if (!empty($posts_array)) {
-                            //https://placehold.co/1200x800
-                            
                             foreach ($posts_array as $post) {
                                 //Upload a dummy Image
                                 $randomKey = array_rand($images_array);
@@ -427,6 +426,38 @@ function parse_generated_blocks($api_key, $blocks, $images_array)
                                 }
                             }
                         }
+                    }
+
+                    if (isset($output->content->features_array)) {
+                        $features_array = json_decode($output->content->features_array);
+                        $feature_cards_html = '';
+                        if (!empty($features_array)) {
+                            foreach ($features_array as $feature) {
+                                $feature_cards_html .= '
+                                    <!-- wp:group {"className":"card feature-card px-4 py-4","layout":{"type":"constrained","justifyContent":"left"}} -->
+                                    <div class="wp-block-group card feature-card px-4 py-4">
+                                        <!-- wp:heading {"level":3} -->
+                                        <h3 class="wp-block-heading">'.$feature->heading.'</h3>
+                                        <!-- /wp:heading -->
+
+                                        <!-- wp:paragraph {"className":"mt-2"} -->
+                                        <p class="mt-2">'.$feature->description.'</p>
+                                        <!-- /wp:paragraph -->
+                                    </div>
+                                    <!-- /wp:group -->';
+                            }
+                        }
+                        $pattern_content = str_replace(
+                            '<!--features-grid-->',
+                            $feature_cards_html,
+                            $pattern_content
+                        );
+                    } else{
+                        $pattern_content = str_replace(
+                            '<!--features-grid-->',
+                            '',
+                            $pattern_content
+                        );
                     }
 
 
