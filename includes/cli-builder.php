@@ -40,24 +40,27 @@ function aibuilder_generate_pages_cli($args, $assoc_args)
     $search_keys = $json['search_query'];
 
     $images_array = fetch_images_from_unsplash($apiKey, "wEaTTFCyEpJYE8XjPti48CK0ff74g5Hl0-B8hJ5g9Yk", $search_keys);
-    
+
     //Set Global Title and Description for webiste
     update_option('blogname', $website_title);
 
     //Set a sitelogo and set it globally
     // generate_website_logo($apiKey, $website_title, $website_description);
 
+    //Add main CF7 Contact form
+    create_bloxby_contact_form();
+
     $allPages = [];
     foreach ($json['pages'] as $page) {
         $allPages[] = [
             'page_title' => $page['page_title'],
-            'page_slug' =>  sanitize_title( $page['page_title'] )
+            'page_slug' =>  sanitize_title($page['page_title'])
         ];
     }
 
-    $page = $json['pages'][0];
-    if (!empty($page)) {
-    // foreach ($json['pages'] as $page) {
+    // $page = $json['pages'][0];
+    // if (!empty($page)) {
+        foreach ($json['pages'] as $page) {
 
         $page_title = $page['page_title'];
         $page_description = $page['page_description'];
@@ -102,6 +105,7 @@ function aibuilder_generate_pages_cli($args, $assoc_args)
 
         if (!$html) {
             WP_CLI::warning("Failed to create page section: $section");
+            WP_CLI::print_value($section);
             // continue;
             return false;
         }
@@ -141,7 +145,6 @@ function aibuilder_generate_pages_cli($args, $assoc_args)
         }
 
         WP_CLI::success("Generated page: $page_title (ID: $page_id)");
-
     }
 }
 
@@ -161,8 +164,8 @@ function handle_openai_pattern_call_generation_cli($api_key, $website_title, $we
         
         Each pattern includes:
         - `section_intent`: It is an important rule to follow before selecting the pattern.
-        - `available_patterns`: a list of valid slugs to randomly pick from
-        - `content_needed`: Each field contains the WordPress block format required
+        - `VALID_SLUGS`: a list of valid design slugs to randomly pick for the selected pattern. Only pick the slug given in this array.
+        - `content_needed`: Each field contains the WordPress block format required. Return only a JSON array as described here.
         - You MUST generate valid HTML for gutenberg block editor for each field using these WordPress blocks
         
         
@@ -191,7 +194,7 @@ function handle_openai_pattern_call_generation_cli($api_key, $website_title, $we
         - Do the same for paragraphs, buttons, and lists — use actual `<p>`, `<a>`, `<ul>`, `<li>` etc. inside the comment blocks.
         - Do not generate placeholders. Always return complete HTML code for each field.
         - Use the hero_banner pattern only if page_type is "home" and For all other pages use inner_banner.
-        - If the page is intended to display multiple blog posts (such as page type like blog, news, latest-posts, or any listing archive-style page), use the posts_archive_loop pattern to generate a paginated post list.
+        - If the page is intended to display all blog posts (such as page type like blog, news, or any archive style page), use the posts_grid_with_pagination pattern to generate a paginated post list els select posts_grid_without_pagination pattern.
 
          **Processing Rules:**
         Critical: In JSON describing desired page sections Dont copy the description as it is instead generate a description
@@ -201,25 +204,31 @@ function handle_openai_pattern_call_generation_cli($api_key, $website_title, $we
         - Cohesive Design: Ensure all sections work together harmoniously with consistent styling
         - Industry Adaptation: Tailor content, CTAs, and messaging to match the business type implied by page title
         - For each button you generate, do not use # as the link. Instead, use the actual URL path of the page.
-        - A list of available pages, each with a page_title and page_slug: '. json_encode($allPages) . '
+        - A list of available pages, each with a page_title and page_slug: ' . json_encode($allPages) . '
         - Whenever you generate a button or link, follow these rules:
             - Never use # or placeholder links.
             - Instead, choose the most contextually relevant page from the list provided.
 
+        STRICT SLUG SELECTION RULES (READ CAREFULLY):
+        1. For each input section, locate the matching pattern object in the provided PATTERNS JSON.
+        2. **You MUST choose exactly one value from that pattern objects "VALID_SLUGS" list (or object keys)** — the chosen value is the final "slug" in output.
+        3. **Do NOT output the pattern objects top-level key** (e.g., do NOT return "posts_grid_without_pagination"). Only return one of the actual design slugs such as "post-cards-with-image".
+        4. Make sure not to use same slug with matching design like centered content banner followed by centered content section or left-aligned followed by another left-aligned slug. 
+
         **Your task:**
         - For each section in the input, select the best-matching pattern based on section type and intent.
-        - Randomly pick one of the available pattern slugs for that type. Make sure not to use same slug with matching design like centered content banner followed by centered content section.
         - Use the corresponding `content_needed` to format each field to generate the WordPress Gutenberg block HTML and generate the data in each field in content_needed according to the section_description.
         - Generate **professional, relevant content** in WordPress HTML (no placeholders, no lorem ipsum).
-        - Return only a JSON array like:
+        - Return only a JSON array as described in content_needed JSON in seleted pattern like:
         
         [
         {{
             "section_name": "Section Title",
-            "slug": "chosen-slug",
+            "slug": "chosen slug",
             "content": {{
-        "heading": "<!-- wp:heading ... -->Write a unique secton heading<!-- /wp -->",
-        "description": "<!-- wp:paragraph ... -->Generate a section desription<!-- /wp -->",
+                "heading": "<!-- wp:heading ... -->Write a unique secton heading<!-- /wp -->",
+                "description": "<!-- wp:paragraph ... -->Generate a section desription<!-- /wp -->",
+                ...
             }}
         }},
         ]
@@ -278,11 +287,12 @@ function parse_generated_blocks($api_key, $blocks, $images_array)
         foreach ($output_arr as $output) {
             $pattern_slug = $output->slug;
             $pattern_path = get_stylesheet_directory() . "/patterns/static/{$pattern_slug}.html";
-            WP_CLI::print_value($pattern_path );
+            WP_CLI::print_value($pattern_path);
             if (file_exists($pattern_path)) {
                 $pattern_content = file_get_contents($pattern_path);
-
+                
                 if (!empty($pattern_content)) {
+                    WP_CLI::print_value($output->content);
                     if (isset($output->content->heading)) {
                         $pattern_content = str_replace(
                             '<!--section-heading-->',
@@ -377,7 +387,7 @@ function parse_generated_blocks($api_key, $blocks, $images_array)
                                 <div class="wp-block-bloxby-blocks-testimonial-grid save-block testimonial-grid-block"><!-- wp:group {"align":"wide","style":{"spacing":{"padding":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40","left":"var:preset|spacing|40","right":"var:preset|spacing|40"}}}} -->
                                     <div class="wp-block-group alignwide" style="padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)">
                                         <!-- wp:image {"sizeSlug":"full","linkDestination":"none"} -->
-                                            <figure class="wp-block-image size-full"><img src="'. $icon_url .'" alt=""/></figure>
+                                            <figure class="wp-block-image size-full"><img src="' . $icon_url . '" alt=""/></figure>
                                         <!-- /wp:image -->
 
                                         <!-- wp:paragraph {"placeholder":"Enter testimonial here...","fontSize":"small"} -->
@@ -416,12 +426,12 @@ function parse_generated_blocks($api_key, $blocks, $images_array)
                                 //Upload a dummy Image
                                 $randomKey = array_rand($images_array);
                                 $random_image = $images_array[$randomKey];
-                                
-                                $image_url = $random_image['url'] . '&w=1200&h=800&&fit=crop' ; //Crop to required size
+
+                                $image_url = $random_image['url'] . '&w=1200&h=800&&fit=crop'; //Crop to required size
                                 $image_name = $random_image['image_name'];
                                 $attach_id = upload_media_to_library($image_url, $image_name);
 
-                                if( $attach_id ){
+                                if ($attach_id) {
                                     generate_post($api_key, $post->title, $post->content, $attach_id);
                                 }
                             }
@@ -437,11 +447,11 @@ function parse_generated_blocks($api_key, $blocks, $images_array)
                                     <!-- wp:group {"className":"card feature-card px-4 py-4","layout":{"type":"constrained","justifyContent":"left"}} -->
                                     <div class="wp-block-group card feature-card px-4 py-4">
                                         <!-- wp:heading {"level":3} -->
-                                        <h3 class="wp-block-heading">'.$feature->heading.'</h3>
+                                        <h3 class="wp-block-heading">' . $feature->heading . '</h3>
                                         <!-- /wp:heading -->
 
                                         <!-- wp:paragraph {"className":"mt-2"} -->
-                                        <p class="mt-2">'.$feature->description.'</p>
+                                        <p class="mt-2">' . $feature->description . '</p>
                                         <!-- /wp:paragraph -->
                                     </div>
                                     <!-- /wp:group -->';
@@ -452,7 +462,7 @@ function parse_generated_blocks($api_key, $blocks, $images_array)
                             $feature_cards_html,
                             $pattern_content
                         );
-                    } else{
+                    } else {
                         $pattern_content = str_replace(
                             '<!--features-grid-->',
                             '',
@@ -463,14 +473,14 @@ function parse_generated_blocks($api_key, $blocks, $images_array)
 
                     //Check if pattern selected has image URL needed then use a random image
                     $image_required = detect_image_tag($pattern_content);
-                    if( $image_required['found'] ) {
+                    if ($image_required['found']) {
                         $img_width = $image_required['width'];
                         $img_height =  $image_required['height'];
                         $full_tag = $image_required['full_tag'];
 
                         $randomKey = array_rand($images_array);
                         $random_image = $images_array[$randomKey];
-                        $image_url = $random_image['url'] . '&w='.$img_width.'&h='.$img_height.'&&fit=crop' ; //Crop to required size
+                        $image_url = $random_image['url'] . '&w=' . $img_width . '&h=' . $img_height . '&&fit=crop'; //Crop to required size
                         $pattern_content = str_replace(
                             $full_tag,
                             $image_url,
@@ -480,19 +490,19 @@ function parse_generated_blocks($api_key, $blocks, $images_array)
 
                     //Check if pattern selected has gallery URL needed then use a random gallery
                     $gallery_required = detect_gallery_tag($pattern_content);
-                    if( $gallery_required['found'] ) {
+                    if ($gallery_required['found']) {
                         $img_width = $gallery_required['width'];
                         $img_height =  $gallery_required['height'];
                         $full_tag = $gallery_required['full_tag'];
                         $images_count = $gallery_required['count'];
                         $gallery_html = '';
-                        
-                        for ($i=0; $i < $images_count; $i++) { 
+
+                        for ($i = 0; $i < $images_count; $i++) {
                             $randomKey = array_rand($images_array);
                             $random_image = $images_array[$randomKey];
-                            $image_url = $random_image['url'] . '&w='.$img_width.'&h='.$img_height.'&&fit=crop' ; //Crop to required size
+                            $image_url = $random_image['url'] . '&w=' . $img_width . '&h=' . $img_height . '&&fit=crop'; //Crop to required size
                             $gallery_html .= '<!-- wp:image {"className":"overflow-hidden rounded shadow-sm"} -->
-                                    <figure class="wp-block-image size-large overflow-hidden rounded shadow-sm"><img src="'.$image_url.'" alt="Gallery Image '.$i.'" /></figure>
+                                    <figure class="wp-block-image size-large overflow-hidden rounded shadow-sm"><img src="' . $image_url . '" alt="Gallery Image ' . $i . '" /></figure>
                                     <!-- /wp:image -->';
                         }
 
@@ -586,6 +596,67 @@ function generate_website_logo($apiKey, $siteName, $siteDesc)
         WP_CLI::error("Error in generation: " . $response . PHP_EOL);
         return false;
     }
+}
+
+function create_bloxby_contact_form()
+{
+    // Check if the form already exists
+    $existing = get_page_by_title('Bloxby Contact Form', OBJECT, 'wpcf7_contact_form');
+
+    if ($existing) return;
+
+    // Create the form post
+    $form_post = array(
+        'post_title'   => 'Bloxby Contact Form',
+        'post_status'  => 'publish',
+        'post_type'    => 'wpcf7_contact_form',
+    );
+    $form_id = wp_insert_post($form_post);
+
+    $form_template = '<div class="row g-3">
+            <div class="col-md-6 m-0">
+                <div class="form-control-wrap">
+                    [text* first-name class:form-control class:p-3 class:rounded-3 minlength:1 maxlength:50 placeholder "First Name"]
+                </div>
+            </div>
+            <div class="col-md-6 m-0">
+                <div class="form-control-wrap">
+                    [text* last-name class:form-control class:p-3 class:rounded-3 minlength:1 maxlength:50 placeholder "Last Name"]
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-3 mt-3">
+            <div class="col-md-6 m-0">
+                <div class="form-control-wrap">
+                    [email* email-address class:form-control class:p-3 class:rounded-3 placeholder "Email Address"]
+                </div>
+            </div>
+            <div class="col-md-6 m-0">
+                <div class="form-control-wrap">
+                    [tel* phone-number class:form-control class:p-3 class:rounded-3 minlength:1 maxlength:15 placeholder "Phone Number"]
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-3 mt-3">
+            <div class="col-12">
+                <div class="form-control-wrap">
+                    [textarea user-message class:form-control class:p-3 class:rounded-3 maxlength:500 placeholder] Message [/textarea]
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-auto">
+                <div class="form-submit-wrap">
+                    [submit class:btn class:btn-primary class:px-4 "Submit"]
+                </div>
+            </div>
+        </div>
+    ';
+
+    update_post_meta($form_id, '_form', $form_template);
 }
 
 function generate_post($api_key, $post_title, $post_desc, $attach_id, $post_type = 'post')
@@ -706,13 +777,13 @@ function fetch_images_from_unsplash($api_key, $unsplash_key, $search_keys)
 
         $data = json_decode($response, true);
         $imageUrls = [];
-        
+
         if (is_array($data)) {
             foreach ($data as $image) {
                 if (isset($image['urls']['full'])) {
                     $image_slug = $image['slug'];
                     $image_url = $image['urls']['full'];
-                    
+
                     $imageUrls[] = array(
                         'attachment_id' => 0,
                         'image_name' => $image_slug,
@@ -729,7 +800,8 @@ function fetch_images_from_unsplash($api_key, $unsplash_key, $search_keys)
 /**
  * Helpers
  */
-function upload_media_to_library($image_url, $image_name) {
+function upload_media_to_library($image_url, $image_name)
+{
     //Upload the Image
     $upload_file = wp_upload_bits($image_name . '.jpg', null, file_get_contents($image_url));
 
@@ -782,7 +854,8 @@ function clean_ai_html_output($raw_output)
     return trim(str_replace('```', '', $cleaned));
 }
 
-function detect_image_tag($pattern_content) {
+function detect_image_tag($pattern_content)
+{
     $pattern = '/<!--image\s*\{width\}(\d+)\{\/width\}\s*\{height\}(\d+)\{\/height\}-->/s';
 
     if (preg_match($pattern, $pattern_content, $matches)) {
@@ -797,7 +870,8 @@ function detect_image_tag($pattern_content) {
     return ['found' => false];
 }
 
-function detect_gallery_tag($pattern_content) {
+function detect_gallery_tag($pattern_content)
+{
     $pattern = '/<!--gallery\s*\{width\}(\d+)\{\/width\}\s*\{height\}(\d+)\{\/height\}\s*\{count\}(\d+)\{\/count\}-->/s';
 
     if (preg_match($pattern, $pattern_content, $matches)) {

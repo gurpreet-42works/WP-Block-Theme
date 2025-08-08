@@ -15,7 +15,7 @@
     },
     "inner_banner": {
         "section_intent": "A small banner section to use in innner or sub pages. Can be used for:  As a banner for inner or sub pages.",
-        "available_patterns": {
+        "VALID_SLUGS": {
             "inner-banner-centered": "This block pattern consists of a centered heading followed by a short paragraph and is used to introduce the section or page cleanly."
         },
         "content_needed": {
@@ -25,7 +25,7 @@
     },
     "featured_content": {
         "section_intent": "A centered hightlight section to use as a descriptive content. Can be used for: To add full width centered section intros or highlight or describe a section. Not to be used if the section has extra features like services, benefits etc. Only to be used as a descriptive section.",
-        "available_patterns": {
+        "VALID_SLUGS": {
             "featured-content-centered": "This block pattern consists of a centered heading followed by a short paragraph and is used to introduce the section cleanly."
         },
         "content_needed": {
@@ -36,19 +36,19 @@
     },
     "featured_highlight_content_with_grid": {
         "section_intent": "A hightlight section to to visually highlight key content in a grid layout. Ideal for service listings, feature or benefits sections, solution highlights, onboarding steps, process overviews, or showcasing proof points.",
-        "available_patterns": {
+        "VALID_SLUGS": {
             "feature-content-grid-right": "A featured section with title, description and button on left and feature cards grid on right."
         },
         "content_needed": {
             "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
             "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4\"} -->",
             "button": "Generate a button block using <!-- wp:buttons --> and <!-- wp:button {\"className\":\"btn btn-primary btn-lg\"} --> only if there is an inner page for this section details else return an empty string ''.",
-            "features_array": "Generate feature hightlights this section supports. Keep description short in about 25 words. Return an array like this: Return an array like this: [{\"heading\":\"heading1\",\"description\":\"description1\"},{\"heading\":\"heading2\",\"description\":\"description2\"} ...]"
+            "features_array": "Generate heading and description array of upto 6 feature hightlight cards for this section like services, benefits, solutions, or any highlight. Keep description short in about 25 words. Return an array like this: [{\"heading\":\"heading1\",\"description\":\"description1\"},{\"heading\":\"heading2\",\"description\":\"description2\"} ...]"
         }
     },
     "media_and_text": {
         "section_intent": "Two column layout with text and image. Use for: Feature explanations, service descriptions, about sections etc. where content with image is required.",
-        "available_patterns": {
+        "VALID_SLUGS": {
             "media-text-left-aligned": "Section with an image on left and content on right",
             "media-text-right-aligned": "Section with an image on right and content on left"
         },
@@ -60,7 +60,7 @@
     },
     "images_grid": {
         "section_intent": "Grid layout for displaying logos, icons, or images. Use for:Client logos, partner showcase, feature icons, gallery",
-        "available_patterns": {
+        "VALID_SLUGS": {
             "images-grid": "Image grid section with heading and description."
         },
         "content_needed": {
@@ -70,7 +70,7 @@
     },
     "posts_grid_without_pagination": {
         "section_intent": "A list of posts without pagination. Use to display a curated list of latest 6 posts without pagination. Can be used to show recent or related articles where pagination is not needed.",
-        "available_patterns": {
+        "VALID_SLUGS": {
             "post-cards-with-image": "A list of posts with featured image shown in a 3 column grid view using bootstrap cards."
         },
         "content_needed": {
@@ -81,7 +81,7 @@
     },
     "posts_grid_with_pagination": {
         "section_intent": "A list of posts, with featured image and post date with pagination. Can be used in Archive or listing pages where we need to show all the blogs. Use on blog listing or archive pages with pagination.",
-        "available_patterns": {
+        "VALID_SLUGS": {
             "loop-post-cards-with-image": "A list of posts with featured image shown in a 3 column grid view using bootstrap cards."
         },
         "content_needed": {
@@ -90,28 +90,28 @@
     },
     "testimonials": {
         "section_intent": "Section to show testimonials from partners, clients or any source in a grid view.",
-        "available_patterns": {
+        "VALID_SLUGS": {
             "testimonials-grid": "A 3 column layout to show testimonials in grid view."
         },
         "content_needed": {
             "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
             "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->",
-            "testimonials_array": "Generate a minimum 5 to 6 testimonials according to the section_title and website description. Use dummy names and designations for the testimonials. Return an JSON array like this: [{\"title\":\"testimonial-title1\",\"description\":\"testimonial-description1\",\"designation\":\"designation1\"},{\"title\":\"testimonial-title2\",\"description\":\"testimonial-description2\",\"designation\":\"designation2\"} ...]"
+            "testimonials_array": "Generate a minimum 5 to 6 testimonials according to the section_title and website description. Use dummy names and designations for the testimonials. Return an array like this: [{\"title\":\"testimonial-title1\",\"description\":\"testimonial-description1\",\"designation\":\"designation1\"},{\"title\":\"testimonial-title2\",\"description\":\"testimonial-description2\",\"designation\":\"designation2\"} ...]"
         }
     },
     "contact_section": {
         "section_intent": "Section to show conctact forms.",
-        "available_patterns": {
+        "VALID_SLUGS": {
             "contact-form-centered": "A contact form section with heading, subheading and contact form in a full width layout."
         },
         "content_needed": {
             "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
-            "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4 mt-0\",\"fontSize\":\"medium\"} -->",
+            "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4 mt-0\"} -->",
         }
     },
     "statistics_bar": {
         "section_intent": "A grid of stats to show statistics number as title and a small description. Use it to show achievements, client numbers, projects completed, uptime, or other trust-building figures according to the website description.",
-        "available_patterns": {
+        "VALID_SLUGS": {
             "statistics-bar-without-arrow": "A 4-column statistic grid. Each with a bold numeric stat (1M+, 500k+, etc.). A small label (Lorem Ipsum)."
         },
         "content_needed": {
@@ -122,7 +122,7 @@
     },
     "call_to_action": {
         "section_intent": "Call-to-action section with centered heading, description, and button.",
-        "available_patterns": {
+        "VALID_SLUGS": {
             "cta-box-medium": "Medium Call To Action with title and description and button."
         },
         "content_needed": {

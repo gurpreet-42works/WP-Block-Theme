@@ -502,7 +502,12 @@ i.testimonials-icon {
     .common-padding {
         padding: 40px 10px;
     }    
-    
+    .bloxby-contact-form .row{
+        gap: 1rem;
+    }
+    .section-featured-content-grid-left .wp-block-columns {
+        flex-direction: column-reverse;
+    }
 }
 
 @media (max-width: 600px) {
@@ -523,5 +528,8 @@ i.testimonials-icon {
     }
     .feature-cards-grid {
         grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+    }
+    footer {
+        text-align: center;
     }
 }

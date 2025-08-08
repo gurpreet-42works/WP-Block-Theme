@@ -12,8 +12,8 @@
  */
 ?>
 
-<!-- wp:group {"className":"common-padding","layout":{"type":"flex", "justifyContent": "center"}} -->
-<div class="wp-block-group common-padding"><!-- wp:columns {"verticalAlignment":"center", className: "container m-auto"} -->
+<!-- wp:group {"className":"common-padding section-featured-content-grid-right","layout":{"type":"flex", "justifyContent": "center"}} -->
+<div class="wp-block-group common-padding section-featured-content-grid-right"><!-- wp:columns {"verticalAlignment":"center", className: "container m-auto"} -->
     <div class="wp-block-columns container m-auto are-vertically-aligned-center"><!-- wp:column {"verticalAlignment":"center","width":"33.33%"} -->
         <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:33.33%"><!-- wp:heading -->
             <h2 class="wp-block-heading">Heading Goes Here</h2>

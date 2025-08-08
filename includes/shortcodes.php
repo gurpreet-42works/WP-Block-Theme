@@ -51,7 +51,7 @@ function bloxby_contact_form_shortcode()
     ob_start();
 ?>
     <div class="bloxby-contact-form py-4">
-        <?php echo do_shortcode( '[contact-form-7 title="Contact form"]' ); ?>
+        <?php echo do_shortcode( '[contact-form-7 title="Bloxby Contact Form"]' ); ?>
     </div>
 <?php
     return ob_get_clean();
