@@ -194,7 +194,7 @@ function handle_openai_pattern_call_generation_cli($api_key, $website_title, $we
         - Do the same for paragraphs, buttons, and lists — use actual `<p>`, `<a>`, `<ul>`, `<li>` etc. inside the comment blocks.
         - Do not generate placeholders. Always return complete HTML code for each field.
         - Use the hero_banner pattern only if page_type is "home" and For all other pages use inner_banner.
-        - If the page is intended to display all blog posts (such as page type like blog, news, or any archive style page), use the posts_grid_with_pagination pattern to generate a paginated post list els select posts_grid_without_pagination pattern.
+        - If the page is intended to list all blog posts (e.g. page type “blog”, “news”, “archive”, or URLs containing /blog, /news, /our-blog, /our-beauty-blog) always select posts_grid_with_pagination pattern else select posts_grid_without_pagination pattern. This is a hard rule to follow.
 
          **Processing Rules:**
         Critical: In JSON describing desired page sections Dont copy the description as it is instead generate a description
@@ -213,7 +213,8 @@ function handle_openai_pattern_call_generation_cli($api_key, $website_title, $we
         1. For each input section, locate the matching pattern object in the provided PATTERNS JSON.
         2. **You MUST choose exactly one value from that pattern objects "VALID_SLUGS" list (or object keys)** — the chosen value is the final "slug" in output.
         3. **Do NOT output the pattern objects top-level key** (e.g., do NOT return "posts_grid_without_pagination"). Only return one of the actual design slugs such as "post-cards-with-image".
-        4.  **Do NOT repeat same slug with matching design like centered content banner followed by centered content section or left-aligned followed by another left-aligned slug. 
+        4.  **If the previously used section’s slug belongs to the same design category (e.g., "centered content", "left-aligned content", "full-width image banner", etc.), you must select a slug from a different design category in VALID_SLUGS array.
+          - Example: If the last section used "media-text-left-aligned", you cannot pick "media-text-left-aligned" immediately after it, since they share the same "left aligned" design layout.
 
         **Your task:**
         - For each section in the input, select the best-matching pattern based on section type and intent.

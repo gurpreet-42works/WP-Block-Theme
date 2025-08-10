@@ -82,7 +82,7 @@
     "posts_grid_with_pagination": {
         "section_intent": "A list of posts, with featured image and post date with pagination. Can be used in Archive or listing pages where we need to show all the blogs. Use on blog listing or archive pages with pagination.",
         "VALID_SLUGS": {
-            "loop-post-cards-with-image": "A list of posts with featured image shown in a 3 column grid view using bootstrap cards."
+            "paginated-post-cards-with-image": "A list of posts with featured image shown in a 3 column grid view using bootstrap cards."
         },
         "content_needed": {
             "posts_array": "Add 4-5 posts according to the section_title and website description. Return an array like this: [{\"title\":\"title1\",\"content\":\"blog_content1\"},{\"title\":\"title2\",\"content\":\"blog_content2\"} ...]"
