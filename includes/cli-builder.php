@@ -194,7 +194,7 @@ function handle_openai_pattern_call_generation_cli($api_key, $website_title, $we
         - Do the same for paragraphs, buttons, and lists — use actual `<p>`, `<a>`, `<ul>`, `<li>` etc. inside the comment blocks.
         - Do not generate placeholders. Always return complete HTML code for each field.
         - Use the hero_banner pattern only if page_type is "home" and For all other pages use inner_banner.
-        - If the page is intended to list all blog posts (e.g. page type “blog”, “news”, “archive”, or URLs containing /blog, /news, /our-blog, /our-beauty-blog) always select posts_grid_with_pagination pattern else select posts_grid_without_pagination pattern. This is a hard rule to follow.
+        - If the page is intended to display all blog posts (e.g. page type “blog”, “news”, “archive”, or URLs containing /blog, /news, /our-blog, /our-beauty-blog), use the posts_grid_with_pagination pattern to generate a paginated post list else select posts_grid_without_pagination pattern.
 
          **Processing Rules:**
         Critical: In JSON describing desired page sections Dont copy the description as it is instead generate a description
@@ -208,6 +208,7 @@ function handle_openai_pattern_call_generation_cli($api_key, $website_title, $we
         - Whenever you generate a button or link, follow these rules:
             - Never use # or placeholder links.
             - Instead, choose the most contextually relevant page from the list provided.
+            - If the link is linked to website page, use full URL donot use relaive links. WEBSITE URL is given.
 
         STRICT SLUG SELECTION RULES (READ CAREFULLY):
         1. For each input section, locate the matching pattern object in the provided PATTERNS JSON.
