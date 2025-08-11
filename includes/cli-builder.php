@@ -182,6 +182,7 @@ function handle_openai_pattern_call_generation_cli($api_key, $website_title, $we
         INPUT PROCESSING:        
         PAGE TITLE: ' . $page_title . '
         PAGE DESCRIPTION: ' . $page_description . '
+        PAGE SLUG: ' . sanitize_title($page_title) . '
         
         ---
         **IMPORTANT FORMAT RULES:**
