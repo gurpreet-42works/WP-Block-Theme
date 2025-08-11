@@ -130,7 +130,13 @@ header.wp-block-template-part {
     text-transform: uppercase;
     font-weight: 600;
     letter-spacing: 0.3px;
+    transition: all ease 0.2s;
 }
+
+.navigation-main .navbar-nav a:hover,
+.navigation-footer .navbar a:hover {
+    color: var(--bs-primary);
+} 
 
 .navigation-footer nav.navbar a {
     text-decoration: none;
@@ -140,6 +146,11 @@ header.wp-block-template-part {
 .navigation-footer .navbar .current-menu-item a {
     text-decoration: none;
     color: var(--bs-primary);
+}
+
+.no-social * {
+    width: 100% !important;
+    text-align: center;
 }
 
 .common-padding {
