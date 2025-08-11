@@ -44,7 +44,8 @@
         "content_needed": {
             "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
             "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4\"} -->",
-            "bullet_lists": "If there is any points to include. Use <!-- wp:list {\"className\":\"mb-4\"} -->"
+            "bullet_lists": "If there is any points to include. Use <!-- wp:list {\"className\":\"mb-4\"} -->",
+            "button": "Generate a button block using <!-- wp:buttons {\"layout\":{\"type\":\"flex\",\"justifyContent\":\"center\"}} --> and <!-- wp:button {\"className\":\"btn btn-primary btn-lg\"} --> only if there is an inner page for this section details else return an empty string ''. Also return empty string if the link is of same page.",
         }
     },
     "images_grid": {
