@@ -86,7 +86,7 @@
         "content_needed": {
             "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
             "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->",
-            "testimonials_array": "Generate a minimum 5 to 6 testimonials according to the section_title and website description. Use dummy names and designations for the testimonials. Return an array like this: [{\"title\":\"testimonial-title1\",\"description\":\"testimonial-description1\",\"designation\":\"designation1\"},{\"title\":\"testimonial-title2\",\"description\":\"testimonial-description2\",\"designation\":\"designation2\"} ...]"
+            "testimonials_array": "Generate 3 testimonials according to the section_title and website description. Use dummy names and designations for the testimonials. Return an array like this: [{\"title\":\"testimonial-title1\",\"description\":\"testimonial-description1\",\"designation\":\"designation1\"},{\"title\":\"testimonial-title2\",\"description\":\"testimonial-description2\",\"designation\":\"designation2\"} ...]"
         }
     },
     "contact_section": {
