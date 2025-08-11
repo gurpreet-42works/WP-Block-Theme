@@ -213,7 +213,7 @@ function handle_openai_pattern_call_generation_cli($api_key, $website_title, $we
         STRICT SLUG SELECTION RULES (READ CAREFULLY):
         1. For each input section, locate the matching pattern object in the provided PATTERNS JSON.
         2. **You MUST choose exactly one value from that pattern objects "VALID_SLUGS" list (or object keys)** — the chosen value is the final "slug" in output.
-        3. **Do NOT output the pattern objects top-level key** (e.g., do NOT return "posts_grid_without_pagination"). Only return one of the actual design slugs such as "post-cards-with-image".
+        3. **Do NOT output the pattern objects top-level key** (e.g., do NOT return "posts_grid_without_pagination"). Only return one of the actual design slugs listed in VALID_SLUGS array such as "post-cards-with-image".
         4.  **If the previously used section’s slug belongs to the same design category (e.g., "centered content", "left-aligned content", "full-width image banner", etc.), you must select a slug from a different design category in VALID_SLUGS array.
           - Example: If the last section used "media-text-left-aligned", you cannot pick "media-text-left-aligned" immediately after it, since they share the same "left aligned" design layout.
 
@@ -668,7 +668,7 @@ function generate_post($api_key, $post_title, $post_desc, $attach_id, $post_type
         Write a comprehensive blog article with:
         Multiple H2 and H3 subheadings to break up content
         Use bullet points wherever appropriate to improve readability
-        Around 1000-1500 words with detailed explanations
+        Around 800-1000 words with detailed explanations
 
         REQUIREMENTS:
         Use proper HTML formatting. Include:
