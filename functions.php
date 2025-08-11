@@ -79,18 +79,18 @@ add_action( 'wp_head', function () {
             $font_primary_family = '"Roboto", sans-serif';
             $font_secondary = 'https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap';
             $font_secondary_family = '"Lato", sans-serif';
-            $border_radius = '0px';
-            $border_radius_sm = '0px';
-            $border_radius_lg = '0px';
+            $border_radius = '10px';
+            $border_radius_sm = '5px';
+            $border_radius_lg = '10px';
             break;
          case 'minimalistic':
             $font_primary = 'https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap';
             $font_primary_family = '"Roboto", sans-serif';
             $font_secondary = 'https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap';
             $font_secondary_family = '"Roboto", sans-serif';
-            $border_radius = '10px';
-            $border_radius_sm = '5px';
-            $border_radius_lg = '10px';
+            $border_radius = '0px';
+            $border_radius_sm = '0px';
+            $border_radius_lg = '0px';
             break;
          case 'flat':
             $font_primary = 'https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap';
