@@ -23,17 +23,6 @@
             "description": "Add a suitable description. Generate using <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->"
         }
     },
-    "featured_content": {
-        "section_intent": "A full width content section to use as a descriptive block. Use for: Feature explanations, service descriptions, about sections etc. where content without image is required.",
-        "VALID_SLUGS": {
-            "featured-content-centered": "This block pattern consists of a centered heading followed by a short paragraph and is used to introduce the section cleanly."
-        },
-        "content_needed": {
-            "heading": "Add Main Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} --> ",
-            "description": "Add a suitable description. Generate using <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->",
-            "button": "Generate a button block using <!-- wp:buttons {\"layout\":{\"type\":\"flex\",\"justifyContent\":\"center\"}} --> and <!-- wp:button {\"className\":\"btn btn-primary btn-lg\"} --> only if there is an inner page for this section details else return an empty string ''. Also return empty string if the link is of same page.",
-        }
-    },
     "featured_highlight_content_with_grid": {
         "section_intent": "A hightlight section to to visually highlight key content in a grid layout. Ideal for service listings, feature or benefits sections, solution highlights, onboarding steps, process overviews, or showcasing proof points.",
         "VALID_SLUGS": {
