@@ -193,7 +193,7 @@ function handle_openai_pattern_call_generation_cli($api_key, $website_title, $we
         
         - Do the same for paragraphs, buttons, and lists — use actual `<p>`, `<a>`, `<ul>`, `<li>` etc. inside the comment blocks.
         - Do not generate placeholders. Always return complete HTML code for each field.
-        - Use the hero_banner pattern only if page_type is "home" and For all other pages use inner_banner.
+        - Use the hero_banner pattern only if page_type is "home" and For all other pages use inner_banner pattern for banner.
         - If the page is intended to display all blog posts (e.g. page type “blog”, “news”, “archive”, or URLs containing /blog, /news, /our-blog, /our-beauty-blog), use the posts_grid_with_pagination pattern to generate a paginated post list else select posts_grid_without_pagination pattern.
 
          **Processing Rules:**

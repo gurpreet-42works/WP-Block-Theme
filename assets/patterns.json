@@ -14,7 +14,7 @@
         }
     },
     "inner_banner": {
-        "section_intent": "A small banner section to use in innner or sub pages. Can be used for:  As a banner for inner or sub pages.",
+        "section_intent": "A small banner section to use in inner or sub pages. Can be used for:  As a banner for inner or sub pages. Do not use it for any other section type.",
         "VALID_SLUGS": {
             "inner-banner-centered": "This block pattern consists of a centered heading followed by a short paragraph and is used to introduce the section or page cleanly."
         },
@@ -24,7 +24,7 @@
         }
     },
     "featured_content": {
-        "section_intent": "A centered hightlight section to use as a descriptive content. Can be used for: To add full width centered section intros or highlight or describe a section. Not to be used if the section has extra features like services, benefits etc. Only to be used as a descriptive section.",
+        "section_intent": "A full width content section to use as a descriptive block. Use for: Feature explanations, service descriptions, about sections etc. where content without image is required.",
         "VALID_SLUGS": {
             "featured-content-centered": "This block pattern consists of a centered heading followed by a short paragraph and is used to introduce the section cleanly."
         },
