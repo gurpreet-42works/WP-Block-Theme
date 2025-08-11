@@ -43,7 +43,7 @@
             "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
             "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4\"} -->",
             "button": "Generate a button block using <!-- wp:buttons --> and <!-- wp:button {\"className\":\"btn btn-primary btn-lg\"} --> only if there is an inner page for this section details else return an empty string ''.",
-            "features_array": "Generate heading and description array of upto 6 feature hightlight cards for this section like services, benefits, solutions, or any highlight. Keep description short in about 25 words. Return an array like this: [{\"heading\":\"heading1\",\"description\":\"description1\"},{\"heading\":\"heading2\",\"description\":\"description2\"} ...]"
+            "features_array": "Generate heading and description array of upto 6 feature hightlight cards for this section like services, benefits, solutions, products or any highlight. Keep description short in about 25 words. Return an array like this: [{\"heading\":\"heading1\",\"description\":\"description1\"},{\"heading\":\"heading2\",\"description\":\"description2\"} ...]"
         }
     },
     "media_and_text": {
