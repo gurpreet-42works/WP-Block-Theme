@@ -43,7 +43,7 @@ function aibuilder_generate_pages_cli($args, $assoc_args)
 
 
 
-    $images_array = fetch_images_from_unsplash($apiKey, "wEaTTFCyEpJYE8XjPti48CK0ff74g5Hl0-B8hJ5g9Yk", $search_keys);
+    $images_array = fetch_images_from_unsplash($apiKey, "wEaTTFCyEpJYE8XjPti48CK0ff74g5Hl0-B8hJ5g9Yk", $search_keys, 30);
     
     //Set Global Title and Description for webiste
     update_option('blogname', $website_title);
@@ -466,12 +466,17 @@ function parse_generated_blocks($api_key, $blocks, $images_array)
                     //Check if pattern selected has image URL needed then use a random image
                     $image_required = detect_image_tag($pattern_content);
                     if ($image_required['found']) {
+                        if( isset( $output->content->search_terms ) ){
+                            $gallery_images_array = fetch_images_from_unsplash("", "wEaTTFCyEpJYE8XjPti48CK0ff74g5Hl0-B8hJ5g9Yk", $output->content->search_terms, 1);
+                        } else{
+                            $gallery_images_array = $images_array;
+                        }
                         $img_width = $image_required['width'];
                         $img_height =  $image_required['height'];
                         $full_tag = $image_required['full_tag'];
 
-                        $randomKey = array_rand($images_array);
-                        $random_image = $images_array[$randomKey];
+                        $randomKey = array_rand($gallery_images_array);
+                        $random_image = $gallery_images_array[$randomKey];
                         $image_url = $random_image['url'] . '&w=' . $img_width . '&h=' . $img_height . '&&fit=crop'; //Crop to required size
                         $pattern_content = str_replace(
                             $full_tag,
@@ -483,6 +488,12 @@ function parse_generated_blocks($api_key, $blocks, $images_array)
                     //Check if pattern selected has gallery URL needed then use a random gallery
                     $gallery_required = detect_gallery_tag($pattern_content);
                     if ($gallery_required['found']) {
+                        if( isset( $output->content->search_terms ) ) {
+                            $gallery_images_array = fetch_images_from_unsplash("", "wEaTTFCyEpJYE8XjPti48CK0ff74g5Hl0-B8hJ5g9Yk", $output->content->search_terms, 10);
+                        }else{
+                            $gallery_images_array = fetch_images_from_unsplash("", "wEaTTFCyEpJYE8XjPti48CK0ff74g5Hl0-B8hJ5g9Yk", $search_keys, 10);
+                        }
+                        
                         $img_width = $gallery_required['width'];
                         $img_height =  $gallery_required['height'];
                         $full_tag = $gallery_required['full_tag'];
@@ -490,8 +501,7 @@ function parse_generated_blocks($api_key, $blocks, $images_array)
                         $gallery_html = '';
 
                         for ($i = 0; $i < $images_count; $i++) {
-                            $randomKey = array_rand($images_array);
-                            $random_image = $images_array[$randomKey];
+                            $random_image = $gallery_images_array[$i];
                             $image_url = $random_image['url'] . '&w=' . $img_width . '&h=' . $img_height . '&&fit=crop'; //Crop to required size
                             $gallery_html .= '<!-- wp:image {"className":"overflow-hidden rounded shadow-sm"} -->
                                     <figure class="wp-block-image size-large overflow-hidden rounded shadow-sm"><img src="' . $image_url . '" alt="Gallery Image ' . $i . '" /></figure>
@@ -516,7 +526,7 @@ function parse_generated_blocks($api_key, $blocks, $images_array)
 function generate_website_logo($apiKey, $siteName, $siteDesc, $userLogo, $siteColors)
 {
     $logoUrl = '';
-    if( !empty($userLogo) && $userLogo == 'false' ){
+    if( !empty($userLogo) && $userLogo != 'false' ){
         $logoUrl = $userLogo;
     }else{
         $primary_colour = implode(",", $siteColors[0]);
@@ -811,13 +821,13 @@ function generate_post($api_key, $post_title, $post_desc, $attach_id, $post_type
     }
 }
 
-function fetch_images_from_unsplash($api_key, $unsplash_key, $search_keys)
+function fetch_images_from_unsplash($api_key, $unsplash_key, $search_keys, $limit)
 {
     if ($search_keys) {
         $url = "https://api.unsplash.com/photos/random?" . http_build_query([
             'client_id' => $unsplash_key,
             'query' => $search_keys,
-            'count' => 30,
+            'count' => $limit,
             'orientation' => "landscape"
         ]);
 

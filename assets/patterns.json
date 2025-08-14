@@ -46,6 +46,7 @@
             "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4\"} -->",
             "bullet_lists": "If there is any points to include. Use <!-- wp:list {\"className\":\"mb-4\"} -->",
             "button": "Generate a button block using <!-- wp:buttons {\"layout\":{\"type\":\"flex\",\"justifyContent\":\"left\"}} --> and <!-- wp:button {\"className\":\"btn btn-primary btn-lg\"} --> only if there is an inner page for this section details else return an empty string ''. Return empty string if the link belongs to the same page for e.g. If the button link is /about-us and it is matching with the PAGE SLUG.",
+            "search_terms": "Based on the heading and description of this section and WEBSITE NAME and WEBSITE DESCRIPTION, generate 3-4 relevant comma seperated search terms for finding appropriate images on Unsplash. The search terms should be relevant, professional, and suitable for the website’s purpose."
         }
     },
     "images_grid": {
@@ -55,7 +56,8 @@
         },
         "content_needed": {
             "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
-            "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->"
+            "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->",
+            "search_terms": "Based on the heading and description of this section and WEBSITE NAME and WEBSITE DESCRIPTION, generate 5-8 relevant comma seperated search terms for finding appropriate images on Unsplash. The search terms should be relevant, professional, and suitable for the website’s purpose."
         }
     },
     "posts_grid_without_pagination": {
