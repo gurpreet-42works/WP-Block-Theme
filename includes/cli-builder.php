@@ -38,14 +38,23 @@ function aibuilder_generate_pages_cli($args, $assoc_args)
     $website_description = $json['website_description'];
     $industry = $json['website_industry'];
     $search_keys = $json['search_query'];
+    $user_logo = isset( $json['user_logo'] ) ? $json['user_logo'] : '';
+    $site_colors = $json['colors'];
+
+
 
     $images_array = fetch_images_from_unsplash($apiKey, "wEaTTFCyEpJYE8XjPti48CK0ff74g5Hl0-B8hJ5g9Yk", $search_keys);
 
+    die;
     //Set Global Title and Description for webiste
     update_option('blogname', $website_title);
 
+   
     //Set a sitelogo and set it globally
-    generate_website_logo($apiKey, $website_title, $website_description);
+    generate_website_logo($apiKey, $website_title, $website_description, $user_logo, $site_colors);
+
+    //Generate some blog posts for the website
+    generate_website_posts($apiKey, $website_title, $website_description, $images_array);
 
     //Add main CF7 Contact form
     create_bloxby_contact_form();
@@ -164,7 +173,7 @@ function handle_openai_pattern_call_generation_cli($api_key, $website_title, $we
         
         Each pattern includes:
         - `section_intent`: It is an important rule to follow before selecting the pattern.
-        - `VALID_SLUGS`: a list of valid design slugs to randomly pick for the selected pattern. Only pick the slug given in this array.
+        - `VALID_SLUGS`: a list of valid design slugs to randomly pick for the selected pattern. Only pick a random slug given in this array.
         - `content_needed`: Each field contains the WordPress block format required. Return only a JSON array as described here.
         - You MUST generate valid HTML for gutenberg block editor for each field using these WordPress blocks
         
@@ -179,7 +188,8 @@ function handle_openai_pattern_call_generation_cli($api_key, $website_title, $we
         WEBSITE NAME: ' . $website_title . '
         WEBSITE DESCRIPTION: ' . $website_description . '
 
-        INPUT PROCESSING:        
+        INPUT PROCESSING:
+        CURRENT PAGE DETAILS:       
         PAGE TITLE: ' . $page_title . '
         PAGE DESCRIPTION: ' . $page_description . '
         PAGE SLUG: ' . sanitize_title($page_title) . '
@@ -213,7 +223,7 @@ function handle_openai_pattern_call_generation_cli($api_key, $website_title, $we
 
         STRICT SLUG SELECTION RULES (READ CAREFULLY):
         1. For each input section, locate the matching pattern object in the provided PATTERNS JSON.
-        2. **You MUST choose exactly one value from that pattern objects "VALID_SLUGS" list (or object keys)** — the chosen value is the final "slug" in output.
+        2. **You MUST choose a random value from that pattern object’s "VALID_SLUGS" list (or object keys)**.
         3. **Do NOT output the pattern objects top-level key** (e.g., do NOT return "posts_grid_without_pagination"). Only return one of the actual design slugs listed in VALID_SLUGS array such as "post-cards-with-image".
         4.  **If the previously used section’s slug belongs to the same design category (e.g., "centered content", "left-aligned content", "full-width image banner", etc.), you must select a slug from a different design category in VALID_SLUGS array.
           - Example: If the last section used "media-text-left-aligned", you cannot pick "media-text-left-aligned" immediately after it, since they share the same "left aligned" design layout.
@@ -295,7 +305,6 @@ function parse_generated_blocks($api_key, $blocks, $images_array)
                 $pattern_content = file_get_contents($pattern_path);
                 
                 if (!empty($pattern_content)) {
-                    WP_CLI::print_value($output->content);
                     if (isset($output->content->heading)) {
                         $pattern_content = str_replace(
                             '<!--section-heading-->',
@@ -422,25 +431,6 @@ function parse_generated_blocks($api_key, $blocks, $images_array)
                         );
                     }
 
-                    if (isset($output->content->posts_array)) {
-                        $posts_array = json_decode($output->content->posts_array);
-                        if (!empty($posts_array)) {
-                            foreach ($posts_array as $post) {
-                                //Upload a dummy Image
-                                $randomKey = array_rand($images_array);
-                                $random_image = $images_array[$randomKey];
-
-                                $image_url = $random_image['url'] . '&w=1200&h=800&&fit=crop'; //Crop to required size
-                                $image_name = $random_image['image_name'];
-                                $attach_id = upload_media_to_library($image_url, $image_name);
-
-                                if ($attach_id) {
-                                    generate_post($api_key, $post->title, $post->content, $attach_id);
-                                }
-                            }
-                        }
-                    }
-
                     if (isset($output->content->features_array)) {
                         $features_array = json_decode($output->content->features_array);
                         $feature_cards_html = '';
@@ -524,81 +514,94 @@ function parse_generated_blocks($api_key, $blocks, $images_array)
     return $final_html;
 }
 
-function generate_website_logo($apiKey, $siteName, $siteDesc)
+function generate_website_logo($apiKey, $siteName, $siteDesc, $userLogo, $siteColors)
 {
-    // Construct prompt
-    $prompt = "Create a bold minimalist round logo for website Name: {$siteName}, Description of website: {$siteDesc}, covering the full 1:1 image from edge to edge with no empty space, on a black background.";
+    $logoUrl = '';
+    if( !empty($userLogo) && $userLogo == 'false' ){
+        $logoUrl = $userLogo;
+    }else{
+        $primary_colour = implode(",", $siteColors[0]);
+        $secondary_colour = implode(",", $siteColors[1]);
+        // Construct a new logo using AI
+        $prompt = "Create a bold minimalist perfectly round circular logo for website Name: {$siteName}, Description of website: {$siteDesc} and logo elements in the primary color rgb({$primary_colour}) and secondary color rgb({$secondary_colour}).
+        Critical Rules to follow:
+        1. The circle must cover the full 1:1 image from edge to edge with no empty space, on a pure white (#ffffff) background.
+        2. The design should be fully contained within the circle — no parts of the design should extend outside the circle.
+        3. The design must be flat 2D vector style, with no lighting, no shadows, no textures, no bevel, no gradients, no 3D effects, and no mockup.
+        ";
 
-    // Prepare CURL
-    $ch = curl_init("https://api.openai.com/v1/images/generations");
+        // Prepare CURL
+        $ch = curl_init("https://api.openai.com/v1/images/generations");
 
-    $data = [
-        "model" => "dall-e-3",
-        "prompt" => $prompt,
-        "size" => "1024x1024",
-        "quality" => "standard",
-        "n" => 1
-    ];
+        $data = [
+            "model" => "dall-e-3",
+            "prompt" => $prompt,
+            "size" => "1024x1024",
+            "quality" => "standard",
+            "n" => 1
+        ];
 
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, [
-        "Content-Type: application/json",
-        "Authorization: Bearer {$apiKey}"
-    ]);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            "Content-Type: application/json",
+            "Authorization: Bearer {$apiKey}"
+        ]);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
 
-    // Execute
-    $response = curl_exec($ch);
+        // Execute
+        $response = curl_exec($ch);
 
-    if (curl_errno($ch)) {
-        echo 'Curl error: ' . curl_error($ch);
-        exit;
-    }
-
-    curl_close($ch);
-
-    // Parse and display the generated logo URL
-    $result = json_decode($response, true);
-
-
-    if (isset($result['data'][0]['url'])) {
-        $logoUrl = $result['data'][0]['url'];
-
-        if ($logoUrl) {
-            //Handle File Upload
-            require_once(ABSPATH . 'wp-admin/includes/file.php');
-            require_once(ABSPATH . 'wp-admin/includes/media.php');
-            require_once(ABSPATH . 'wp-admin/includes/image.php');
-
-            $tmp = download_url($logoUrl);
-            if (is_wp_error($tmp)) {
-                return false;
-            }
-
-            $filename = sanitize_title($siteName . '-logo');
-
-            $file_array = [
-                'name' => $filename . '.png',
-                'tmp_name' => $tmp
-            ];
-
-            $attachment_id = media_handle_sideload($file_array, 0); //Upload to media gallery
-
-            if (is_wp_error($attachment_id)) {
-                @unlink($file_array['tmp_name']);
-                return false;
-            }
-
-            // Step 3: Set as site logo
-            if (function_exists('set_theme_mod')) {
-                set_theme_mod('custom_logo', $attachment_id);
-            }
+        if (curl_errno($ch)) {
+            echo 'Curl error: ' . curl_error($ch);
+            exit;
         }
-    } else {
-        WP_CLI::error("Error in generation: " . $response . PHP_EOL);
-        return false;
+
+        curl_close($ch);
+
+        // Parse and display the generated logo URL
+        $result = json_decode($response, true);
+        
+
+        if (isset($result['data'][0]['url'])) {
+            $logoUrl = $result['data'][0]['url'];
+        } else {
+            WP_CLI::error("Error in generation: " . $response . PHP_EOL);
+            return false;
+        }
     }
+
+    if ($logoUrl) {
+        //Handle File Upload
+        require_once(ABSPATH . 'wp-admin/includes/file.php');
+        require_once(ABSPATH . 'wp-admin/includes/media.php');
+        require_once(ABSPATH . 'wp-admin/includes/image.php');
+
+        $tmp = download_url($logoUrl);
+        if (is_wp_error($tmp)) {
+            return false;
+        }
+
+        $filename = sanitize_title($siteName . '-logo');
+
+        $file_array = [
+            'name' => $filename . '.png',
+            'tmp_name' => $tmp
+        ];
+
+        $attachment_id = media_handle_sideload($file_array, 0); //Upload to media gallery
+
+        if (is_wp_error($attachment_id)) {
+            @unlink($file_array['tmp_name']);
+            return false;
+        }
+
+        // Step 3: Set as site logo
+        if (function_exists('set_theme_mod')) {
+            set_theme_mod('custom_logo', $attachment_id);
+        }
+    }
+
 }
 
 function create_bloxby_contact_form()
@@ -660,6 +663,72 @@ function create_bloxby_contact_form()
     ';
 
     update_post_meta($form_id, '_form', $form_template);
+}
+
+function generate_website_posts($api_key, $website_title, $website_description, $images_array) {
+    $prompt = 'Add 3 posts according to the website_title: '. $website_title .' and website description: '. $website_description .'. Keep content below 50 words. Return an array like this: [{\"title\":\"title1\",\"content\":\"blog_content1\"},{\"title\":\"title2\",\"content\":\"blog_content2\"} ...]';
+    $data = [
+        "model" => "gpt-4o-mini",
+        "messages" => [
+            [
+                "role" => "system",
+                "content" => "You are a helpful content writer who writes well-formatted, detailed HTML posts ready for WordPress publishing."
+            ],
+            [
+                "role" => "user",
+                "content" => $prompt
+            ]
+        ],
+        "temperature" => 0.5
+    ];
+
+    $ch = curl_init("https://api.openai.com/v1/chat/completions");
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        "Content-Type: application/json",
+        "Authorization: Bearer {$api_key}"
+    ]);
+    
+    
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+
+    // Execute the request
+    $response = curl_exec($ch);
+
+    if (curl_errno($ch)) {
+        return false;
+    }
+
+    curl_close($ch);
+
+    // Parse the response
+    $result = json_decode($response, true);
+
+    $posts_array = [];
+    if (isset($result['choices'][0]['message']['content'])) {
+        $generatedPosts = $result['choices'][0]['message']['content'];
+        if ($generatedPosts) {
+            $ai_posts_str = clean_ai_json_output($generatedPosts);
+            $posts_array = json_decode( $ai_posts_str );
+        }
+    }
+
+    if (!empty($posts_array)) {
+        foreach ($posts_array as $post) {
+            //Upload a dummy Image
+            $randomKey = array_rand($images_array);
+            $random_image = $images_array[$randomKey];
+
+            $image_url = $random_image['url'] . '&w=1200&h=800&&fit=crop'; //Crop to required size
+            $image_name = $random_image['image_name'];
+            $attach_id = upload_media_to_library($image_url, $image_name);
+
+            if ($attach_id) {
+                generate_post($api_key, $post->title, $post->content, $attach_id);
+            }
+        }
+    }
 }
 
 function generate_post($api_key, $post_title, $post_desc, $attach_id, $post_type = 'post')

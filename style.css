@@ -123,6 +123,11 @@ header.wp-block-template-part {
     z-index: 9999;
 }
 
+.wp-block-site-logo img {
+    max-height: 80px;
+    object-fit: contain;
+}
+
 .navigation-main .navbar-nav a,
 .navigation-footer .navbar a {
     text-decoration: none;
@@ -527,7 +532,7 @@ i.testimonials-icon {
     }
 
     .wp-block-site-logo img {
-        max-width: 60px;
+        max-width: 80px;
     }
 
     ul.wp-block-post-template {
