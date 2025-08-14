@@ -532,7 +532,7 @@ i.testimonials-icon {
     }
 
     .wp-block-site-logo img {
-        max-width: 80px;
+        max-height: 60px;
     }
 
     ul.wp-block-post-template {

@@ -44,8 +44,7 @@ function aibuilder_generate_pages_cli($args, $assoc_args)
 
 
     $images_array = fetch_images_from_unsplash($apiKey, "wEaTTFCyEpJYE8XjPti48CK0ff74g5Hl0-B8hJ5g9Yk", $search_keys);
-
-    die;
+    
     //Set Global Title and Description for webiste
     update_option('blogname', $website_title);
 
