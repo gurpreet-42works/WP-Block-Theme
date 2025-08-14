@@ -491,7 +491,7 @@ function parse_generated_blocks($api_key, $blocks, $images_array)
                         if( isset( $output->content->search_terms ) ) {
                             $gallery_images_array = fetch_images_from_unsplash("", "wEaTTFCyEpJYE8XjPti48CK0ff74g5Hl0-B8hJ5g9Yk", $output->content->search_terms, 10);
                         }else{
-                            $gallery_images_array = fetch_images_from_unsplash("", "wEaTTFCyEpJYE8XjPti48CK0ff74g5Hl0-B8hJ5g9Yk", $search_keys, 10);
+                            $gallery_images_array = $images_array;
                         }
                         
                         $img_width = $gallery_required['width'];
@@ -501,7 +501,13 @@ function parse_generated_blocks($api_key, $blocks, $images_array)
                         $gallery_html = '';
 
                         for ($i = 0; $i < $images_count; $i++) {
-                            $random_image = $gallery_images_array[$i];
+                            if( isset( $output->content->search_terms ) ) {
+                                $random_image = $gallery_images_array[$i];
+                            }else{
+                                $randomKey = array_rand($gallery_images_array);
+                                $random_image = $gallery_images_array[$randomKey];
+                            }
+                            
                             $image_url = $random_image['url'] . '&w=' . $img_width . '&h=' . $img_height . '&&fit=crop'; //Crop to required size
                             $gallery_html .= '<!-- wp:image {"className":"overflow-hidden rounded shadow-sm"} -->
                                     <figure class="wp-block-image size-large overflow-hidden rounded shadow-sm"><img src="' . $image_url . '" alt="Gallery Image ' . $i . '" /></figure>
