@@ -374,7 +374,7 @@ function parse_generated_blocks($api_key, $blocks, $images_array)
                         );
                     }
 
-                    if (isset($output->content->statistics_bar)) {
+                    if (isset($output->content->stats_html)) {
                         $pattern_content = str_replace(
                             '<!--statistics-bar-html-->',
                             $output->content->stats_html,
