@@ -102,8 +102,6 @@ function bloxby_social_icons_shortcode()
                         $icons_html .= '';
                         break;
                 }
-            } else {
-                $show_icons = false;
             }
         }
 
