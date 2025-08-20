@@ -1,13 +1,44 @@
 <!-- wp:group {"layout":{"inherit":true}, "className": "py-3"} -->
 <div class="wp-block-group py-3 px-2">
 
-	<!-- wp:group {"className": "navigation-footer d-md-flex d-none flex-wrap justify-content-center"} -->
-		<div class="wp-block-group col-lg-6 navigation-footer d-md-flex d-none flex-wrap justify-content-center">
-			<!-- wp:shortcode -->
-			[get_footer_menu]
-			<!-- /wp:shortcode -->
-		</div>
+	<!-- wp:group {"className": "footer-row-top pb-4 row"} -->
+	<div class="wp-block-group footer-row-top pb-4 row">
+		<!-- wp:group {"className": "col-lg-5 col-md-6 site-logo-footer"} -->
+			<div class="wp-block-group col-lg-5 col-md-6 site-logo-footer">
+				<!-- wp:site-logo {"width":120, "className":"mb-3"} /-->
+				<!-- wp:shortcode -->
+				[bloxby_website_description]
+				<!-- /wp:shortcode -->
+			</div>
+		<!-- /wp:group -->
+		<!-- wp:group {"className": "col-lg-3 navigation-footer m-0 d-lg-block d-none"} -->
+			<div class="wp-block-group col-lg-3 navigation-footer m-0 d-lg-block d-none">
+				<!-- wp:heading {"level":3} -->
+                    <h3 class="wp-block-heading">Quick Links</h3>
+				<!-- /wp:heading -->
+				<!-- wp:shortcode -->
+				[get_footer_menu]
+				<!-- /wp:shortcode -->
+			</div>
+		<!-- /wp:group -->
+		<!-- wp:group {"className": "col-lg-4 col-md-6 newsletter-footer"} -->
+			<div class="wp-block-group col-lg-4 col-md-6 newsletter-footer m-0">
+				<!-- wp:heading {"level":3} -->
+                    <h3 class="wp-block-heading">Subscribe to our newsletter</h3>
+				<!-- /wp:heading -->
+				<!-- wp:paragraph {"className":"mt-2"} -->
+                    <p class="mt-2">Monthly digest of what's new and exciting from us.</p>
+				<!-- /wp:paragraph -->
+				
+				<!-- wp:shortcode -->
+				[bloxby_newsletter_form]
+				<!-- /wp:shortcode -->
+			</div>
+		<!-- /wp:group -->
+	</div> 
 	<!-- /wp:group -->
+
+	
 
 	<!-- wp:group {"anchor":"footer-row-bottom", "className": "d-flex gap-md-0 gap-4 flex-wrap justify-content-between align-items-center m-0 py-3 border-md-top"} -->
 	<div id="footer-row-bottom" class="wp-block-group d-flex gap-md-0 gap-4 flex-wrap justify-content-between align-items-center m-0 py-3 border-top">

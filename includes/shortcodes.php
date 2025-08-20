@@ -28,8 +28,8 @@ function bloxby_footer_menu_shortcode($atts)
     wp_nav_menu([
         'theme_location' => 'footer-menu',
         'container' => 'nav',
-        'container_class' => 'navbar py-3',
-        'menu_class' => 'nav ms-auto gap-4',
+        'container_class' => 'navbar py-0 mt-3',
+        'menu_class' => 'nav flex-column gap-2',
     ]);
 
     return ob_get_clean();
@@ -58,6 +58,18 @@ function bloxby_contact_form_shortcode()
 }
 add_shortcode('bloxby_contact_form', 'bloxby_contact_form_shortcode');
 
+function bloxby_newsletter_form_shortcode()
+{
+    ob_start();
+?>
+    <div class="bloxby-newsletter-form mt-0"> 
+    <?php echo do_shortcode('[contact-form-7 title="Bloxby Newsletter Form"]'); ?>
+    </div>
+<?php
+    return ob_get_clean();
+}
+add_shortcode('bloxby_newsletter_form', 'bloxby_newsletter_form_shortcode');
+
 
 function bloxby_social_icons_shortcode()
 {
@@ -75,27 +87,27 @@ function bloxby_social_icons_shortcode()
                 switch ($key) {
                     case 'facebook':
                         $icons_html .= '<li class="ms-3">
-                            <a class="text-body-secondary" href="' . $value . '" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                            <a class="text-body-secondary" href="' . $value . '" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
                         </li>';
                         break;
                     case 'instagram':
                         $icons_html .= '<li class="ms-3">
-                            <a class="text-body-secondary" href="' . $value . '" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                            <a class="text-body-secondary" href="' . $value . '" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
                         </li>';
                         break;
                     case 'twitter':
                         $icons_html .= '<li class="ms-3">
-                            <a class="text-body-secondary" href="' . $value . '" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+                            <a class="text-body-secondary" href="' . $value . '" target="_blank" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
                         </li>';
                         break;
                     case 'linkedin':
                         $icons_html .= '<li class="ms-3">
-                            <a class="text-body-secondary" href="' . $value . '" aria-label="linkedin"><i class="fa-brands fa-linkedin"></i></a>
+                            <a class="text-body-secondary" href="' . $value . '" target="_blank" aria-label="linkedin"><i class="fa-brands fa-linkedin"></i></a>
                         </li>';
                         break;
                     case 'pinterest':
                         $icons_html .= '<li class="ms-3">
-                            <a class="text-body-secondary" href="' . $value . '" aria-label="Pinterest"><i class="fa-brands fa-pinterest"></i></a>
+                            <a class="text-body-secondary" href="' . $value . '" target="_blank" aria-label="Pinterest"><i class="fa-brands fa-pinterest"></i></a>
                         </li>';
                         break;
                     default:
@@ -115,3 +127,16 @@ function bloxby_social_icons_shortcode()
     return ob_get_clean();
 }
 add_shortcode('bloxby_social_icons', 'bloxby_social_icons_shortcode');
+
+add_shortcode( 'bloxby_website_description', function() {
+    ob_start();
+
+    $site_data = get_option('sitedata', '');
+
+    if (!empty($site_data)) {
+        $data_array = unserialize(base64_decode($site_data));
+        echo $data_array['website_description'];
+    } 
+
+    return ob_get_clean();
+} );

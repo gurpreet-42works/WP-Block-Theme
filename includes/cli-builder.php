@@ -55,8 +55,9 @@ function aibuilder_generate_pages_cli($args, $assoc_args)
     //Generate some blog posts for the website
     generate_website_posts($apiKey, $website_title, $website_description, $images_array);
 
-    //Add main CF7 Contact form
+    //Add CF7 Contact forms
     create_bloxby_contact_form();
+    create_bloxby_newsletter_form();
 
     $allPages = [];
     foreach ($json['pages'] as $page) {
@@ -430,6 +431,109 @@ function parse_generated_blocks($api_key, $blocks, $images_array)
                         );
                     }
 
+                    if (isset($output->content->social_cards_array)) {
+                        $social_cards_array = json_decode($output->content->social_cards_array);
+                        $social_cards_pattern_html = '';
+
+                        foreach ($social_cards_array as $social_card) {
+                            $social_cards_pattern_html .= '<!-- wp:column {"className":"card social-card p-4 h-100 text-center"} -->
+                                <div class="wp-block-column card social-card p-4 h-100 text-center">
+                                    <!-- wp:image {"sizeSlug":"full","linkDestination":"none","className":"rounded-circle bg-body-secondary"} -->
+                                    <figure class="wp-block-image size-full rounded-circle bg-body-secondary">
+                                        <img src="' .  get_stylesheet_directory_uri() . '/assets/icons/profile-pic-dummy.png" alt="" />
+                                    </figure>
+                                    <!-- /wp:image -->
+
+                                    <!-- wp:heading {"level":3} -->
+                                    <h3 class="wp-block-heading">'. $social_card->name .'</h3>
+                                    <!-- /wp:heading -->
+
+                                    <!-- wp:paragraph -->
+                                    <p>'. $social_card->description .'</p>
+                                    <!-- /wp:paragraph -->
+
+                                    <!-- wp:group {"className":"social-card-icons","layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"center"}} -->
+                                    <div class="wp-block-group social-card-icons">
+                                        <!-- wp:image {"lightbox":{"enabled":false},"width":"35px","height":"35px","scale":"cover","sizeSlug":"full","linkDestination":"custom"} -->
+                                        <figure class="wp-block-image size-full is-resized">
+                                            <a href="https://www.facebook.com/" target="_blank" rel=" noreferrer noopener">
+                                                <img src="' .  get_stylesheet_directory_uri() . '/assets/icons/social-fb.png" alt="" style="object-fit:cover;width:35px;height:35px" />
+                                            </a>
+                                        </figure>
+                                        <!-- /wp:image -->
+
+                                        <!-- wp:image {"lightbox":{"enabled":false},"width":"35px","height":"35px","scale":"cover","sizeSlug":"full","linkDestination":"custom"} -->
+                                        <figure class="wp-block-image size-full is-resized">
+                                            <a href="https://www.instagram.com/" target="_blank" rel=" noreferrer noopener">
+                                                <img src="' .  get_stylesheet_directory_uri() . '/assets/icons/social-insta.png" alt="" style="object-fit:cover;width:35px;height:35px" />
+                                            </a>
+                                        </figure>
+                                        <!-- /wp:image -->
+
+                                        <!-- wp:image {"lightbox":{"enabled":false},"width":"35px","height":"35px","scale":"cover","sizeSlug":"full","linkDestination":"custom"} -->
+                                        <figure class="wp-block-image size-full is-resized">
+                                            <a href="https://www.linkedin.com/" target="_blank" rel=" noreferrer noopener">
+                                                <img src="' .  get_stylesheet_directory_uri() . '/assets/icons/social-linkedin.png" alt="" style="object-fit:cover;width:35px;height:35px" />
+                                            </a>
+                                        </figure>
+                                        <!-- /wp:image -->
+                                    </div>
+                                    <!-- /wp:group -->
+                                </div>
+                                <!-- /wp:column -->';
+                        }
+                        $pattern_content = str_replace(
+                            '<!--social-cards-content-->',
+                            $social_cards_pattern_html,
+                            $pattern_content
+                        );
+                    } else {
+                        $pattern_content = str_replace(
+                            '<!--social-cards-content-->',
+                            '',
+                            $pattern_content
+                        );
+                    }
+
+                    if (isset($output->content->faqs_array)) {
+                        $faqs_array = json_decode($output->content->faqs_array);
+                        $faqs_pattern_html = '';
+
+                        foreach ($faqs_array as $index => $faq) {
+                            if( $index == 0 ){
+                                $faqs_pattern_html .= '<!-- wp:details {"showContent":true} -->
+                                <details class="wp-block-details" open>
+                                    <summary>'. $faq->title .'</summary>
+                                    <!-- wp:paragraph {"placeholder":"Type / to add a hidden block"} -->
+                                    <p>'. $faq->description .'</p>
+                                    <!-- /wp:paragraph -->
+                                </details>
+                                <!-- /wp:details -->';
+                            }else{
+                                $faqs_pattern_html .= '<!-- wp:details -->
+                                <details class="wp-block-details" open>
+                                    <summary>'. $faq->title .'</summary>
+                                    <!-- wp:paragraph {"placeholder":"Type / to add a hidden block"} -->
+                                    <p>'. $faq->description .'</p>
+                                    <!-- /wp:paragraph -->
+                                </details>
+                                <!-- /wp:details -->';
+                            }
+                            
+                        }
+                        $pattern_content = str_replace(
+                            '<!--all-faqs-content-->',
+                            $faqs_pattern_html,
+                            $pattern_content
+                        );
+                    } else {
+                        $pattern_content = str_replace(
+                            '<!--all-faqs-content-->',
+                            '',
+                            $pattern_content
+                        );
+                    }
+
                     if (isset($output->content->features_array)) {
                         $features_array = json_decode($output->content->features_array);
                         $feature_cards_html = '';
@@ -676,6 +780,29 @@ function create_bloxby_contact_form()
             </div>
         </div>
     ';
+
+    update_post_meta($form_id, '_form', $form_template);
+}
+
+function create_bloxby_newsletter_form()
+{
+    // Check if the form already exists
+    $existing = get_page_by_title('Bloxby Newsletter Form', OBJECT, 'wpcf7_contact_form');
+
+    if ($existing) return;
+
+    // Create the form post
+    $form_post = array(
+        'post_title'   => 'Bloxby Newsletter Form',
+        'post_status'  => 'publish',
+        'post_type'    => 'wpcf7_contact_form',
+    );
+    $form_id = wp_insert_post($form_post);
+
+    $form_template = '<div class="d-flex flex-sm-row w-100 gap-2 mt-3 position-relative">
+            <div>[email* newsletter-email class:form-control class:rounded-3 placeholder "Email Address"]</div>
+            <div>[submit class:btn class:btn-primary "Subscribe"] </div>
+        </div>';
 
     update_post_meta($form_id, '_form', $form_template);
 }

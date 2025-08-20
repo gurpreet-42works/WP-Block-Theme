@@ -26,13 +26,25 @@
     "featured_highlight_content_with_grid": {
         "section_intent": "A hightlight section to to visually highlight key content in a grid layout. Ideal for service listings, feature or benefits sections, solution highlights, onboarding steps, process overviews, or showcasing proof points.",
         "VALID_SLUGS": {
-            "feature-content-grid-right": "A featured section with title, description and button on left and feature cards grid on right."
+            "feature-content-grid-right": "A featured section with title, description and button on left and feature cards grid on right.",
+            "feature-content-grid-left": "A featured section with title, description and button on left and feature cards grid on left."
         },
         "content_needed": {
             "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
             "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4\"} -->",
             "button": "Generate a button block using <!-- wp:buttons --> and <!-- wp:button {\"className\":\"btn btn-primary btn-lg\"} --> only if there is an inner page for this section details else return an empty string ''.",
             "features_array": "This field is mandatory. Do not leave it empty. Generate heading and description array of upto 6 objects for this section like services, benefits, solutions, products or any highlight. Keep description short in about 25 words. Return an array like this: [{\"heading\":\"heading1\",\"description\":\"description1\"},{\"heading\":\"heading2\",\"description\":\"description2\"} ...]"
+        }
+    },
+    "social_cards_grid": {
+        "section_intent": "A section to show cards in a grid layout with image and social icons. Donot use this for testimonials Can only be used as: Our Team / Meet the Team section, Community Members / Contributors listing, Advisory Board section, Company Members Speakers / Events / Webinars section etc. where we need to show team or profiles with social media icons.",
+        "VALID_SLUGS": {
+            "social-verticle-card-grid-full": "A social cards section with title, description and social cards grid on at full width design. Social Card in verticle layout with image at top."
+        },
+        "content_needed": {
+            "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
+            "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->",
+            "social_cards_array": "Generate 3 cards according to the section_title, section_prompt and website description. Use dummy names and designations for the social cards. Return an array like this: [{\"name\":\"name1\",\"description\":\"description1\",\"designation\":\"designation1\"},{\"name\":\"name2\",\"description\":\"description2\",\"designation\":\"designation2\"} ...]"
         }
     },
     "media_and_text": {
@@ -109,7 +121,18 @@
         "content_needed": {
             "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
             "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->",
-            "stats_html": "A custom Gutenberg block for a statistics grid using my theme's bloxby-blocks/statistics-bar-without-arrow-parent and bloxby-blocks/statistics-bar-without-arrow-child. HTML structure: <!-- wp:bloxby-blocks/statistics-bar-without-arrow-parent{\"columns\":4}--><div class=\"wp-block-bloxby-blocks-statistics-bar-without-arrow-parent save-block stats-no-arrow-block-container\"><div class=\"stats-no-arrow-grid-container stats-no-arrow-columns-4\"><!-- wp:bloxby-blocks/statistics-bar-without-arrow-child --><div class=\"wp-block-bloxby-blocks-statistics-bar-without-arrow-child save-block stats-no-arrow-grid-block\"><!-- wp:group{\"align\":\"wide\"}--><div class=\"wp-block-group alignwide\"><!-- wp:heading{\"textAlign\":\"center\",\"placeholder\":\"Enter text here...\",\"fontSize\":\"xx-large\"}--><h2 class=\"wp-block-heading has-text-align-center has-xx-large-font-size\">{Stat Number(e.g.,99.9%,10K+,etc.)}</h2><!--/wp:heading --><!-- wp:paragraph{\"placeholder\":\"Enter text here...\",\"style\":{\"spacing\":{\"padding\":{\"bottom\":\"10px\"}}},\"fontSize\":\"medium\"}--><p class=\"has-medium-font-size\" style=\"padding-bottom:10px\">{Stat labels(e.g.Projects Delivered,Satisfied Clients,Global Reach,Uptime)}</p><!--/wp:paragraph --></div><!--/wp:group --></div><!--/wp:bloxby-blocks/statistics-bar-without-arrow-child --></div>{More stats childs here.Repeat<!-- wp:bloxby-blocks/statistics-bar-without-arrow-child -->}</div><!--/wp:bloxby-blocks/statistics-bar-without-arrow-parent -->"
+            "stats_html": "A custom Gutenberg block for a statistics grid using my theme's bloxby-blocks/statistics-bar-without-arrow-parent and bloxby-blocks/statistics-bar-without-arrow-child. Generate 4 statistics blocks using: HTML structure: <!-- wp:bloxby-blocks/statistics-bar-without-arrow-parent{\"columns\":4}--><div class=\"wp-block-bloxby-blocks-statistics-bar-without-arrow-parent save-block stats-no-arrow-block-container\"><div class=\"stats-no-arrow-grid-container stats-no-arrow-columns-4\"><!-- wp:bloxby-blocks/statistics-bar-without-arrow-child --><div class=\"wp-block-bloxby-blocks-statistics-bar-without-arrow-child save-block stats-no-arrow-grid-block\"><!-- wp:group{\"align\":\"wide\"}--><div class=\"wp-block-group alignwide\"><!-- wp:heading{\"textAlign\":\"center\",\"placeholder\":\"Enter text here...\",\"fontSize\":\"xx-large\"}--><h2 class=\"wp-block-heading has-text-align-center has-xx-large-font-size\">{Stat Number(e.g.,99.9%,10K+,etc.)}</h2><!--/wp:heading --><!-- wp:paragraph{\"placeholder\":\"Enter text here...\",\"style\":{\"spacing\":{\"padding\":{\"bottom\":\"10px\"}}},\"fontSize\":\"medium\"}--><p class=\"has-medium-font-size\" style=\"padding-bottom:10px\">{Stat labels(e.g.Projects Delivered,Satisfied Clients,Global Reach,Uptime)}</p><!--/wp:paragraph --></div><!--/wp:group --></div><!--/wp:bloxby-blocks/statistics-bar-without-arrow-child --></div>{More stats childs here.Repeat<!-- wp:bloxby-blocks/statistics-bar-without-arrow-child -->}</div><!--/wp:bloxby-blocks/statistics-bar-without-arrow-parent -->"
+        }
+    },
+    "faqs": {
+        "section_intent": "A section to show FAQs",
+        "VALID_SLUGS": {
+            "faq-accordion-full-width": "A section to show FAQs in accordion with section title and description in a full width layout."
+        },
+        "content_needed": {
+            "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
+            "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->",
+            "faqs_array": "Generate upto 8 faqs according to the section_title and website description. Return an array like this: [{\"title\":\"faq-title1\",\"description\":\"faq-description1\"},{\"title\":\"faq-title2\",\"description\":\"faq-description2\"} ...]"
         }
     },
     "call_to_action": {

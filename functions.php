@@ -37,13 +37,24 @@ add_action('after_setup_theme', 'register_bloxbywp_supports');
 function add_bloxbywp_scripts()
 {
    wp_enqueue_script('bootstrap', get_stylesheet_directory_uri() . '/assets/js/bootstrap.bundle.min.js', array(), get_theme_mod('version'), true);
+   wp_enqueue_script('fancybox', 'https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.0/dist/fancybox/fancybox.umd.js', array(), get_theme_mod('version'), true);
+
+   wp_enqueue_script(
+      'site-main',
+      get_theme_file_uri('/assets/js/site.js'),
+      ['jquery'],
+      false,
+      true
+   );
 }
 add_action('wp_enqueue_scripts', 'add_bloxbywp_scripts');
+
 
 function add_bloxbywp_styles()
 {
    wp_enqueue_style('bootstrap', get_stylesheet_directory_uri() . '/assets/css/bootstrap.min.css', array(), get_theme_mod('version'));
-   wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css', array(), get_theme_mod('version'));
+   wp_enqueue_style('font-awesome', 'https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.0.0/css/all.min.css', array(), get_theme_mod('version'));
+   wp_enqueue_style('fancybox', 'https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.0/dist/fancybox/fancybox.css', array(), get_theme_mod('version'));
    wp_enqueue_style('style', get_stylesheet_uri(), array('bootstrap'), get_theme_mod('version'));
 }
 add_action('enqueue_block_assets', 'add_bloxbywp_styles');
@@ -209,16 +220,6 @@ add_action( 'wp_head', function () {
 <?php
    }
 } );
-
-add_action('wp_enqueue_scripts', function () {
-   wp_enqueue_script(
-      'site-main',
-      get_theme_file_uri('/assets/js/site.js'),
-      ['jquery'],
-      false,
-      true
-   );
-});
 
 include_once 'includes/cli-builder.php';
 include_once 'includes/shortcodes.php';
