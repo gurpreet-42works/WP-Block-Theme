@@ -27,7 +27,7 @@
         "section_intent": "A hightlight section to to visually highlight key content in a grid layout. Ideal for service listings, feature or benefits sections, solution highlights, onboarding steps, process overviews, or showcasing proof points.",
         "VALID_SLUGS": {
             "feature-content-grid-right": "A featured section with title, description and button on left and feature cards grid on right.",
-            "feature-content-grid-left": "A featured section with title, description and button on left and feature cards grid on left."
+            "feature-content-grid-left": "A featured section with title, description and button on right and feature cards grid on left."
         },
         "content_needed": {
             "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
