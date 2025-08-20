@@ -172,7 +172,7 @@ function handle_openai_pattern_call_generation_cli($api_key, $website_title, $we
         ' . $patterns_string . '
         
         Each pattern includes:
-        - `section_intent`: It is an important rule to follow before selecting the pattern.
+        - `section_intent`: It is an important rule to follow before selecting the pattern. Read each section_intent carefully and choose the best matching pattern accordingly.
         - `VALID_SLUGS`: a list of valid design slugs to randomly pick for the selected pattern. Only pick a random slug given in this array.
         - `content_needed`: Each field contains the WordPress block format required. Return only a JSON array as described here.
         - You MUST generate valid HTML for gutenberg block editor for each field using these WordPress blocks
