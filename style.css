@@ -141,6 +141,11 @@ header.wp-block-template-part {
     transition: all ease 0.2s;
 }
 
+.navigation-footer .navbar a {
+    color: var(--bs-dark);
+    transition: all ease 0.2s;
+}
+
 .navigation-main .navbar-nav a:hover,
 .navigation-footer .navbar a:hover {
     color: var(--bs-primary);
