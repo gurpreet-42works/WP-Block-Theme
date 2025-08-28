@@ -28,12 +28,12 @@
                     <!-- /wp:heading -->
 
                     
-                    <!-- wp:paragraph {"className":"mb-4"} -->
-                    <p class="mb-4">Lorem ipsum dolor sit amet consectetur. Porta nulla erat integer fames pellentesque lacinia amet integer fringilla. Vel consectetur consectetur id amet pharetra molestie massa pharetra mauris.</p>
+                    <!-- wp:paragraph {"className":"mb-4","fontSize":"medium"} -->
+                    <p class="has-medium-font-size mb-4">Lorem ipsum dolor sit amet consectetur. Porta nulla erat integer fames pellentesque lacinia amet integer fringilla. Vel consectetur consectetur id amet pharetra molestie massa pharetra mauris.</p>
                     <!-- /wp:paragraph -->
 
-                    <!-- wp:list {"className":"mb-4"} -->
-                    <ul class="mb-4">
+                    <!-- wp:list {"className":"mb-4","fontSize":"medium"}} -->
+                    <ul class="wp-block-list has-medium-font-size mb-4">
                         <li>Lorem ipsum dolor sit amet consectetur. Elementum cras in enim sem venenatis. Pharetra odio in non fringilla posuere massa donec.</li>
                         <li>Lorem ipsum dolor sit amet consectetur. Elementum cras in enim sem venenatis. Pharetra odio in non fringilla posuere massa donec.</li>
                     </ul>

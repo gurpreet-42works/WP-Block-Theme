@@ -14,7 +14,7 @@
 
 <!-- wp:group {"align":"full","className":"d-flex align-items-center inner-page-hero centered-hero px-4 py-5 text-center"} -->
 <div class="wp-block-group alignfull d-flex align-items-center bg-body-tertiary inner-page-hero centered-hero px-4 py-5 text-center">
-    <!-- wp:group {"layout":{"type":"constrained","contentSize":"750px"},"className":"mx-auto"} -->
+    <!-- wp:group {"layout":{"type":"constrained","contentSize":"900px"},"className":"mx-auto"} -->
     <div class="wp-block-group mx-auto">
         <!-- wp:heading {"level":1, "className": "wp-block-query-title text-body-emphasis"} -->
             <h1 class="wp-block-query-title text-body-emphasis">Heading Goes Here</h1>

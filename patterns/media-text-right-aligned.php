@@ -23,14 +23,14 @@
 					<h2 class="wp-block-heading mb-3">[Heading]</h2>
 					<!-- /wp:heading -->
 
-					<!-- wp:paragraph {"className":"mb-4"} -->
-					<p class="mb-4">Lorem ipsum dolor sit amet consectetur. Porta nulla erat integer fames pellentesque
+					<!-- wp:paragraph {"className":"mb-4","fontSize":"medium"} -->
+					<p class="has-medium-font-size mb-4">Lorem ipsum dolor sit amet consectetur. Porta nulla erat integer fames pellentesque
 						lacinia amet integer fringilla. Vel consectetur consectetur id amet pharetra molestie massa
 						pharetra mauris.</p>
 					<!-- /wp:paragraph -->
 
-					<!-- wp:list {"className":"mb-4"} -->
-					<ul class="wp-block-list mb-4"><!-- wp:list-item -->
+					<!-- wp:list {"className":"mb-4","fontSize":"medium"}} -->
+					<ul class="wp-block-list has-medium-font-size mb-4"><!-- wp:list-item -->
 						<li>Lorem ipsum dolor sit amet consectetur. Elementum cras in enim sem venenatis. Pharetra odio
 							in non fringilla posuere massa donec.</li>
 						<!-- /wp:list-item -->

@@ -73,10 +73,10 @@ add_action( 'wp_head', function () {
 
       switch ($site_theme) {
          case 'classic':
-            $font_primary = 'https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap';
-            $font_primary_family = '"Noto Sans", sans-serif';
-            $font_secondary = 'https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap';
-            $font_secondary_family = '"Noto Serif", serif';
+            $font_primary = 'https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap';
+            $font_primary_family = '"Poppins", sans-serif';
+            $font_secondary = 'https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap';
+            $font_secondary_family = '"Lora", serif';
             $border_radius = '0px';
             $border_radius_sm = '0px';
             $border_radius_lg = '0px';
@@ -88,35 +88,35 @@ add_action( 'wp_head', function () {
          case 'material':
             $font_primary = 'https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap';
             $font_primary_family = '"Roboto", sans-serif';
-            $font_secondary = 'https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap';
-            $font_secondary_family = '"Lato", sans-serif';
+            $font_secondary = 'https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap';
+            $font_secondary_family = '"Roboto Slab", serif';
             $border_radius = '10px';
             $border_radius_sm = '5px';
             $border_radius_lg = '10px';
             break;
          case 'minimalistic':
-            $font_primary = 'https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap';
-            $font_primary_family = '"Roboto", sans-serif';
-            $font_secondary = 'https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap';
-            $font_secondary_family = '"Roboto", sans-serif';
+            $font_primary = 'https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap';
+            $font_primary_family = '"Work Sans", sans-serif';
+            $font_secondary = 'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap';
+            $font_secondary_family = '"Plus Jakarta Sans", sans-serif';
             $border_radius = '0px';
             $border_radius_sm = '0px';
             $border_radius_lg = '0px';
             break;
          case 'flat':
-            $font_primary = 'https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap';
-            $font_primary_family = '"PT Sans", sans-serif';
-            $font_secondary = 'https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap';
-            $font_secondary_family = '"PT Sans", sans-serif';
+            $font_primary = 'https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap';
+            $font_primary_family = '"Montserrat", sans-serif';
+            $font_secondary = 'https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap';
+            $font_secondary_family = '"Rubik", sans-serif';
             $border_radius = '5px';
             $border_radius_sm = '5px';
             $border_radius_lg = '5px';
             break;
          case 'soft':
-            $font_primary = 'https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap';
-            $font_primary_family = '"Poppins", sans-serif';
-            $font_secondary = 'https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap';
-            $font_secondary_family = '"Nunito", sans-serif';
+            $font_primary = 'https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap';
+            $font_primary_family = '"DM Sans", sans-serif';
+            $font_secondary = 'https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap';
+            $font_secondary_family = '"Quicksand", sans-serif';
             $border_radius = '15px';
             $border_radius_sm = '10px';
             $border_radius_lg = '25px';

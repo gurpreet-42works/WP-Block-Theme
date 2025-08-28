@@ -12,8 +12,8 @@
  */
 ?>
 
-<!-- wp:group {"align":"full","className":"d-flex align-items-center inner-page-hero centered-hero px-4 py-5 text-center"} -->
-<div class="wp-block-group alignfull d-flex align-items-center inner-page-hero centered-hero px-4 py-5 text-center"><!-- wp:group {"className":"mx-auto","layout":{"type":"constrained","contentSize":"750px"}} -->
+<!-- wp:group {"align":"full","className":"d-flex align-items-center contact-form-centered px-4 py-5 text-center"} -->
+<div class="wp-block-group alignfull d-flex align-items-center contact-form-centered px-4 py-5 text-center"><!-- wp:group {"className":"mx-auto","layout":{"type":"constrained","contentSize":"750px"}} -->
     <div class="wp-block-group mx-auto"><!-- wp:heading {"className":"mb-3"} -->
         <h2 class="wp-block-heading mb-3">Title Goes Here</h2>
         <!-- /wp:heading -->

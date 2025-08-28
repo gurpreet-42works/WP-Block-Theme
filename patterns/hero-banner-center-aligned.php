@@ -16,7 +16,7 @@
 <div class="wp-block-group d-flex py-5 align-items-center banner-content-centered banner-height bg-body-secondary text-white">
     <!-- wp:group {"layout":{"type":"constrained"}} -->
     <div class="wp-block-group">
-        <!-- wp:group {"className":"container text-center","layout":{"type":"constrained","contentSize":"750px"}} -->
+        <!-- wp:group {"className":"container text-center","layout":{"type":"constrained","contentSize":"900px"}} -->
         <div class="wp-block-group container text-center"><!-- wp:heading {"textAlign":"center","level":1} -->
             <h1 class="wp-block-heading has-text-align-center">Heading Goes Here</h1>
             <!-- /wp:heading -->

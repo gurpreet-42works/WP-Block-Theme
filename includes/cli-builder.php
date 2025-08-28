@@ -166,17 +166,16 @@ function handle_openai_pattern_call_generation_cli($api_key, $website_title, $we
     $patterns_string = file_get_contents(get_stylesheet_directory() . '/assets/patterns.json');
 
     $systemPrompt = 'You are an expert WordPress FSE block builder that generates creative Gutenberg block HTML using Bootstrap 5 classes.';
-    $aiPrompt = 'You are a professional WordPress content generator that builds section HTML using block patterns.
-    
-        Here are the available **WordPress block patterns**:
+    $aiPrompt = 'You are a professional **WordPress content generator** that builds section HTML using **block patterns**.
+
+        ### Available Block Patterns
         ' . $patterns_string . '
         
         Each pattern includes:
-        - `section_intent`: It is an important rule to follow before selecting the pattern. Read each section_intent carefully and choose the best matching pattern accordingly.
-        - `VALID_SLUGS`: a list of valid design slugs to randomly pick for the selected pattern. Only pick a random slug given in this array.
-        - `content_needed`: Each field contains the WordPress block format required. Return only a JSON array as described here.
+        - **section_intent**: Rule to follow before selecting the pattern. Always match the section intent..
+        - **VALID_SLUGS**: List of valid design slugs. Randomly pick **exactly one** slug from this list.
+        - **content_needed**: Fields that require Gutenberg block HTML. You must fill these with real content. Return only a JSON array as described there.
         - You MUST generate valid HTML for gutenberg block editor for each field using these WordPress blocks
-        
         
         ---
         
@@ -195,58 +194,66 @@ function handle_openai_pattern_call_generation_cli($api_key, $website_title, $we
         PAGE SLUG: ' . sanitize_title($page_title) . '
         
         ---
+        
         **IMPORTANT FORMAT RULES:**
         - For each field (like heading, description, button), wrap the generated content inside the appropriate WordPress block comment structure **AND include real HTML inside**.
-        - For example, if the block is `<!-- wp:heading {{"className":"mb-3"}} -->`, then inside it include an actual `<h2>` or `<h1>` tag like:
+        - For example, if the block is <!-- wp:heading {{className:mb-3}} -->, then inside it include an actual `<h2>` or `<h1>` tag like:
         <!-- wp:heading {{"className":"mb-3"}} -->
         <h2 class="wp-block-heading mb-3">Your Title Here</h2>
         <!-- /wp:heading -->
-        
-        - Do the same for paragraphs, buttons, and lists — use actual `<p>`, `<a>`, `<ul>`, `<li>` etc. inside the comment blocks.
+        - Do the same for paragraphs, buttons, and lists — use actual <p>, <a>, <ul>, <li> etc. inside the comment blocks.
         - Do not generate placeholders. Always return complete HTML code for each field.
-        - Use the hero_banner pattern only if page_type is "home" and For all other pages use inner_banner pattern for banner.
-        - If the page is intended to display all blog posts (e.g. page type “blog”, “news”, “archive”, or URLs containing /blog, /news, /our-blog, /our-beauty-blog), use the posts_grid_with_pagination pattern to generate a paginated post list else select posts_grid_without_pagination pattern.
+        
+        **Critical Rules:**
+        1) Slug Selection:
+        - Find the correct pattern by section_intent.
+        - Randomly pick one slug from that pattern’s VALID_SLUGS.
+        - For hero banner sections: Randomly select ONE slug from VALID_SLUGS.Each must have equal probability.
+        - Do not return the pattern key itself (e.g., "posts_grid_without_pagination"). Return only the chosen slug.
+        - If two consecutive sections share the same design category (e.g., both “left-aligned”), choose a different layout category for the next section.
 
-         **Processing Rules:**
-        Critical: In JSON describing desired page sections Dont copy the description as it is instead generate a description
-        - section_type: Use as primary design direction and layout guide
-        - section_prompt: Reference only for context - DO NOT copy as literal content
-        - Content Generation: Create professional, industry-specific copy based on page title/description  
-        - Cohesive Design: Ensure all sections work together harmoniously with consistent styling
-        - Industry Adaptation: Tailor content, CTAs, and messaging to match the business type implied by page title
-        - For each button you generate, do not use # as the link. Instead, use the actual URL path of the page.
-        - A list of available pages, each with a page_title and page_slug: ' . json_encode($allPages) . '
-        - Whenever you generate a button or link, follow these rules:
-            - Never use # or placeholder links.
-            - Instead, choose the most contextually relevant page from the list provided.
-            - If the link is linked to website page, use full URL donot use relaive links. WEBSITE URL is given.
-
-        STRICT SLUG SELECTION RULES (READ CAREFULLY):
-        1. For each input section, locate the matching pattern object in the provided PATTERNS JSON.
-        2. **You MUST choose a random value from that pattern object’s "VALID_SLUGS" list (or object keys)**.
-        3. **Do NOT output the pattern objects top-level key** (e.g., do NOT return "posts_grid_without_pagination"). Only return one of the actual design slugs listed in VALID_SLUGS array such as "post-cards-with-image".
-        4.  **If the previously used section’s slug belongs to the same design category (e.g., "centered content", "left-aligned content", "full-width image banner", etc.), you must select a slug from a different design category in VALID_SLUGS array.
-          - Example: If the last section used "media-text-left-aligned", you cannot pick "media-text-left-aligned" immediately after it, since they share the same "left aligned" design layout.
-
-        **Your task:**
-        - For each section in the input, select the best-matching pattern based on section type and intent.
-        - Use the corresponding `content_needed` to format each field to generate the WordPress Gutenberg block HTML and generate the data in each field in content_needed according to the section_description.
-        - Generate **professional, relevant content** in WordPress HTML (no placeholders, no lorem ipsum).
-        - Return only a JSON array as described in content_needed JSON in seleted pattern like:
+        2) Banner Rules:
+        - If page_type = "home" → **must** use hero_banner and Randomly select ONE slug from VALID_SLUGS.Each must have equal probability.
+        - If page_type ≠ "home" → **must** use inner_banner
+        - Ensure not to repeat the same banner layout consecutively.
+        
+        3) Content Rules:
+        - Never copy section_prompt or description literally → rewrite into professional copy.
+        - Use real Gutenberg HTML inside the comment wrappers (no placeholders, no lorem ipsum).
+        - Always generate headings (<h1>, <h2>), paragraphs (<p>), buttons (<a>), and lists (<ul><li>) as required.
+        - For buttons and links, never use #. Instead:
+        - Pick the most relevant page from ' . json_encode($allPages) . '.
+        - Full website URL = ' . site_url() . '.
+        - When generating content for only media-and-text patterns, always create 3–4 paragraphs, each around 100 words.
+        
+        4) Cohesion & Industry Adaptation:
+        - Content must be consistent, professional, and industry-appropriate.
+        - Sections must work together with a unified design and voice.
+        - Tailor CTAs, tone, and structure to match the business type inferred from page title.
+        
+        **our Task**
+        For each input section:
+        - Match to the correct block pattern (based on section_intent, section_type, and section_prompt).
+        - Randomly pick one slug from VALID_SLUGS.
+        - Generate all required fields (content_needed) in valid Gutenberg HTML with meaningful, professional content.
+        - Return only the JSON array described below.
+        - Do not explain, comment, or output anything else.
+        
+        ### Output Format
+        You must return only a JSON array in this structure:
         
         [
-        {{
-            "section_name": "Section Title",
-            "slug": "chosen slug",
-            "content": {{
-                "heading": "<!-- wp:heading ... -->Write a unique secton heading<!-- /wp -->",
-                "description": "<!-- wp:paragraph ... -->Generate a section desription<!-- /wp -->",
-                ...
-            }}
-        }},
+            {{
+                "section_name": "Section Title",
+                "slug": "chosen slug",
+                "content": {{
+                    "heading": "<!-- wp:heading ... -->Write a unique section heading<!-- /wp -->",
+                    "description": "<!-- wp:paragraph ... -->Generate a section description<!-- /wp -->",
+                    ...
+                }}
+            }},
         ]
-        Return only valid JSON. Do not explain or comment anything.
-    ';
+    ' ;
 
     $data = [
         'model' => 'gpt-4o-mini',
@@ -566,6 +573,51 @@ function parse_generated_blocks($api_key, $blocks, $images_array)
                         );
                     }
 
+                    //Listings grid
+                    $listing_grid_tag = detect_listings_grid($pattern_content);
+                    if( $listing_grid_tag['found'] && isset($output->content->listings_array) ) {
+                        $listings_array = json_decode($output->content->listings_array);
+                        $type = $listing_grid_tag['type'];
+                        $layout = $listing_grid_tag['layout'];
+                        $full_tag = $listing_grid_tag['full_tag'];
+                        $listings_html = '';
+
+                        if( $type == "image" && $layout == "top" && !empty($listings_array) ) {
+                            foreach ($listings_array as $listing) {
+                            $image_arr = fetch_images_from_unsplash("", "wEaTTFCyEpJYE8XjPti48CK0ff74g5Hl0-B8hJ5g9Yk", $listing->heading , 1);
+                            $image = $image_arr[0];
+                            $image_url = $image['url'] . '&w=900&h=600&&fit=crop';
+                            $listings_html .= '<!-- wp:group {"className":"card h-100 border-0"} -->
+                                <div class="wp-block-group card h-100 border-0">
+                                    <!-- wp:image {"sizeSlug":"full","linkDestination":"none","className":"card-img-top rounded shadow-sm"} -->
+                                    <figure class="wp-block-image size-full card-img-top rounded shadow-sm"><img
+                                            src="'.$image_url.'"
+                                            alt="" />
+                                    </figure>
+                                    <!-- /wp:image -->
+
+                                    <!-- wp:group {"className":"card-body p-0"} -->
+                                    <div class="wp-block-group card-body p-0">
+                                        <!-- wp:heading {"level":3,"className":"mb-2"} -->
+                                        <h3 class="wp-block-heading mb-2">'.$listing->heading.'</h3>
+                                        <!-- /wp:heading -->
+
+                                        <!-- wp:paragraph {"className":"mt-0"} -->
+                                        <p class="mt-0">'.$listing->description.'</p>
+                                        <!-- /wp:paragraph -->
+                                    </div>
+                                    <!-- /wp:group -->
+                                </div>
+                                <!-- /wp:group -->';
+                            }
+                        }
+
+                        $pattern_content = str_replace(
+                            $full_tag,
+                            $listings_html,
+                            $pattern_content
+                        );
+                    }
 
                     //Check if pattern selected has image URL needed then use a random image
                     $image_required = detect_image_tag($pattern_content);
@@ -859,6 +911,7 @@ function generate_website_posts($api_key, $website_title, $website_description, 
     if (!empty($posts_array)) {
         foreach ($posts_array as $post) {
             //Upload a dummy Image
+            $images_array = fetch_images_from_unsplash("", "wEaTTFCyEpJYE8XjPti48CK0ff74g5Hl0-B8hJ5g9Yk", $post->title, 1);
             $randomKey = array_rand($images_array);
             $random_image = $images_array[$randomKey];
 
@@ -1066,6 +1119,21 @@ function clean_ai_html_output($raw_output)
     // Fallback: remove any lingering code fences and return raw HTML
     $cleaned = preg_replace('/```(?:html)?/i', '', $raw_output);
     return trim(str_replace('```', '', $cleaned));
+}
+
+function detect_listings_grid($input) {
+    $pattern = '/<!--listings-grid\s*\{type\}(.*?)\{\/type\}\s*\{layout\}(.*?)\{\/layout\}\s*-->/';
+    // Regex to capture the whole comment and both parameters
+    if (preg_match($pattern, $input, $matches)) {
+        return [
+            'found'   => true,
+            'type'    => $matches[1],
+            'layout'  => $matches[2],
+            'full_tag'=> $matches[0],
+        ];
+    }
+
+    return ['found' => false];
 }
 
 function detect_image_tag($pattern_content)

@@ -4,7 +4,7 @@
  * Title: Hero Banner Medium Left
  * Slug: bloxbywp/hero-banner-left-aligned
  * Categories: banner
- * Description: A hero banner with image and content contained in container with image on right and content on left.
+ * Description: A hero banner with image and content contained in a one side container with image on right and content on left.
  *
  * @package WordPress
  * @subpackage Bloxby_WP
@@ -12,16 +12,16 @@
  */
 ?>
 
-<!-- wp:group {"align": "full", "className":"alignfull content-with-media-section commpn-padding"} -->
-<div class="wp-block-group alignfull hero-banner-content-left">
-    <!-- wp:group {"className":"container"} -->
-    <div class="wp-block-group container">
+<!-- wp:group {"align": "full", "className":"alignfull hero-banner-content-left banner-content-left"} -->
+<div class="wp-block-group alignfull hero-banner-content-left banner-content-left">
+    <!-- wp:group {"className":"container one-side-fluid ms-auto me-0 hero-banner-right-fluid"} -->
+    <div class="wp-block-group container one-side-fluid ms-auto me-0 hero-banner-right-fluid">
         <!-- wp:group {"align":"wide", "className":"row align-items-center"} -->
         <div class="wp-block-group alignwide row align-items-center">
-            <!-- wp:media-text {"mediaPosition":"right","mediaType":"image","className":"col-md-12 media-rounded-lg media-shadow"} -->
-            <div class="wp-block-media-text has-media-on-the-right is-stacked-on-mobile alignwide col-md-12 media-rounded-lg media-shadow">
+            <!-- wp:media-text {"mediaPosition":"right","mediaType":"image","className":"col-md-12 pe-0"} -->
+            <div class="wp-block-media-text has-media-on-the-right is-stacked-on-mobile alignwide col-md-12 pe-0">
                 <figure class="wp-block-media-text__media">
-                    <img src="https://placehold.co/900x900" alt="Placeholder image" />
+                    <img src="https://placehold.co/1200x1200" alt="Placeholder image" />
                 </figure>
                 <div class="wp-block-media-text__content">
                     <!-- wp:heading {"level":1,"className":"mb-3"} -->

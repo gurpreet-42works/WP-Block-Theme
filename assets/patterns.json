@@ -2,21 +2,21 @@
     "hero_banner": {
         "section_intent": "A hero section to be used only on page with title home. Else use inner_banner",
         "VALID_SLUGS": {
-            "hero-banner-left-aligned": "Hero section with content on left and image on right contained in a bootstrap container",
-            "hero-banner-right-aligned": "Hero section with content on right and image on left contained in a bootstrap container",
-            "hero-banner-bg-content-center": "A hero banner section with title, sub heading, description and CTA button with full height and verticle centered content. Supports background images."
+            "hero-banner-center-aligned": "",
+            "hero-banner-left-aligned": "",
+            "hero-banner-right-aligned": ""
         },
         "content_needed": {
             "heading": "Add Main Heading. Create using: <!-- wp:heading {\"level\":1,\"className\":\"mb-3\"} --> ",
-            "subheading": "Add a subheading related to  this section. Create using: <!-- wp:heading {\"textAlign\":\"center\",\"fontSize\":\"medium\"} -->",
-            "description": "Add a suitable description. Generate using <!-- wp:paragraph {\"className\":\"mb-5\",\"fontSize\":\"medium\"} -->",
-            "button": "Generate a button block using <!-- wp:buttons --> and <!-- wp:button {\"className\":\"btn btn-primary btn-lg\"} -->",
+            "subheading": "Add a subheading related to  this section. Create using: <!-- wp:heading {\"fontSize\":\"medium\"} -->",
+            "description": "Write a compelling and professional description in 30–40 words. The description should clearly explain what the business/website offers, its value, and why it matters. Avoid generic or vague text. Use a persuasive yet natural tone. Generate using <!-- wp:paragraph {\"className\":\"mb-5\",\"fontSize\":\"medium\"} -->",
+            "button": "Generate a button block using <!-- wp:buttons --> and <!-- wp:button {\"className\":\"btn btn-primary btn-lg\"} -->"
         }
     },
     "inner_banner": {
-        "section_intent": "A small banner section to use in inner or sub pages. Can be used for:  As a banner for inner or sub pages. Do not use it for any other section type.",
+        "section_intent": "Can be used for:  As a banner for inner or sub pages. Never use for About, Services, Testimonials, Contact, about, or Blog sections.",
         "VALID_SLUGS": {
-            "inner-banner-centered": "This block pattern consists of a centered heading followed by a short paragraph and is used to introduce the section or page cleanly."
+            "inner-banner-centered": "Centered heading and short paragraph banner for inner pages."
         },
         "content_needed": {
             "heading": "Add Main Heading. Create using: <!-- wp:heading {\"level\":1,\"className\":\"mb-3\"} --> ",
@@ -24,10 +24,10 @@
         }
     },
     "featured_highlight_content_with_grid": {
-        "section_intent": "A hightlight section to to visually highlight key content in a grid layout. Ideal for service listings, feature or benefits sections, solution highlights, onboarding steps, process overviews, or showcasing proof points.",
+        "section_intent": "Use for service listings, feature highlights, benefits, or process overviews.",
         "VALID_SLUGS": {
-            "feature-content-grid-right": "A featured section with title, description and button on left and feature cards grid on right.",
-            "feature-content-grid-left": "A featured section with title, description and button on right and feature cards grid on left."
+            "feature-content-grid-right": "Text content + button on left, feature grid on right",
+            "feature-content-grid-left": "Text content + button on right, feature grid on left."
         },
         "content_needed": {
             "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
@@ -36,10 +36,22 @@
             "features_array": "This field is mandatory. Do not leave it empty. Generate heading and description array of upto 6 objects for this section like services, benefits, solutions, products or any highlight. Keep description short in about 25 words. Return an array like this: [{\"heading\":\"heading1\",\"description\":\"description1\"},{\"heading\":\"heading2\",\"description\":\"description2\"} ...]"
         }
     },
-    "social_cards_grid": {
-        "section_intent": "A section to show cards in a grid layout with image and social icons. Donot use this for testimonials Can only be used as: Our Team / Meet the Team section, Community Members / Contributors listing, Advisory Board section, Company Members Speakers / Events / Webinars section etc. where we need to show team or profiles with social media icons.",
+    "listing_grid": {
+        "section_intent": "Use for service listings, Product Categories, Product listings.",
         "VALID_SLUGS": {
-            "social-verticle-card-grid-full": "A social cards section with title, description and social cards grid on at full width design. Social Card in verticle layout with image at top."
+            "listing-image-card-grid-3-columns": "A listing section with image cards in grid. Grid with 3 columns layout. Image on card top."
+        },
+        "content_needed": {
+            "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
+            "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->",
+            "button": "Generate a button block using <!-- wp:buttons --> and <!-- wp:button {\"className\":\"btn btn-primary btn-lg\"} --> only if there is an inner page for this section details else return an empty string ''.",
+            "listings_array": "This field is mandatory. Do not leave it empty. Generate heading and description array of upto 6 objects for this section like services, benefits, solutions, products or any highlight. Keep description short in about 25 words. Return an array like this: [{\"heading\":\"heading1\",\"description\":\"description1\"},{\"heading\":\"heading2\",\"description\":\"description2\"} ...]"
+        }
+    },
+    "social_cards": {
+        "section_intent": "A section to show cards in a grid layout with image and social icons.Use ONLY for team, contributors, advisory board, speakers. Never for testimonials.",
+        "VALID_SLUGS": {
+            "social-verticle-card-grid-full": "Grid of vertical social cards with images and icons."
         },
         "content_needed": {
             "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
@@ -48,23 +60,22 @@
         }
     },
     "media_and_text": {
-        "section_intent": "Two column layout with text and image. Use for: Feature explanations, service descriptions, about sections etc. where content with image is required.",
+        "section_intent": "Use for about sections, feature explanations, or service details requiring image + text.",
         "VALID_SLUGS": {
-            "media-text-left-aligned": "Section with an image on left and content on right",
-            "media-text-right-aligned": "Section with an image on right and content on left"
+            "media-text-left-aligned": "Image on left, content on right.",
+            "media-text-right-aligned": "Image on right, content on left."
         },
         "content_needed": {
-            "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
-            "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4\"} -->",
-            "bullet_lists": "If there is any points to include. Use <!-- wp:list {\"className\":\"mb-4\"} -->",
-            "button": "Generate a button block using <!-- wp:buttons {\"layout\":{\"type\":\"flex\",\"justifyContent\":\"left\"}} --> and <!-- wp:button {\"className\":\"btn btn-primary btn-lg\"} --> only if there is an inner page for this section details else return an empty string ''. Return empty string if the link belongs to the same page for e.g. If the button link is /about-us and it is matching with the PAGE SLUG.",
-            "search_terms": "Based on the heading and description of this section and WEBSITE NAME and WEBSITE DESCRIPTION, generate 2-3 relevant comma seperated search terms for finding appropriate images on Unsplash. The search terms should be relevant, professional, and suitable for the website’s purpose."
+            "heading": "Strong heading that introduces the section clearly. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
+            "description": "Use <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} --> pattern for each paragraph. Generate section content explaining this section in 3-4 paragraphs.",
+            "button": "Optional: If relevant, add 3–5 bullet points using <!-- wp:buttons {\"layout\":{\"type\":\"flex\",\"justifyContent\":\"left\"}} --> and <!-- wp:button {\"className\":\"btn btn-primary btn-lg\"} --> only if there is an inner page for this section details else return an empty string ''. Return empty string if the link belongs to the same page for e.g. If the button link is /about-us and it is matching with the PAGE SLUG.",
+            "search_terms": "Based on the heading and description of this section and WEBSITE NAME and WEBSITE DESCRIPTION, generate 2-3 relevant comma separated search terms for finding appropriate images on Unsplash. The search terms should be relevant, professional, and suitable for the website’s purpose."
         }
     },
     "images_grid": {
-        "section_intent": "Grid layout for displaying logos, icons, or images. Use for:Client logos, partner showcase, feature icons, gallery",
+        "section_intent": "Use for client logos, partners, feature icons, or galleries",
         "VALID_SLUGS": {
-            "images-grid": "Image grid section with heading and description."
+            "images-grid": "Grid section with heading, description, and images."
         },
         "content_needed": {
             "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
@@ -73,9 +84,9 @@
         }
     },
     "posts_grid_without_pagination": {
-        "section_intent": "A list of posts without pagination. Use to display a curated list of latest 6 posts without pagination. Can be used to show recent or related articles where pagination is not needed.",
+        "section_intent": "Use to display up to 6 curated posts. Never use for archives.",
         "VALID_SLUGS": {
-            "post-cards-with-image": "A list of posts with featured image shown in a 3 column grid view using bootstrap cards."
+            "post-cards-with-image": "3-column grid of posts with featured image."
         },
         "content_needed": {
             "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
@@ -83,9 +94,9 @@
         }
     },
     "posts_grid_with_pagination": {
-        "section_intent": "A list of posts, with featured image and post date with pagination. Can be used in Archive or listing pages where we need to show all the blogs. Use on blog listing or archive pages with pagination.",
+        "section_intent": "Use ONLY for blog listing or archive pages with pagination.",
         "VALID_SLUGS": {
-            "paginated-post-cards-with-image": "A list of posts with featured image shown in a 3 column grid view using bootstrap cards."
+            "paginated-post-cards-with-image": "3-column grid of posts with pagination."
         },
         "content_needed": {
             "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
@@ -93,9 +104,9 @@
         }
     },
     "testimonials": {
-        "section_intent": "Section to show testimonials from partners, clients or any source in a grid view.",
+        "section_intent": "Use ONLY to show partner/client testimonials. Never for team or advisors.",
         "VALID_SLUGS": {
-            "testimonials-grid": "A 3 column layout to show testimonials in grid view."
+            "testimonials-grid": "3-column grid layout for testimonials."
         },
         "content_needed": {
             "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
@@ -104,30 +115,30 @@
         }
     },
     "contact_section": {
-        "section_intent": "Section to show conctact forms.",
+        "section_intent": "Use ONLY for contact forms and inquiries.",
         "VALID_SLUGS": {
-            "contact-form-centered": "A contact form section with heading, subheading and contact form in a full width layout."
+            "contact-form-centered": "Centered contact form with heading and description."
         },
         "content_needed": {
             "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
-            "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4 mt-0\"} -->",
+            "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4 mt-0\"} -->"
         }
     },
     "statistics_bar": {
-        "section_intent": "A grid of stats to show statistics number as title and a small description. Use it to show achievements, client numbers, projects completed, uptime, or other trust-building figures according to the website description.",
+        "section_intent": "Use for achievements, KPIs, or client/project stats",
         "VALID_SLUGS": {
-            "statistics-bar-without-arrow": "A 4-column statistic grid. Each with a bold numeric stat (1M+, 500k+, etc.). A small label (Lorem Ipsum)."
+            "statistics-bar-without-arrow": "4-column statistics bar with bold numbers and labels."
         },
         "content_needed": {
             "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
             "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->",
-            "stats_html": "A custom Gutenberg block for a statistics grid using my theme's bloxby-blocks/statistics-bar-without-arrow-parent and bloxby-blocks/statistics-bar-without-arrow-child. Generate 4 statistics blocks using: HTML structure: <!-- wp:bloxby-blocks/statistics-bar-without-arrow-parent{\"columns\":4}--><div class=\"wp-block-bloxby-blocks-statistics-bar-without-arrow-parent save-block stats-no-arrow-block-container\"><div class=\"stats-no-arrow-grid-container stats-no-arrow-columns-4\"><!-- wp:bloxby-blocks/statistics-bar-without-arrow-child --><div class=\"wp-block-bloxby-blocks-statistics-bar-without-arrow-child save-block stats-no-arrow-grid-block\"><!-- wp:group{\"align\":\"wide\"}--><div class=\"wp-block-group alignwide\"><!-- wp:heading{\"textAlign\":\"center\",\"placeholder\":\"Enter text here...\",\"fontSize\":\"xx-large\"}--><h2 class=\"wp-block-heading has-text-align-center has-xx-large-font-size\">{Stat Number(e.g.,99.9%,10K+,etc.)}</h2><!--/wp:heading --><!-- wp:paragraph{\"placeholder\":\"Enter text here...\",\"style\":{\"spacing\":{\"padding\":{\"bottom\":\"10px\"}}},\"fontSize\":\"medium\"}--><p class=\"has-medium-font-size\" style=\"padding-bottom:10px\">{Stat labels(e.g.Projects Delivered,Satisfied Clients,Global Reach,Uptime)}</p><!--/wp:paragraph --></div><!--/wp:group --></div><!--/wp:bloxby-blocks/statistics-bar-without-arrow-child --></div>{More stats childs here.Repeat<!-- wp:bloxby-blocks/statistics-bar-without-arrow-child -->}</div><!--/wp:bloxby-blocks/statistics-bar-without-arrow-parent -->"
+            "stats_html": "A custom Gutenberg block for a statistics grid using my theme's bloxby-blocks/statistics-bar-without-arrow-parent and bloxby-blocks/statistics-bar-without-arrow-child. Generate 4 statistics blocks using: HTML structure: <!-- wp:bloxby-blocks/statistics-bar-without-arrow-parent{\"columns\":4}--><div class=\"wp-block-bloxby-blocks-statistics-bar-without-arrow-parent save-block stats-no-arrow-block-container\"><div class=\"stats-no-arrow-grid-container stats-no-arrow-columns-4\"><!-- wp:bloxby-blocks/statistics-bar-without-arrow-child --><div class=\"wp-block-bloxby-blocks-statistics-bar-without-arrow-child save-block stats-no-arrow-grid-block\"><!-- wp:group{\"align\":\"wide\"}--><div class=\"wp-block-group align wide\"><!-- wp:heading{\"textAlign\":\"center\",\"placeholder\":\"Enter text here...\",\"fontSize\":\"xx-large\"}--><h2 class=\"wp-block-heading has-text-align-center has-xx-large-font-size\">{Stat Number(e.g.,99.9%,10K+,etc.)}</h2><!--/wp:heading --><!-- wp:paragraph{\"placeholder\":\"Enter text here...\",\"style\":{\"spacing\":{\"padding\":{\"bottom\":\"10px\"}}},\"fontSize\":\"medium\"}--><p class=\"has-medium-font-size\" style=\"padding-bottom:10px\">{Stat labels(e.g.Projects Delivered,Satisfied Clients,Global Reach,Uptime)}</p><!--/wp:paragraph --></div><!--/wp:group --></div><!--/wp:bloxby-blocks/statistics-bar-without-arrow-child --></div>{More stats childs here.Repeat<!-- wp:bloxby-blocks/statistics-bar-without-arrow-child -->}</div><!--/wp:bloxby-blocks/statistics-bar-without-arrow-parent -->"
         }
     },
     "faqs": {
-        "section_intent": "A section to show FAQs",
+        "section_intent": "Use ONLY for FAQs section.",
         "VALID_SLUGS": {
-            "faq-accordion-full-width": "A section to show FAQs in accordion with section title and description in a full width layout."
+            "faq-accordion-full-width": "Full-width FAQ accordion layout."
         },
         "content_needed": {
             "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
@@ -136,9 +147,9 @@
         }
     },
     "call_to_action": {
-        "section_intent": "Call-to-action section with centered heading, description, and button.",
+        "section_intent": "Use ONLY for CTA sections with button.",
         "VALID_SLUGS": {
-            "cta-box-medium": "Medium Call To Action with title and description and button."
+            "cta-box-medium": "Centered CTA with title, description, and button."
         },
         "content_needed": {
             "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",

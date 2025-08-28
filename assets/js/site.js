@@ -17,6 +17,20 @@
         if( $("#footer-row-bottom").find(".footer-social-nav").length == 0 ){
             $("#footer-row-bottom").addClass('no-social');
         }
+
+        //Add Lightbox effect to WP gallery
+        $('.fancybox-gallery a').each(function(i, el) {
+            el.setAttribute('data-fancybox', 'gallery');
+        });
+
+
+
+        // Init fancybox
+        Fancybox.bind("[data-fancybox='gallery']", {
+            Toolbar: {
+                display: ["close"]
+            }
+        });
         
    });
 
