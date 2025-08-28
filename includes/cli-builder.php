@@ -228,7 +228,7 @@ function handle_openai_pattern_call_generation_cli($api_key, $website_title, $we
         - For buttons and links, never use #. Instead:
         - Pick the most relevant page from ' . json_encode($allPages) . '.
         - Full website URL = ' . site_url() . '.
-        - When generating content for only media-and-text patterns, always create 3–4 paragraphs, each around 100 words.
+        - When generating content for any media-and-text pattern, always create 2-3 paragraphs, each around 100 words.
         
         4) Cohesion & Industry Adaptation:
         - Content must be consistent, professional, and industry-appropriate.
