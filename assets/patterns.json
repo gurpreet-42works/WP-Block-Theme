@@ -16,7 +16,9 @@
     "inner_banner": {
         "section_intent": "Can be used for:  As a banner for inner or sub pages. Never use for About, Services, Testimonials, Contact, about, or Blog sections.",
         "VALID_SLUGS": {
-            "inner-banner-centered": "Centered heading and short paragraph banner for inner pages."
+            "inner-banner-centered": "",
+            "inner-banner-left-aligned": "",
+            "inner-banner-right-aligned": ""
         },
         "content_needed": {
             "heading": "Add Main Heading. Create using: <!-- wp:heading {\"level\":1,\"className\":\"mb-3\"} --> ",
@@ -143,7 +145,7 @@
         "content_needed": {
             "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
             "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->",
-            "faq_array": "Always generate 5-8 faqs according to the section_title and website description. Add descriptions in about 50-100 words. Return an array like this: [{\"title\":\"faq-title1\",\"description\":\"faq-description1\"},{\"title\":\"faq-title2\",\"description\":\"faq-description2\"} ...]"
+            "faq_array": "Always generate 5-8 faqs according to the section_title and website description. descriptions should be in about 50-100 words. Return an array like this: [{\"title\":\"faq-title1\",\"description\":\"faq-description1\"},{\"title\":\"faq-title2\",\"description\":\"faq-description2\"} ...]"
         }
     },
     "call_to_action": {
