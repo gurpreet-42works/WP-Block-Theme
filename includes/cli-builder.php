@@ -43,7 +43,7 @@ function aibuilder_generate_pages_cli($args, $assoc_args)
 
 
 
-    $images_array = fetch_images_from_unsplash($apiKey, "wEaTTFCyEpJYE8XjPti48CK0ff74g5Hl0-B8hJ5g9Yk", $search_keys, 30);
+    $images_array = fetch_images_from_unsplash($apiKey, "da9Lly5jwEjet62stUX0ebdL1BGQtYypRnQxmnht3DE", $search_keys, 30);
     
     //Set Global Title and Description for webiste
     update_option('blogname', $website_title);
@@ -207,9 +207,11 @@ function handle_openai_pattern_call_generation_cli($api_key, $website_title, $we
         **Critical Rules:**
         1) Slug Selection:
         - Find the correct pattern by section_intent.
-        - Randomly pick one slug from that pattern’s VALID_SLUGS.
+        - For each section, you are given a "VALID_SLUGS" array.
+        - Randomly pick one slug from that pattern’s VALID_SLUGS. 
+        - The chosen slug MUST exactly match one of the strings inside VALID_SLUGS.
+        - **Do NOT output the pattern object\'s top-level key (e.g., DO NOT return "posts_grid_without_pagination"). Only return one of the actual design slugs such as "post-cards-with-image" from VALID_SLUGS array.**
         - For hero banner sections: Randomly select ONE slug from VALID_SLUGS.Each must have equal probability.
-        - Do not return the pattern key itself (e.g., "posts_grid_without_pagination"). Return only the chosen slug.
         - If two consecutive sections share the same design category (e.g., both “left-aligned”), choose a different layout category for the next section.
 
         2) Banner Rules:
@@ -219,6 +221,8 @@ function handle_openai_pattern_call_generation_cli($api_key, $website_title, $we
         
         3) Content Rules:
         - Never copy section_prompt or description literally → rewrite into professional copy.
+        - Always return all items in the content_needed array for each selected pattern. Do not skip, omit, or ignore any field.
+        - Return each item in the correct format as defined in content_needed.
         - Use real Gutenberg HTML inside the comment wrappers (no placeholders, no lorem ipsum).
         - Always generate headings (<h1>, <h2>), paragraphs (<p>), buttons (<a>), and lists (<ul><li>) as required.
         - For buttons and links, never use #. Instead:
@@ -243,15 +247,14 @@ function handle_openai_pattern_call_generation_cli($api_key, $website_title, $we
         You must return only a JSON array in this structure:
         
         [
-            {{
+            {
                 "section_name": "Section Title",
                 "slug": "chosen slug",
-                "content": {{
-                    "heading": "<!-- wp:heading ... -->Write a unique section heading<!-- /wp -->",
-                    "description": "<!-- wp:paragraph ... -->Generate a section description<!-- /wp -->",
+                "content": {
+                    As per content_needed array of each selected pattern 
                     ...
-                }}
-            }},
+                }
+            },
         ]
     ' ;
 
@@ -308,6 +311,9 @@ function parse_generated_blocks($api_key, $blocks, $images_array)
             $pattern_slug = $output->slug;
             $pattern_path = get_stylesheet_directory() . "/patterns/static/{$pattern_slug}.html";
             WP_CLI::print_value($pattern_path);
+            if( $pattern_path == "C:/xampp-8/htdocs/wp_installations/bloxby/wp-content/themes/bloxby-wp/patterns/static/faq-accordion-full-width.html" ) {
+                WP_CLI::print_value($output->content);
+            }
             if (file_exists($pattern_path)) {
                 $pattern_content = file_get_contents($pattern_path);
                 
@@ -502,11 +508,11 @@ function parse_generated_blocks($api_key, $blocks, $images_array)
                         );
                     }
 
-                    if (isset($output->content->faqs_array)) {
-                        $faqs_array = json_decode($output->content->faqs_array);
+                    if (isset($output->content->faq_array)) {
+                        $faq_array = json_decode($output->content->faq_array);
                         $faqs_pattern_html = '';
 
-                        foreach ($faqs_array as $index => $faq) {
+                        foreach ($faq_array as $index => $faq) {
                             if( $index == 0 ){
                                 $faqs_pattern_html .= '<!-- wp:details {"showContent":true} -->
                                 <details class="wp-block-details" open>
@@ -518,7 +524,7 @@ function parse_generated_blocks($api_key, $blocks, $images_array)
                                 <!-- /wp:details -->';
                             }else{
                                 $faqs_pattern_html .= '<!-- wp:details -->
-                                <details class="wp-block-details" open>
+                                <details class="wp-block-details">
                                     <summary>'. $faq->title .'</summary>
                                     <!-- wp:paragraph {"placeholder":"Type / to add a hidden block"} -->
                                     <p>'. $faq->description .'</p>
@@ -542,6 +548,7 @@ function parse_generated_blocks($api_key, $blocks, $images_array)
                     }
 
                     if (isset($output->content->features_array)) {
+                        
                         $features_array = json_decode($output->content->features_array);
                         $feature_cards_html = '';
                         if (!empty($features_array)) {
@@ -584,7 +591,7 @@ function parse_generated_blocks($api_key, $blocks, $images_array)
 
                         if( $type == "image" && $layout == "top" && !empty($listings_array) ) {
                             foreach ($listings_array as $listing) {
-                            $image_arr = fetch_images_from_unsplash("", "wEaTTFCyEpJYE8XjPti48CK0ff74g5Hl0-B8hJ5g9Yk", $listing->heading , 1);
+                            $image_arr = fetch_images_from_unsplash("", "da9Lly5jwEjet62stUX0ebdL1BGQtYypRnQxmnht3DE", $listing->heading , 1);
                             $image = $image_arr[0];
                             $image_url = $image['url'] . '&w=900&h=600&&fit=crop';
                             $listings_html .= '<!-- wp:group {"className":"card h-100 border-0"} -->
@@ -623,7 +630,7 @@ function parse_generated_blocks($api_key, $blocks, $images_array)
                     $image_required = detect_image_tag($pattern_content);
                     if ($image_required['found']) {
                         if( isset( $output->content->search_terms ) ){
-                            $gallery_images_array = fetch_images_from_unsplash("", "wEaTTFCyEpJYE8XjPti48CK0ff74g5Hl0-B8hJ5g9Yk", $output->content->search_terms, 1);
+                            $gallery_images_array = fetch_images_from_unsplash("", "da9Lly5jwEjet62stUX0ebdL1BGQtYypRnQxmnht3DE", $output->content->search_terms, 1);
                         } else{
                             $gallery_images_array = $images_array;
                         }
@@ -645,7 +652,7 @@ function parse_generated_blocks($api_key, $blocks, $images_array)
                     $gallery_required = detect_gallery_tag($pattern_content);
                     if ($gallery_required['found']) {
                         if( isset( $output->content->search_terms ) ) {
-                            $gallery_images_array = fetch_images_from_unsplash("", "wEaTTFCyEpJYE8XjPti48CK0ff74g5Hl0-B8hJ5g9Yk", $output->content->search_terms, 10);
+                            $gallery_images_array = fetch_images_from_unsplash("", "da9Lly5jwEjet62stUX0ebdL1BGQtYypRnQxmnht3DE", $output->content->search_terms, 10);
                         }else{
                             $gallery_images_array = $images_array;
                         }
@@ -911,7 +918,7 @@ function generate_website_posts($api_key, $website_title, $website_description, 
     if (!empty($posts_array)) {
         foreach ($posts_array as $post) {
             //Upload a dummy Image
-            $images_array = fetch_images_from_unsplash("", "wEaTTFCyEpJYE8XjPti48CK0ff74g5Hl0-B8hJ5g9Yk", $post->title, 1);
+            $images_array = fetch_images_from_unsplash("", "da9Lly5jwEjet62stUX0ebdL1BGQtYypRnQxmnht3DE", $post->title, 1);
             $randomKey = array_rand($images_array);
             $random_image = $images_array[$randomKey];
 

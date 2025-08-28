@@ -535,7 +535,7 @@ i.testimonials-icon {
 
 .hero-banner-content-left img,
 .hero-banner-content-right img {
-  height: 85vh !important;;
+  height: 90vh !important;;
 }
 
 .banner-content-left figure::before,
@@ -546,7 +546,7 @@ i.testimonials-icon {
 .banner-content-centered.banner-height h1,
 .hero-banner-content-left h1,
 .hero-banner-content-right h1 {
-  font-size: 54px;
+  font-size: 58px;
 }
 
 .banner-content-centered.banner-height h2,
@@ -566,7 +566,7 @@ i.testimonials-icon {
 	padding-top: 50px;
 	padding-bottom: 50px;
 	margin-right: -50px;
-    padding-right: 90px;
+    padding-right: 100px;
 	z-index: 2;
 	--bs-bg-opacity: 0.2;
   	background-color: rgba(var(--bs-secondary-bg-rgb),var(--bs-bg-opacity)) !important;
@@ -577,7 +577,7 @@ i.testimonials-icon {
 	padding-top: 50px;
 	padding-bottom: 50px;
 	margin-left: -50px;
-    padding-left: 90px;
+    padding-left: 100px;
 	z-index: 2;
 	--bs-bg-opacity: 0.3;
   	background-color: rgba(var(--bs-secondary-bg-rgb),var(--bs-bg-opacity)) !important;

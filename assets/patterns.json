@@ -23,11 +23,11 @@
             "description": "Add a suitable description. Generate using <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->"
         }
     },
-    "featured_highlight_content_with_grid": {
+    "featured_grid": {
         "section_intent": "Use for service listings, feature highlights, benefits, or process overviews.",
         "VALID_SLUGS": {
-            "feature-content-grid-right": "Text content + button on left, feature grid on right",
-            "feature-content-grid-left": "Text content + button on right, feature grid on left."
+            "feature-card-grid-right": "Text content + button on left, feature grid on right",
+            "feature-card-grid-left": "Text content + button on right, feature grid on left."
         },
         "content_needed": {
             "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
@@ -43,9 +43,9 @@
         },
         "content_needed": {
             "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
-            "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->",
+            "description": "Add a suitable description in minimum 50 words. <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->",
             "button": "Generate a button block using <!-- wp:buttons --> and <!-- wp:button {\"className\":\"btn btn-primary btn-lg\"} --> only if there is an inner page for this section details else return an empty string ''.",
-            "listings_array": "This field is mandatory. Do not leave it empty. Generate heading and description array of upto 6 objects for this section like services, benefits, solutions, products or any highlight. Keep description short in about 25 words. Return an array like this: [{\"heading\":\"heading1\",\"description\":\"description1\"},{\"heading\":\"heading2\",\"description\":\"description2\"} ...]"
+            "listings_array": "This field is mandatory. Do not leave it empty. Generate heading and description array of upto 6 objects for this section like services, benefits, solutions, products or any highlight. Use dummy titles and add description according to the title. Keep description short in about 25 words. Return an array like this: [{\"heading\":\"heading1\",\"description\":\"description1\"},{\"heading\":\"heading2\",\"description\":\"description2\"} ...]"
         }
     },
     "social_cards": {
@@ -121,7 +121,7 @@
         },
         "content_needed": {
             "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
-            "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4 mt-0\"} -->"
+            "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->"
         }
     },
     "statistics_bar": {
@@ -143,7 +143,7 @@
         "content_needed": {
             "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
             "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->",
-            "faqs_array": "Generate upto 8 faqs according to the section_title and website description. Return an array like this: [{\"title\":\"faq-title1\",\"description\":\"faq-description1\"},{\"title\":\"faq-title2\",\"description\":\"faq-description2\"} ...]"
+            "faq_array": "Generate upto 3 faqs according to the section_title and website description. Add descriptions in about 100-120 words. Return an array like this: [{\"title\":\"faq-title1\",\"description\":\"faq-description1\"},{\"title\":\"faq-title2\",\"description\":\"faq-description2\"} ...]"
         }
     },
     "call_to_action": {
