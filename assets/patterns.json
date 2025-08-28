@@ -143,7 +143,7 @@
         "content_needed": {
             "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
             "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->",
-            "faq_array": "Generate upto 3 faqs according to the section_title and website description. Add descriptions in about 100-120 words. Return an array like this: [{\"title\":\"faq-title1\",\"description\":\"faq-description1\"},{\"title\":\"faq-title2\",\"description\":\"faq-description2\"} ...]"
+            "faq_array": "Always generate 5-8 faqs according to the section_title and website description. Add descriptions in about 50-100 words. Return an array like this: [{\"title\":\"faq-title1\",\"description\":\"faq-description1\"},{\"title\":\"faq-title2\",\"description\":\"faq-description2\"} ...]"
         }
     },
     "call_to_action": {
