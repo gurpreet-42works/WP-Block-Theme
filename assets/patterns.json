@@ -25,6 +25,18 @@
             "description": "Add a suitable description. Generate using <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->"
         }
     },
+    "about_section": {
+        "section_intent": "Use for about sections.",
+        "VALID_SLUGS": {
+            "about-stats-grid-right": "",
+            "about-overlap-image-left": "",
+        },
+        "content_needed": {
+            "heading": "Add Main Heading. Create using: <!-- wp:heading {\"level\":1,\"className\":\"mb-3\"} --> ",
+            "description": "Add a suitable description. Generate using <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->",
+            "stats_html": "Generate 4 statistics blocks for about section according to website title and description using this HTML structure: <!-- wp:group {\"className\":\"about-stats-grid\",\"layout\":{\"type\":\"grid\",\"columnCount\":2,\"minimumColumnWidth\":null}} --><div class=\"wp-block-group about-stats-grid\"><!-- wp:group {\"layout\":{\"type\":\"constrained\",\"justifyContent\":\"left\"}} --><div class=\"wp-block-group\"><!-- wp:heading {\"level\":3} --><h3 class=\"wp-block-heading\"><strong>{Stat Number(e.g.,99.9%,10K+,25 Years etc.)}</strong></h3><!-- /wp:heading --><!-- wp:paragraph {\"className\":\"mt-2\"} --><p class=\"mt-2\">{Stat label Here}<br></p><!-- /wp:paragraph --></div><!-- /wp:group -->{More stats childs here. Repeat: <!-- wp:group {\"layout\":{\"type\":\"constrained\",\"justifyContent\":\"left\"}} -->}</div><!-- /wp:group -->"
+        }
+    },
     "featured_grid": {
         "section_intent": "Use for service listings, feature highlights, benefits, or process overviews.",
         "VALID_SLUGS": {
@@ -45,9 +57,9 @@
         },
         "content_needed": {
             "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
-            "description": "Add a suitable description in minimum 50 words. <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->",
+            "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->",
             "button": "Generate a button block using <!-- wp:buttons --> and <!-- wp:button {\"className\":\"btn btn-primary btn-lg\"} --> only if there is an inner page for this section details else return an empty string ''.",
-            "listings_array": "This field is mandatory. Do not leave it empty. Generate heading and description array of upto 6 objects for this section like services, benefits, solutions, products or any highlight. Use dummy titles and add description according to the title. Keep description short in about 25 words. Return an array like this: [{\"heading\":\"heading1\",\"description\":\"description1\"},{\"heading\":\"heading2\",\"description\":\"description2\"} ...]"
+            "listings_array": "This field is mandatory. Do not leave it empty. Generate heading and description array of upto 6 objects for this section like services, benefits, solutions, products or any highlight. Each description must be around 80 words. Use real service or project or products name avoid using dummy name. Return an array like this: [{\"heading\":\"heading1\",\"description\":\"description1\"},{\"heading\":\"heading2\",\"description\":\"description2\"} ...]"
         }
     },
     "social_cards": {
@@ -74,7 +86,7 @@
             "search_terms": "Based on the heading and description of this section and WEBSITE NAME and WEBSITE DESCRIPTION, generate 2-3 relevant comma separated search terms for finding appropriate images on Unsplash. The search terms should be relevant, professional, and suitable for the website’s purpose."
         }
     },
-    "images_grid": {
+    "images_gallery": {
         "section_intent": "Use for client logos, partners, feature icons, or galleries",
         "VALID_SLUGS": {
             "images-grid": "Grid section with heading, description, and images."

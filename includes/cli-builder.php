@@ -167,95 +167,125 @@ function handle_openai_pattern_call_generation_cli($api_key, $website_title, $we
 
     $systemPrompt = 'You are an expert WordPress FSE block builder that generates creative Gutenberg block HTML using Bootstrap 5 classes.';
     $aiPrompt = 'You are a professional **WordPress content generator** that builds section HTML using **block patterns**.
+    
+    
+    Follow this exact reasoning workflow internally before selecting a pattern and writing content and before producing the final JSON:  
 
-        ### Available Block Patterns
-        ' . $patterns_string . '
-        
-        Each pattern includes:
-        - **section_intent**: Rule to follow before selecting the pattern. Always match the section intent..
-        - **VALID_SLUGS**: List of valid design slugs. Randomly pick **exactly one** slug from this list.
-        - **content_needed**: Fields that require Gutenberg block HTML. You must fill these with real content. Return only a JSON array as described there.
-        - You MUST generate valid HTML for gutenberg block editor for each field using these WordPress blocks
-        
-        ---
-        
-        Here is the input JSON from the client describing desired page sections:
-        ' . $section_json . '
+    1. **Read Critical Rules**: Carefully review all Critical Rules and IMPORTANT FORMAT RULES and Output Format.  
+    2. **Understand Page Context**: Look at `page_type`, `page_title`, and `page_description` to understand the business/industry and tone.  
+    3. **Match Section to Pattern**:  
+       - Understand each section by looking at section_type , section_title , section_description , section_prompt
+       - Then use `section_intent` to select the correct block pattern according to section need.  
+       - From that pattern’s `VALID_SLUGS`, randomly pick **exactly one slug** (never use the pattern name itself).  
+       - Ensure no two consecutive sections use the same layout category.  
+    4. **Generate Content**:  
+       - For each field in `content_needed`, write valid Gutenberg HTML inside block comments **with real HTML elements**.  
+       - Follow rules for paragraphs (2–3 × 100 words in media-text), FAQs (5–8 Q&A × 80 words), buttons (link to `' . site_url() . '` pages).  
+       - Never use placeholders or incomplete copy.  
+    5. **Validation Step**:  
+       - Re-check that every required field in `content_needed` is included.  
+       - Verify that the slug is one of the provided `VALID_SLUGS`.  
+       - Ensure banner/page/blog/archive rules are respected.  
+    6. **Final Output**:  
+       - Return only the JSON array in the exact format below.  
+       - Do not include your reasoning, only the finished JSON.  
 
-        WEBSITE DETAILS:
-        WEBSITE URL: ' . site_url() . '
-        WEBSITE NAME: ' . $website_title . '
-        WEBSITE DESCRIPTION: ' . $website_description . '
+    ### Available Block Patterns
+    ' . $patterns_string . '
+    
+    Each pattern includes:
+    - **section_intent**: Rule to follow before selecting the pattern. Always match the section intent..
+    - **VALID_SLUGS**: List of valid design slugs. Randomly pick **exactly one** slug from this list.
+    - **content_needed**: Fields that require Gutenberg block HTML. You must fill these with real content. Return only a JSON array as described there.
+    - You MUST generate valid HTML for gutenberg block editor for each field using these WordPress blocks
+      
+    ---
+    
+    Here is the input JSON from the client describing desired page sections:
+    ' . $section_json . '
 
-        INPUT PROCESSING:
-        CURRENT PAGE DETAILS:       
-        PAGE TITLE: ' . $page_title . '
-        PAGE DESCRIPTION: ' . $page_description . '
-        PAGE SLUG: ' . sanitize_title($page_title) . '
-        
-        ---
-        
-        **IMPORTANT FORMAT RULES:**
-        - For each field (like heading, description, button), wrap the generated content inside the appropriate WordPress block comment structure **AND include real HTML inside**.
-        - For example, if the block is <!-- wp:heading {{className:mb-3}} -->, then inside it include an actual `<h2>` or `<h1>` tag like:
-        <!-- wp:heading {{"className":"mb-3"}} -->
-        <h2 class="wp-block-heading mb-3">Your Title Here</h2>
-        <!-- /wp:heading -->
-        - Do the same for paragraphs, buttons, and lists — use actual <p>, <a>, <ul>, <li> etc. inside the comment blocks.
-        - Do not generate placeholders. Always return complete HTML code for each field.
-        
-        **Critical Rules:**
-        1) Slug Selection:
-        - Find the correct pattern by section_intent.
-        - For each section, you are given a "VALID_SLUGS" array.
-        - Randomly pick one slug from that pattern’s VALID_SLUGS. 
-        - The chosen slug MUST exactly match one of the strings inside VALID_SLUGS.
-        - **Do NOT output the pattern object\'s top-level key (e.g., DO NOT return "posts_grid_without_pagination"). Only return one of the actual design slugs such as "post-cards-with-image" from VALID_SLUGS array.**
-        - For hero banner sections: Randomly select ONE slug from VALID_SLUGS.Each must have equal probability.
-        - If two consecutive sections share the same design category (e.g., both “left-aligned”), choose a different layout category for the next section.
+      WEBSITE DETAILS:
+      WEBSITE URL: ' . site_url() . '
+      WEBSITE NAME: ' . $website_title . '
+      WEBSITE DESCRIPTION: ' . $website_description . '
 
-        2) Banner Rules:
-        - If page_type = "home" → **must** use hero_banner and Randomly select ONE slug from VALID_SLUGS.Each must have equal probability.
-        - If page_type ≠ "home" → **must** use inner_banner
-        - Ensure not to repeat the same banner layout consecutively.
-        
-        3) Content Rules:
-        - Never copy section_prompt or description literally → rewrite into professional copy.
-        - Always return all items in the content_needed array for each selected pattern. Do not skip, omit, or ignore any field.
-        - Return each item in the correct format as defined in content_needed.
-        - Use real Gutenberg HTML inside the comment wrappers (no placeholders, no lorem ipsum).
-        - Always generate headings (<h1>, <h2>), paragraphs (<p>), buttons (<a>), and lists (<ul><li>) as required.
-        - For buttons and links, never use #. Instead:
-        - Pick the most relevant page from ' . json_encode($allPages) . '.
-        - Full website URL = ' . site_url() . '.
-        - When generating content for any media-and-text pattern, always create 2-3 paragraphs, each around 100 words.
-        
-        4) Cohesion & Industry Adaptation:
-        - Content must be consistent, professional, and industry-appropriate.
-        - Sections must work together with a unified design and voice.
-        - Tailor CTAs, tone, and structure to match the business type inferred from page title.
-        
-        **our Task**
-        For each input section:
-        - Match to the correct block pattern (based on section_intent, section_type, and section_prompt).
-        - Randomly pick one slug from VALID_SLUGS.
-        - Generate all required fields (content_needed) in valid Gutenberg HTML with meaningful, professional content.
-        - Return only the JSON array described below.
-        - Do not explain, comment, or output anything else.
-        
-        ### Output Format
-        You must return only a JSON array in this structure:
-        
-        [
-            {
-                "section_name": "Section Title",
-                "slug": "chosen slug",
-                "content": {
-                    As per content_needed array of each selected pattern 
-                    ...
-                }
-            },
-        ]
+      INPUT PROCESSING:
+      CURRENT PAGE DETAILS:       
+      PAGE TITLE: ' . $page_title . '
+      PAGE DESCRIPTION: ' . $page_description . '
+      PAGE SLUG: ' . sanitize_title($page_title) . '
+    
+    ---
+    
+    **IMPORTANT FORMAT RULES:**
+    - For each field (like heading, description, button), wrap the generated content inside the appropriate WordPress block comment structure **AND include real HTML inside**.
+    - For example, if the block is `<!-- wp:heading {{"className":"mb-3"}} -->`, then inside it include an actual `<h2>` or `<h1>` tag like:
+      <!-- wp:heading {{"className":"mb-3"}} -->
+      <h2 class="wp-block-heading mb-3">Your Title Here</h2>
+      <!-- /wp:heading -->
+    - Do the same for paragraphs, buttons, and lists — use actual <p>, <a>, <ul>, <li> etc. inside the comment blocks.
+    - Do not generate placeholders. Always return complete HTML code for each field.
+    
+    **Critical Rules:**
+    1) Slug Selection:
+    - Find the correct pattern by section_intent.
+    - For each section, you are given a "VALID_SLUGS" array   
+    - Randomly select ONE slug from that pattern’s VALID_SLUGS array. Each must have equal probability.
+    - The chosen slug MUST exactly match one of the strings inside VALID_SLUGS.
+    - **Do NOT output the pattern object\'s top-level key (e.g., DO NOT return "posts_grid_without_pagination"). Only return one of the actual design slugs such as "post-cards-with-image" from VALID_SLUGS array.**
+    - For hero banner sections: Randomly select ONE slug from VALID_SLUGS.Each must have equal probability.
+    - If two consecutive sections share the same design category (e.g., both “left-aligned”), choose a different layout category for the next section.
+
+    2) Banner Rules:
+    - If `page_type = "home"` → **must** use `hero_banner` and Randomly select ONE slug from VALID_SLUGS.Each must have equal probability.
+    - If `page_type ≠ "home"` → **must** use `inner_banner` and Randomly select ONE slug from VALID_SLUGS.Each must have equal probability.
+    - Ensure not to repeat the same banner layout consecutively.
+    
+    3) Blog/Archive Rules
+    - If page_type is "blog", "news", "archive", or URL contains /blog, /news, /our-blog, /our-beauty-blog → use posts_grid_with_pagination.
+    - Otherwise, use posts_grid_without_pagination.
+    
+    4) Content Rules:
+    - Never copy section_prompt or description literally → rewrite into professional copy.
+    - Always return all items in the content_needed array for each selected pattern. Do not skip, omit, or ignore any field.
+    - When writing content for listing_grid, always create listing_array descriptions with 80 words each.
+    - Return each item in the correct format as defined in content_needed.
+    - Use real Gutenberg HTML inside the comment wrappers (no placeholders, no lorem ipsum).
+    - When writing project always use real project name avoid project 1, project 2 or project alpa etc.
+    - When generating content for any media-and-text pattern, always create 2–3 paragraphs, each around 100 words.
+    - When generating content for faq pattern always include faqs_array with 5-8 different questions and description in 80 words.
+    - Always generate headings (<h1>, <h2>), paragraphs (<p>), buttons (<a>), and lists (<ul><li>) as required.
+    - For buttons and links, never use #. Instead:
+    - Pick the most relevant page from ' . json_encode($allPages) . '.
+    - Full website URL = ' . site_url() . '.
+    
+    5) Cohesion & Industry Adaptation:
+    - Content must be consistent, professional, and industry-appropriate.
+    - Sections must work together with a unified design and voice.
+    - Tailor CTAs, tone, and structure to match the business type inferred from page title.
+    
+    **our Task**
+    For each input section:
+    - Match to the correct block pattern (based on section_intent, section_type, and section_prompt).
+    - Randomly pick one slug from VALID_SLUGS.
+    - Generate all required fields (content_needed) in valid Gutenberg HTML with meaningful, professional content.
+    - Return only the JSON array described below.
+    - Do not explain, comment, or output anything else.
+    
+    ### Output Format
+    You must return only a JSON array in this structure:
+    
+    [
+        {
+            "section_name": "Section Title",
+            "slug": "chosen slug",
+            "content": {
+                "heading": "<!-- wp:heading ... -->Write a unique section heading<!-- /wp -->",
+                "description": "<!-- wp:paragraph ... -->Generate a section description<!-- /wp -->",
+                ...
+            }
+        }
+    ]
     ' ;
 
     $data = [
@@ -673,7 +703,11 @@ function parse_generated_blocks($api_key, $blocks, $images_array)
                             
                             $image_url = $random_image['url'] . '&w=' . $img_width . '&h=' . $img_height . '&&fit=crop'; //Crop to required size
                             $gallery_html .= '<!-- wp:image {"className":"overflow-hidden rounded shadow-sm"} -->
-                                    <figure class="wp-block-image size-large overflow-hidden rounded shadow-sm"><img src="' . $image_url . '" alt="Gallery Image ' . $i . '" /></figure>
+                                    <figure class="wp-block-image size-large overflow-hidden rounded shadow-sm">
+                                        <a href="'. $random_image['url'] .'">
+                                            <img src="' . $image_url . '" alt="Gallery Image ' . $i . '" />
+                                        </a>
+                                    </figure>
                                     <!-- /wp:image -->';
                         }
 
