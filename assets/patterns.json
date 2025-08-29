@@ -32,7 +32,7 @@
             "about-overlap-image-left": "",
         },
         "content_needed": {
-            "heading": "Add Main Heading. Create using: <!-- wp:heading {\"level\":1,\"className\":\"mb-3\"} --> ",
+            "heading": "Add Main Heading. Create using: <!-- wp:heading {\"className\":\"mb-3\"} --> ",
             "description": "Add a suitable description. Generate using <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->",
             "stats_html": "Generate 4 statistics blocks for about section according to website title and description using this HTML structure: <!-- wp:group {\"className\":\"about-stats-grid\",\"layout\":{\"type\":\"grid\",\"columnCount\":2,\"minimumColumnWidth\":null}} --><div class=\"wp-block-group about-stats-grid\"><!-- wp:group {\"layout\":{\"type\":\"constrained\",\"justifyContent\":\"left\"}} --><div class=\"wp-block-group\"><!-- wp:heading {\"level\":3} --><h3 class=\"wp-block-heading\"><strong>{Stat Number(e.g.,99.9%,10K+,25 Years etc.)}</strong></h3><!-- /wp:heading --><!-- wp:paragraph {\"className\":\"mt-2\"} --><p class=\"mt-2\">{Stat label Here}<br></p><!-- /wp:paragraph --></div><!-- /wp:group -->{More stats childs here. Repeat: <!-- wp:group {\"layout\":{\"type\":\"constrained\",\"justifyContent\":\"left\"}} -->}</div><!-- /wp:group -->"
         }

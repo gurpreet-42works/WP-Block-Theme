@@ -1,0 +1,82 @@
+.section-heading-wrap .wp-block-heading {
+    transform: translateY(50px);
+    opacity: 0;
+}
+.section-heading-wrap p {
+    transform: translateY(70px);
+    opacity: 0;
+}
+
+.feature-cards-grid .feature-card {
+    transform: translateY(50px);
+    opacity: 0;
+}
+
+.content-with-media-section .has-media-on-the-right img,
+.content-with-media-section .has-media-on-the-left .wp-block-media-text__content {
+    transform: translateX(150px);
+    opacity: 0;
+}
+
+.content-with-media-section .has-media-on-the-left img,
+.content-with-media-section .has-media-on-the-right .wp-block-media-text__content {
+    transform: translateX(-150px);
+    opacity: 0;
+}
+
+.inner-page-hero .wp-block-heading, 
+.banner-content-centered .wp-block-heading {
+    transform: translateY(80px);
+    opacity: 0;
+}
+
+.inner-page-hero p,
+.banner-content-centered p {
+    transform: translateY(120px);
+    opacity: 0;
+}
+
+.banner-content-centered .wp-block-buttons {
+    transform: translateY(150px);
+    opacity: 0;
+}
+
+.our-team-grid .social-card {
+    transform: translateY(50px);
+    opacity: 0;
+}
+
+.listing-cards-grid .card {
+    transform: translateY(50px);
+    opacity: 0;
+}
+
+.wp-block-post-template .wp-block-post .card {
+    transform: translateY(50px);
+    opacity: 0;
+}
+
+.testimonial-grid-container .testimonial-grid-block {
+    transform: translateY(50px);
+    opacity: 0;
+}
+
+.about-journery-content .wp-block-image {
+    transform: translateX(-50px);
+    opacity: 0;
+}
+
+.about-journery-content .wp-block-heading {
+    transform: translateY(50px);
+    opacity: 0;
+}
+
+.about-journery-content p {
+    transform: translateY(70px);
+    opacity: 0;
+}
+
+.about-stats-grid > .wp-block-group {
+    transform: translateY(50px);
+    opacity: 0;
+}

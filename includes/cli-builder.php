@@ -251,7 +251,6 @@ function handle_openai_pattern_call_generation_cli($api_key, $website_title, $we
     - Always return all items in the content_needed array for each selected pattern. Do not skip, omit, or ignore any field.
     - When writing content for listing_grid, always create listing_array descriptions with 80 words each.
     - Return each item in the correct format as defined in content_needed.
-    - If in content_needed there is any requirement for custom HTML, Never left any div unclosed, follow the Gutenberg HTML pattern structure strictly defined in the content needed.
     - Use real Gutenberg HTML inside the comment wrappers (no placeholders, no lorem ipsum).
     - When writing project always use real project name avoid project 1, project 2 or project alpa etc.
     - When generating content for any media-and-text pattern, always create 2–3 paragraphs, each around 100 words.
