@@ -124,6 +124,7 @@ header.wp-block-template-part {
 }
 
 .wp-block-site-logo img {
+    min-height: 60px;
     max-height: 80px;
     object-fit: contain;
 }
@@ -628,6 +629,10 @@ i.testimonials-icon {
     justify-content: end;
 }
 
+.stats-no-arrow-grid-block {
+    text-align: center;
+}
+
 
 
 /** Responsive */
@@ -812,6 +817,10 @@ i.testimonials-icon {
 
     .banner-content-right .wp-block-group {
         margin: 0px;
+    }
+
+    .stats-no-arrow-grid-container {
+        grid-template-columns: repeat(2, 1fr) !important;
     }
 }
 

@@ -15,7 +15,8 @@
 <!-- wp:group {"align":"full","className":"section-statistics-no-icon common-padding"} -->
 <div class="wp-block-group alignfull section-statistics-no-icon common-padding">
     <!-- wp:group {"className":"container"} -->
-    <div class="wp-block-group container"><!-- wp:group {"className":"section-heading-wrap text-center"} -->
+    <div class="wp-block-group container">
+        <!-- wp:group {"className":"section-heading-wrap text-center"} -->
         <div class="wp-block-group section-heading-wrap text-center">
             <!-- wp:heading {"className":"mb-3"} -->
             <h2 class="wp-block-heading mb-3">Title Goes Here</h2>
@@ -29,8 +30,7 @@
         <!-- /wp:group -->
 
         <!-- wp:bloxby-blocks/statistics-bar-without-arrow-parent {"columns":4} -->
-        <div
-            class="wp-block-bloxby-blocks-statistics-bar-without-arrow-parent save-block stats-no-arrow-block-container">
+        <div class="wp-block-bloxby-blocks-statistics-bar-without-arrow-parent save-block stats-no-arrow-block-container">
             <div class="stats-no-arrow-grid-container stats-no-arrow-columns-4">
                 <!-- wp:bloxby-blocks/statistics-bar-without-arrow-child -->
                 <div

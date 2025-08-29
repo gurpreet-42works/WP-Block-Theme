@@ -37,12 +37,21 @@ add_action('after_setup_theme', 'register_bloxbywp_supports');
 function add_bloxbywp_scripts()
 {
    wp_enqueue_script('bootstrap', get_stylesheet_directory_uri() . '/assets/js/bootstrap.bundle.min.js', array(), get_theme_mod('version'), true);
-   wp_enqueue_script('fancybox', 'https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.0/dist/fancybox/fancybox.umd.js', array(), get_theme_mod('version'), true);
+   wp_enqueue_script('fancybox', 'https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.0/dist/fancybox/fancybox.umd.js', array('jquery'), get_theme_mod('version'), true);
+   wp_enqueue_script('gsap-main', 'https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js', array('jquery'), get_theme_mod('version'), true);
 
    wp_enqueue_script(
       'site-main',
       get_theme_file_uri('/assets/js/site.js'),
-      ['jquery'],
+      array('jquery'),
+      false,
+      true
+   );
+
+   wp_enqueue_script(
+      'animations',
+      get_theme_file_uri('/assets/js/animations.js'),
+      array('jquery', 'gsap-main'),
       false,
       true
    );

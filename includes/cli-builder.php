@@ -177,10 +177,11 @@ function handle_openai_pattern_call_generation_cli($api_key, $website_title, $we
        - Understand each section by looking at section_type , section_title , section_description , section_prompt
        - Then use `section_intent` to select the correct block pattern according to section need.  
        - From that pattern’s `VALID_SLUGS`, randomly pick **exactly one slug** (never use the pattern name itself).  
-       - Ensure no two consecutive sections use the same layout category.  
+       - Ensure no two consecutive sections use the same layout category. If two consecutive sections share the same design category (e.g., both “left-aligned”), choose a different layout category for the next section. 
+       
     4. **Generate Content**:  
        - For each field in `content_needed`, write valid Gutenberg HTML inside block comments **with real HTML elements**.  
-       - Follow rules for paragraphs (2–3 × 100 words in media-text), FAQs (5–8 Q&A × 80 words), buttons (link to `' . site_url() . '` pages).  
+       - Follow rules for paragraphs (2–3 × 100 words in media-text), FAQs (5–8 Q&A × 2-3 lines), buttons (link to `' . site_url() . '` pages).  
        - Never use placeholders or incomplete copy.  
     5. **Validation Step**:  
        - Re-check that every required field in `content_needed` is included.  
@@ -250,10 +251,11 @@ function handle_openai_pattern_call_generation_cli($api_key, $website_title, $we
     - Always return all items in the content_needed array for each selected pattern. Do not skip, omit, or ignore any field.
     - When writing content for listing_grid, always create listing_array descriptions with 80 words each.
     - Return each item in the correct format as defined in content_needed.
+    - If in content_needed there is any requirement for custom HTML, Never left any div unclosed, follow the Gutenberg HTML pattern structure strictly defined in the content needed.
     - Use real Gutenberg HTML inside the comment wrappers (no placeholders, no lorem ipsum).
     - When writing project always use real project name avoid project 1, project 2 or project alpa etc.
     - When generating content for any media-and-text pattern, always create 2–3 paragraphs, each around 100 words.
-    - When generating content for faq pattern always include faqs_array with 5-8 different questions and description in 80 words.
+    - When generating content for faq pattern always include faqs_array with 5-8 different questions and description in 2-3 lines about 150 words.
     - Always generate headings (<h1>, <h2>), paragraphs (<p>), buttons (<a>), and lists (<ul><li>) as required.
     - For buttons and links, never use #. Instead:
     - Pick the most relevant page from ' . json_encode($allPages) . '.
