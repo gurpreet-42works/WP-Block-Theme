@@ -43,7 +43,7 @@ function aibuilder_generate_pages_cli($args, $assoc_args)
 
 
 
-    $images_array = fetch_images_from_unsplash($apiKey, "wEaTTFCyEpJYE8XjPti48CK0ff74g5Hl0-B8hJ5g9Yk", $search_keys, 30);
+    $images_array = fetch_images_from_unsplash($apiKey, "da9Lly5jwEjet62stUX0ebdL1BGQtYypRnQxmnht3DE", $search_keys, 30);
     
     //Set Global Title and Description for webiste
     update_option('blogname', $website_title);
@@ -180,11 +180,16 @@ function handle_openai_pattern_call_generation_cli($api_key, $website_title, $we
        - Ensure no two consecutive sections use the same layout category. If two consecutive sections share the same design category (e.g., both “left-aligned”), choose a different layout category for the next section. 
        
     4. **Generate Content**:  
-       - For each field in `content_needed`, write valid Gutenberg HTML inside block comments **with real HTML elements**.  
+       - For each field in `content_needed`, write valid Gutenberg HTML inside block comments **with real HTML elements**.
+       - For each field, strictly follow the exact WordPress block + HTML format defined in that field’s description. 
+            Example: If the description says: "Generate using: <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->". Then the AI must output: <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} --> <p class="mb-4 has-medium-font-size">{{Content Here}}</p> <!-- /wp:paragraph -->.
+
        - Follow rules for paragraphs (2–3 × 100 words in media-text), FAQs (5–8 Q&A × 2-3 lines), buttons (link to `' . site_url() . '` pages).  
+       - If the description requires an array (e.g., features_array) or search terms, output exactly in the specified format (JSON array, comma-separated values, etc.).
        - Never use placeholders or incomplete copy.  
     5. **Validation Step**:  
        - Re-check that every required field in `content_needed` is included.  
+       - Validate if the HTML generated is in correct format as defined in that field’s description.
        - Verify that the slug is one of the provided `VALID_SLUGS`.  
        - Ensure banner/page/blog/archive rules are respected.  
     6. **Final Output**:  
@@ -197,7 +202,7 @@ function handle_openai_pattern_call_generation_cli($api_key, $website_title, $we
     Each pattern includes:
     - **section_intent**: Rule to follow before selecting the pattern. Always match the section intent..
     - **VALID_SLUGS**: List of valid design slugs. Randomly pick **exactly one** slug from this list.
-    - **content_needed**: Fields that require Gutenberg block HTML. You must fill these with real content. Return only a JSON array as described there.
+    - **content_needed**: Fields that require Gutenberg block HTML. You must fill these with real content and appropriate HTML block if defined in the field description. Return only a JSON array as described there.
     - You MUST generate valid HTML for gutenberg block editor for each field using these WordPress blocks
       
     ---
@@ -219,7 +224,7 @@ function handle_openai_pattern_call_generation_cli($api_key, $website_title, $we
     ---
     
     **IMPORTANT FORMAT RULES:**
-    - For each field (like heading, description, button), wrap the generated content inside the appropriate WordPress block comment structure **AND include real HTML inside**.
+    - For each field (like heading, description, button), wrap the generated content inside the appropriate WordPress block comment structure defined in the description of the field **AND include real HTML inside**.
     - For example, if the block is `<!-- wp:heading {{"className":"mb-3"}} -->`, then inside it include an actual `<h2>` or `<h1>` tag like:
       <!-- wp:heading {{"className":"mb-3"}} -->
       <h2 class="wp-block-heading mb-3">Your Title Here</h2>
@@ -250,7 +255,6 @@ function handle_openai_pattern_call_generation_cli($api_key, $website_title, $we
     - Never copy section_prompt or description literally → rewrite into professional copy.
     - Always return all items in the content_needed array for each selected pattern. Do not skip, omit, or ignore any field.
     - When writing content for listing_grid, always create listing_array descriptions with 80 words each.
-    - Return each item in the correct format as defined in content_needed.
     - Use real Gutenberg HTML inside the comment wrappers (no placeholders, no lorem ipsum).
     - When writing project always use real project name avoid project 1, project 2 or project alpa etc.
     - When generating content for any media-and-text pattern, always create 2–3 paragraphs, each around 100 words.
@@ -338,13 +342,12 @@ function parse_generated_blocks($api_key, $blocks, $images_array)
     $final_html = '';
     if (!empty($cleaned_output)) {
         $output_arr = json_decode($cleaned_output);
+        WP_CLI::print_value($output_arr);
         foreach ($output_arr as $output) {
             $pattern_slug = $output->slug;
             $pattern_path = get_stylesheet_directory() . "/patterns/static/{$pattern_slug}.html";
             WP_CLI::print_value($pattern_path);
-            if( $pattern_path == "C:/xampp-8/htdocs/wp_installations/bloxby/wp-content/themes/bloxby-wp/patterns/static/faq-accordion-full-width.html" ) {
-                WP_CLI::print_value($output->content);
-            }
+
             if (file_exists($pattern_path)) {
                 $pattern_content = file_get_contents($pattern_path);
                 
@@ -420,7 +423,7 @@ function parse_generated_blocks($api_key, $blocks, $images_array)
                     }
 
                     if (isset($output->content->stats_array)) {
-                        $stats_array = json_decode($output->content->testimonials_array);
+                        $stats_array = json_decode($output->content->stats_array);
                         $stats_array_html = '';
 
                         if( !empty($stats_array) ) {
@@ -660,7 +663,7 @@ function parse_generated_blocks($api_key, $blocks, $images_array)
 
                         if( $type == "image" && $layout == "top" && !empty($listings_array) ) {
                             foreach ($listings_array as $listing) {
-                            $image_arr = fetch_images_from_unsplash("", "wEaTTFCyEpJYE8XjPti48CK0ff74g5Hl0-B8hJ5g9Yk", $listing->heading , 1);
+                            $image_arr = fetch_images_from_unsplash("", "da9Lly5jwEjet62stUX0ebdL1BGQtYypRnQxmnht3DE", $listing->heading , 1);
                             $image = $image_arr[0];
                             $image_url = $image['url'] . '&w=900&h=600&&fit=crop';
                             $listings_html .= '<!-- wp:group {"className":"card h-100 border-0"} -->
@@ -699,7 +702,7 @@ function parse_generated_blocks($api_key, $blocks, $images_array)
                     $image_required = detect_image_tag($pattern_content);
                     if ($image_required['found']) {
                         if( isset( $output->content->search_terms ) ){
-                            $gallery_images_array = fetch_images_from_unsplash("", "wEaTTFCyEpJYE8XjPti48CK0ff74g5Hl0-B8hJ5g9Yk", $output->content->search_terms, 1);
+                            $gallery_images_array = fetch_images_from_unsplash("", "da9Lly5jwEjet62stUX0ebdL1BGQtYypRnQxmnht3DE", $output->content->search_terms, 1);
                         } else{
                             $gallery_images_array = $images_array;
                         }
@@ -721,7 +724,7 @@ function parse_generated_blocks($api_key, $blocks, $images_array)
                     $gallery_required = detect_gallery_tag($pattern_content);
                     if ($gallery_required['found']) {
                         if( isset( $output->content->search_terms ) ) {
-                            $gallery_images_array = fetch_images_from_unsplash("", "wEaTTFCyEpJYE8XjPti48CK0ff74g5Hl0-B8hJ5g9Yk", $output->content->search_terms, 10);
+                            $gallery_images_array = fetch_images_from_unsplash("", "da9Lly5jwEjet62stUX0ebdL1BGQtYypRnQxmnht3DE", $output->content->search_terms, 10);
                         }else{
                             $gallery_images_array = $images_array;
                         }
@@ -991,7 +994,7 @@ function generate_website_posts($api_key, $website_title, $website_description, 
     if (!empty($posts_array)) {
         foreach ($posts_array as $post) {
             //Upload a dummy Image
-            $images_array = fetch_images_from_unsplash("", "wEaTTFCyEpJYE8XjPti48CK0ff74g5Hl0-B8hJ5g9Yk", $post->title, 1);
+            $images_array = fetch_images_from_unsplash("", "da9Lly5jwEjet62stUX0ebdL1BGQtYypRnQxmnht3DE", $post->title, 1);
             $randomKey = array_rand($images_array);
             $random_image = $images_array[$randomKey];
 

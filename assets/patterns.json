@@ -7,8 +7,8 @@
             "hero-banner-right-aligned": ""
         },
         "content_needed": {
-            "heading": "Add Main Heading. Create using: <!-- wp:heading {\"level\":1,\"className\":\"mb-3\"} --> ",
-            "subheading": "Add a subheading related to  this section. Create using: <!-- wp:heading {\"fontSize\":\"medium\"} -->",
+            "heading": "Add Main Heading. Generate using: <!-- wp:heading {\"level\":1,\"className\":\"mb-3\"} --> ",
+            "subheading": "Add a subheading related to  this section. Generate using: <!-- wp:heading {\"fontSize\":\"medium\"} -->",
             "description": "Write a compelling and professional description in 30–40 words. The description should clearly explain what the business/website offers, its value, and why it matters. Avoid generic or vague text. Use a persuasive yet natural tone. Generate using <!-- wp:paragraph {\"className\":\"mb-5\",\"fontSize\":\"medium\"} -->",
             "button": "Generate a button block using <!-- wp:buttons --> and <!-- wp:button {\"className\":\"btn btn-primary btn-lg\"} -->"
         }
@@ -21,8 +21,8 @@
             "inner-banner-right-aligned": ""
         },
         "content_needed": {
-            "heading": "Add Main Heading. Create using: <!-- wp:heading {\"level\":1,\"className\":\"mb-3\"} --> ",
-            "description": "Add a suitable description. Generate using <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->"
+            "heading": "Add Main Heading. Generate using: <!-- wp:heading {\"level\":1,\"className\":\"mb-3\"} --> ",
+            "description": "Add a suitable description. Generate using: <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->"
         }
     },
     "about_section": {
@@ -32,8 +32,8 @@
             "about-overlap-image-left": "",
         },
         "content_needed": {
-            "heading": "Add Main Heading. Create using: <!-- wp:heading {\"className\":\"mb-3\"} --> ",
-            "description": "Add a suitable description. Generate using <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->",
+            "heading": "Add Main Heading. Generate using: <!-- wp:heading {\"className\":\"mb-3\"} --> ",
+            "description": "Add a suitable description. Generate using: <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->",
             "stats_html": "Generate 4 statistics blocks for about section according to website title and description using this HTML structure: <!-- wp:group {\"className\":\"about-stats-grid\",\"layout\":{\"type\":\"grid\",\"columnCount\":2,\"minimumColumnWidth\":null}} --><div class=\"wp-block-group about-stats-grid\"><!-- wp:group {\"layout\":{\"type\":\"constrained\",\"justifyContent\":\"left\"}} --><div class=\"wp-block-group\"><!-- wp:heading {\"level\":3} --><h3 class=\"wp-block-heading\"><strong>{Stat Number(e.g.,99.9%,10K+,25 Years etc.)}</strong></h3><!-- /wp:heading --><!-- wp:paragraph {\"className\":\"mt-2\"} --><p class=\"mt-2\">{Stat label Here}<br></p><!-- /wp:paragraph --></div><!-- /wp:group -->{More stats childs here. Repeat: <!-- wp:group {\"layout\":{\"type\":\"constrained\",\"justifyContent\":\"left\"}} -->}</div><!-- /wp:group -->"
         }
     },
@@ -44,8 +44,8 @@
             "feature-card-grid-left": "Text content + button on right, feature grid on left."
         },
         "content_needed": {
-            "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
-            "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4\"} -->",
+            "heading": "Section Heading. Generate using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
+            "description": "Add a suitable description. Generate using: <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->",
             "button": "Generate a button block using <!-- wp:buttons --> and <!-- wp:button {\"className\":\"btn btn-primary btn-lg\"} --> only if there is an inner page for this section details else return an empty string ''.",
             "features_array": "This field is mandatory. Do not leave it empty. Generate heading and description array of upto 6 objects for this section like services, benefits, solutions, products or any highlight. Keep description short in about 25 words. Return an array like this: [{\"heading\":\"heading1\",\"description\":\"description1\"},{\"heading\":\"heading2\",\"description\":\"description2\"} ...]"
         }
@@ -56,8 +56,8 @@
             "listing-image-card-grid-3-columns": "A listing section with image cards in grid. Grid with 3 columns layout. Image on card top."
         },
         "content_needed": {
-            "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
-            "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->",
+            "heading": "Section Heading. Generate using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
+            "description": "Add a suitable description. Generate using: <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->",
             "button": "Generate a button block using <!-- wp:buttons --> and <!-- wp:button {\"className\":\"btn btn-primary btn-lg\"} --> only if there is an inner page for this section details else return an empty string ''.",
             "listings_array": "This field is mandatory. Do not leave it empty. Generate heading and description array of upto 6 objects for this section like services, benefits, solutions, products or any highlight. Each description must be around 80 words. Use real service or project or products name avoid using dummy name. Return an array like this: [{\"heading\":\"heading1\",\"description\":\"description1\"},{\"heading\":\"heading2\",\"description\":\"description2\"} ...]"
         }
@@ -68,8 +68,8 @@
             "social-verticle-card-grid-full": "Grid of vertical social cards with images and icons."
         },
         "content_needed": {
-            "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
-            "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->",
+            "heading": "Section Heading. Generate using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
+            "description": "Add a suitable description. Generate using: <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->",
             "social_cards_array": "Generate 3 cards according to the section_title, section_prompt and website description. Use dummy names and designations for the social cards. Return an array like this: [{\"name\":\"name1\",\"description\":\"description1\",\"designation\":\"designation1\"},{\"name\":\"name2\",\"description\":\"description2\",\"designation\":\"designation2\"} ...]"
         }
     },
@@ -80,8 +80,8 @@
             "media-text-right-aligned": "Image on right, content on left."
         },
         "content_needed": {
-            "heading": "Strong heading that introduces the section clearly. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
-            "description": "Use <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} --> pattern for each paragraph. Generate section content explaining this section in 3-4 paragraphs.",
+            "heading": "Strong heading that introduces the section clearly. Generate using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
+            "description": "Generate using: <!-- wp:paragraph {\"className\":\"mb-4\"} --> pattern for each paragraph.",
             "button": "Optional: If relevant, add 3–5 bullet points using <!-- wp:buttons {\"layout\":{\"type\":\"flex\",\"justifyContent\":\"left\"}} --> and <!-- wp:button {\"className\":\"btn btn-primary btn-lg\"} --> only if there is an inner page for this section details else return an empty string ''. Return empty string if the link belongs to the same page for e.g. If the button link is /about-us and it is matching with the PAGE SLUG.",
             "search_terms": "Based on the heading and description of this section and WEBSITE NAME and WEBSITE DESCRIPTION, generate 2-3 relevant comma separated search terms for finding appropriate images on Unsplash. The search terms should be relevant, professional, and suitable for the website’s purpose."
         }
@@ -92,8 +92,8 @@
             "images-grid": "Grid section with heading, description, and images."
         },
         "content_needed": {
-            "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
-            "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->",
+            "heading": "Section Heading. Generate using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
+            "description": "Add a suitable description. Generate using: <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->",
             "search_terms": "Based on the heading and description of this section and WEBSITE NAME and WEBSITE DESCRIPTION, generate 3-4 relevant comma seperated search terms for finding appropriate images on Unsplash. The search terms should be relevant, professional, and suitable for the website’s purpose."
         }
     },
@@ -103,8 +103,8 @@
             "post-cards-with-image": "3-column grid of posts with featured image."
         },
         "content_needed": {
-            "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
-            "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->"
+            "heading": "Section Heading. Generate using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
+            "description": "Add a suitable description. Generate using: <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->"
         }
     },
     "posts_grid_with_pagination": {
@@ -113,8 +113,8 @@
             "paginated-post-cards-with-image": "3-column grid of posts with pagination."
         },
         "content_needed": {
-            "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
-            "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->"
+            "heading": "Section Heading. Generate using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
+            "description": "Add a suitable description. Generate using: <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->"
         }
     },
     "testimonials": {
@@ -123,8 +123,8 @@
             "testimonials-grid": "3-column grid layout for testimonials."
         },
         "content_needed": {
-            "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
-            "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->",
+            "heading": "Section Heading. Generate using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
+            "description": "Add a suitable description. Generate using: <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->",
             "testimonials_array": "Generate 3 testimonials according to the section_title and website description. Use dummy names and designations for the testimonials. Return an array like this: [{\"title\":\"testimonial-title1\",\"description\":\"testimonial-description1\",\"designation\":\"designation1\"},{\"title\":\"testimonial-title2\",\"description\":\"testimonial-description2\",\"designation\":\"designation2\"} ...]"
         }
     },
@@ -134,8 +134,8 @@
             "contact-form-centered": "Centered contact form with heading and description."
         },
         "content_needed": {
-            "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
-            "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->"
+            "heading": "Section Heading. Generate using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
+            "description": "Add a suitable description. Generate using: <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->"
         }
     },
     "statistics_bar": {
@@ -144,8 +144,8 @@
             "statistics-bar-without-arrow": "4-column statistics bar with bold numbers and labels."
         },
         "content_needed": {
-            "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
-            "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->",
+            "heading": "Section Heading. Generate using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
+            "description": "Add a suitable description. Generate using: <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->",
             "stats_array": "Generate a array of 4 stats according to website description. Stat Number like this (e.g.,99.9%,10K+,etc.), Stat labels like this(e.g.Projects Delivered,Satisfied Clients,Global Reach,Uptime). Return an array like this: [{\"number\":\"stat-number1\",\"label\":\"stat-label1\"}, {\"number\":\"stat-number2\",\"description\":\"stat-label2\"} ...]"
         }
     },
@@ -155,8 +155,8 @@
             "faq-accordion-full-width": "Full-width FAQ accordion layout."
         },
         "content_needed": {
-            "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
-            "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->",
+            "heading": "Section Heading. Generate using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
+            "description": "Add a suitable description. Generate using: <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->",
             "faq_array": "Always generate 5-8 faqs according to the section_title and website description. descriptions should be in about 50-100 words. Return an array like this: [{\"title\":\"faq-title1\",\"description\":\"faq-description1\"},{\"title\":\"faq-title2\",\"description\":\"faq-description2\"} ...]"
         }
     },
@@ -166,8 +166,8 @@
             "cta-box-medium": "Centered CTA with title, description, and button."
         },
         "content_needed": {
-            "heading": "Section Heading. Create using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
-            "description": "Add a suitable description. <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->",
+            "heading": "Section Heading. Generate using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
+            "description": "Add a suitable description. Generate using: <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->",
             "button": "Add a CTA button using <!-- wp:buttons {\"layout\":{\"type\":\"flex\",\"justifyContent\":\"center\"}} --> and <!-- wp:button {\"className\":\"btn btn-primary btn-lg\"} -->"
         }
     }

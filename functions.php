@@ -66,9 +66,15 @@ function add_bloxbywp_styles()
    wp_enqueue_style('font-awesome', 'https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.0.0/css/all.min.css', array(), get_theme_mod('version'));
    wp_enqueue_style('fancybox', 'https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.0/dist/fancybox/fancybox.css', array(), get_theme_mod('version'));
    wp_enqueue_style('style', get_stylesheet_uri(), array('bootstrap'), get_theme_mod('version'));
-   wp_enqueue_style('animations', get_stylesheet_directory_uri() . '/assets/css/animations.css', array(), get_theme_mod('version'));
 }
 add_action('enqueue_block_assets', 'add_bloxbywp_styles');
+
+function only_frontend_bloxbywp_scripts_styles()
+{
+   wp_enqueue_style('animations', get_stylesheet_directory_uri() . '/assets/css/animations.css', array(), get_theme_mod('version'));
+}
+add_action('wp_enqueue_scripts', 'only_frontend_bloxbywp_scripts_styles');
+
 
 /**
  * Bootstrap Overrides from 
@@ -81,7 +87,6 @@ add_action( 'wp_head', function () {
       
       $site_theme = $data_array['theme'];
       $site_font = $data_array['fonts'];
-
       switch ($site_theme) {
          case 'classic':
             $font_primary = 'https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap';
