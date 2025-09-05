@@ -187,7 +187,7 @@ ul.wp-block-post-template li.wp-block-post {
 }
 
 a.is-layout-flex {
-    display: inline-block;
+    display: inline-block !important;
 }
 
 .card-body .wp-block-post-title {
