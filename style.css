@@ -186,6 +186,10 @@ ul.wp-block-post-template li.wp-block-post {
     margin: 0;
 }
 
+a.is-layout-flex {
+    display: inline-block;
+}
+
 .card-body .wp-block-post-title {
     line-height: 1.3;
 }
@@ -618,6 +622,7 @@ i.testimonials-icon {
 }
 
 .cta-box-medium {
+    text-align: center;
     --bs-bg-opacity: 0.2 !important;
 }
 
