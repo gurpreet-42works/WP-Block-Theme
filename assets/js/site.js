@@ -23,6 +23,17 @@
             el.setAttribute('data-fancybox', 'gallery');
         });
 
+        //Testimonials Slider
+        if( $(".testimonials-slider__wrapper").length ){
+            $(".testimonials-slider__wrapper").slick({
+              slidesToShow: 1,
+              slidesToScroll: 1,
+              autoplay: true,
+              autoplaySpeed: 3000,
+              fade: true,
+              speed: 700
+            });
+        }
 
 
         // Init fancybox

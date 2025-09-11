@@ -133,6 +133,7 @@ add_shortcode( 'bloxby_website_description', function() {
 
     $site_data = get_option('sitedata', '');
 
+
     if (!empty($site_data)) {
         $data_array = unserialize(base64_decode($site_data));
         echo $data_array['website_description'];

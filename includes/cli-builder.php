@@ -50,10 +50,10 @@ function aibuilder_generate_pages_cli($args, $assoc_args)
 
    
     //Set a sitelogo and set it globally
-    generate_website_logo($apiKey, $website_title, $website_description, $user_logo, $site_colors);
+    // generate_website_logo($apiKey, $website_title, $website_description, $user_logo, $site_colors);
 
     //Generate some blog posts for the website
-    generate_website_posts($apiKey, $website_title, $website_description, $images_array);
+    // generate_website_posts($apiKey, $website_title, $website_description, $images_array);
 
     //Add CF7 Contact forms
     create_bloxby_contact_form();
@@ -258,6 +258,7 @@ function handle_openai_pattern_call_generation_cli($api_key, $website_title, $we
     - Use real Gutenberg HTML inside the comment wrappers (no placeholders, no lorem ipsum).
     - When writing project always use real project name avoid project 1, project 2 or project alpa etc.
     - When generating content for any media-and-text pattern, always create 2–3 paragraphs, each around 100 words.
+    - When generating content for information_content_without_media pattern, always create description in 2–3 paragraphs.
     - When generating content for faq pattern always include faqs_array with 5-8 different questions and description in 2-3 lines about 150 words.
     - Always generate headings (<h1>, <h2>), paragraphs (<p>), buttons (<a>), and lists (<ul><li>) as required.
     - For buttons and links, never use #. Instead:
@@ -479,29 +480,54 @@ function parse_generated_blocks($api_key, $blocks, $images_array)
                         $testimonials_pattern_html = '';
                         $icon_url = get_stylesheet_directory_uri() . "/assets/icons/user-alt.svg";
 
-                        foreach ($testimonials_array as $testimonial) {
-                            $testimonials_pattern_html .= '<!-- wp:bloxby-blocks/testimonial-grid -->
-                                <div class="wp-block-bloxby-blocks-testimonial-grid save-block testimonial-grid-block"><!-- wp:group {"align":"wide","style":{"spacing":{"padding":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40","left":"var:preset|spacing|40","right":"var:preset|spacing|40"}}}} -->
-                                    <div class="wp-block-group alignwide" style="padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)">
-                                        <!-- wp:image {"sizeSlug":"full","linkDestination":"none"} -->
-                                            <figure class="wp-block-image size-full"><img src="' . $icon_url . '" alt=""/></figure>
-                                        <!-- /wp:image -->
-
-                                        <!-- wp:paragraph {"placeholder":"Enter testimonial here...","fontSize":"small"} -->
-                                        <p class="has-small-font-size">' . $testimonial->title . '</p>
+                        if( $pattern_slug == "testimonials-slider" ) {
+                            foreach ($testimonials_array as $testimonial) {
+                                $testimonials_pattern_html .= '<!-- wp:group {"className":"testimonials-slider__slide","layout":{"type":"flex","orientation":"vertical"}} -->
+                                    <div class="wp-block-group testimonials-slider__slide">
+                                        <!-- wp:heading {"level":3,"className":"testimonial-slide__title"} -->
+                                        <h3 class="wp-block-heading testimonial-slide__title">' . $testimonial->title . '</h3>
+                                        <!-- /wp:heading -->
+                                        <!-- wp:paragraph {"className":"testimonial-slide__desc","fontSize":"medium"} -->
+                                        <p class="testimonial-slide__desc has-medium-font-size">' . $testimonial->description . '</p>
                                         <!-- /wp:paragraph -->
-
-                                        <!-- wp:paragraph {"align":"center","placeholder":"Enter description here..."} -->
-                                        <p class="has-text-align-center">' . $testimonial->description . '</p>
-                                        <!-- /wp:paragraph -->
-
-                                        <!-- wp:paragraph {"placeholder":"Enter designation here...","style":{"spacing":{"padding":{"bottom":"30px"}},"typography":{"fontWeight":"600","fontStyle":"normal"}},"fontSize":"small"} -->
-                                        <p class="has-small-font-size" style="padding-bottom:30px;font-style:normal;font-weight:600">' . $testimonial->designation . '</p>
-                                        <!-- /wp:paragraph -->
+                                        <!-- wp:group {"className":"testimonial-slide__cite","layout":{"type":"flex","flexWrap":"nowrap"}} -->
+                                        <div class="wp-block-group testimonial-slide__cite">
+                                            <!-- wp:image {"width":"40px","height":"40px","scale":"cover","sizeSlug":"large"} -->
+                                            <figure class="wp-block-image size-large is-resized"><img src="' . $icon_url . '" alt="" style="object-fit:cover;width:40px;height:40px"/></figure>
+                                            <!-- /wp:image -->
+                                            <!-- wp:paragraph -->
+                                            <p>' . $testimonial->designation . '</p>
+                                            <!-- /wp:paragraph -->
+                                        </div>
+                                        <!-- /wp:group -->
                                     </div>
-                                    <!-- /wp:group -->
-                                </div>
-                                <!-- /wp:bloxby-blocks/testimonial-grid -->';
+                                    <!-- /wp:group -->';
+                            }
+                        }else{
+                            foreach ($testimonials_array as $testimonial) {
+                                $testimonials_pattern_html .= '<!-- wp:bloxby-blocks/testimonial-grid -->
+                                    <div class="wp-block-bloxby-blocks-testimonial-grid save-block testimonial-grid-block"><!-- wp:group {"align":"wide","style":{"spacing":{"padding":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40","left":"var:preset|spacing|40","right":"var:preset|spacing|40"}}}} -->
+                                        <div class="wp-block-group alignwide" style="padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)">
+                                            <!-- wp:image {"sizeSlug":"full","linkDestination":"none"} -->
+                                                <figure class="wp-block-image size-full"><img src="' . $icon_url . '" alt=""/></figure>
+                                            <!-- /wp:image -->
+
+                                            <!-- wp:paragraph {"placeholder":"Enter testimonial here...","fontSize":"small"} -->
+                                            <p class="has-small-font-size">' . $testimonial->title . '</p>
+                                            <!-- /wp:paragraph -->
+
+                                            <!-- wp:paragraph {"align":"center","placeholder":"Enter description here..."} -->
+                                            <p class="has-text-align-center">' . $testimonial->description . '</p>
+                                            <!-- /wp:paragraph -->
+
+                                            <!-- wp:paragraph {"placeholder":"Enter designation here...","style":{"spacing":{"padding":{"bottom":"30px"}},"typography":{"fontWeight":"600","fontStyle":"normal"}},"fontSize":"small"} -->
+                                            <p class="has-small-font-size" style="padding-bottom:30px;font-style:normal;font-weight:600">' . $testimonial->designation . '</p>
+                                            <!-- /wp:paragraph -->
+                                        </div>
+                                        <!-- /wp:group -->
+                                    </div>
+                                    <!-- /wp:bloxby-blocks/testimonial-grid -->';
+                            }
                         }
                         $pattern_content = str_replace(
                             '<!--all-testimonials-here-->',

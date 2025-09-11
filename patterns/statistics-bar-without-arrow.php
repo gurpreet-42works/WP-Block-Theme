@@ -12,8 +12,8 @@
  */
 ?>
 
-<!-- wp:group {"align":"full","className":"section-statistics-no-icon common-padding"} -->
-<div class="wp-block-group alignfull section-statistics-no-icon common-padding">
+<!-- wp:group {"align":"full","className":"section-statistics-no-icon common-padding bg-dark text-white"} -->
+<div class="wp-block-group alignfull section-statistics-no-icon common-padding bg-dark text-white">
     <!-- wp:group {"className":"container"} -->
     <div class="wp-block-group container">
         <!-- wp:group {"className":"section-heading-wrap text-center"} -->

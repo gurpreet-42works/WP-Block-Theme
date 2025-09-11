@@ -25,6 +25,16 @@
             "description": "Add a suitable description. Generate using: <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->"
         }
     },
+    "information_content_without_media": {
+        "section_intent": "Use for information_content_without_media section type only.",
+        "VALID_SLUGS": {
+            "informational-content-right": ""
+        },
+        "content_needed": {
+            "heading": "Add Main Heading. Generate using: <!-- wp:heading {\"level\":2,\"fontSize\":\"x-large\"} --> ",
+            "description": "Add a suitable description in 2-3 paragraphs. Generate each paragraph using: <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->"
+        }
+    },
     "about_section": {
         "section_intent": "Use for about sections.",
         "VALID_SLUGS": {
@@ -33,11 +43,11 @@
         },
         "content_needed": {
             "heading": "Add Main Heading. Generate using: <!-- wp:heading {\"className\":\"mb-3\"} --> ",
-            "description": "Add a suitable description. Generate using: <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->",
+            "description": "Add a suitable description in 2-3 paragraphs. Generate each paragraph using: <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->",
             "stats_html": "Generate 4 statistics blocks for about section according to website title and description using this HTML structure: <!-- wp:group {\"className\":\"about-stats-grid\",\"layout\":{\"type\":\"grid\",\"columnCount\":2,\"minimumColumnWidth\":null}} --><div class=\"wp-block-group about-stats-grid\"><!-- wp:group {\"layout\":{\"type\":\"constrained\",\"justifyContent\":\"left\"}} --><div class=\"wp-block-group\"><!-- wp:heading {\"level\":3} --><h3 class=\"wp-block-heading\"><strong>{Stat Number(e.g.,99.9%,10K+,25 Years etc.)}</strong></h3><!-- /wp:heading --><!-- wp:paragraph {\"className\":\"mt-2\"} --><p class=\"mt-2\">{Stat label Here}<br></p><!-- /wp:paragraph --></div><!-- /wp:group -->{More stats childs here. Repeat: <!-- wp:group {\"layout\":{\"type\":\"constrained\",\"justifyContent\":\"left\"}} -->}</div><!-- /wp:group -->"
         }
     },
-    "featured_grid": {
+    "features_list": {
         "section_intent": "Use for service listings, feature highlights, benefits, or process overviews.",
         "VALID_SLUGS": {
             "feature-card-grid-right": "Text content + button on left, feature grid on right",
@@ -47,7 +57,7 @@
             "heading": "Section Heading. Generate using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
             "description": "Add a suitable description. Generate using: <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->",
             "button": "Generate a button block using <!-- wp:buttons --> and <!-- wp:button {\"className\":\"btn btn-primary btn-lg\"} --> only if there is an inner page for this section details else return an empty string ''.",
-            "features_array": "This field is mandatory. Do not leave it empty. Generate heading and description array of upto 6 objects for this section like services, benefits, solutions, products or any highlight. Keep description short in about 25 words. Return an array like this: [{\"heading\":\"heading1\",\"description\":\"description1\"},{\"heading\":\"heading2\",\"description\":\"description2\"} ...]"
+            "features_array": "This field is mandatory. Do not leave it empty. Generate heading and description array of upto 6 objects for this section like services, benefits, solutions, products, topics or any highlight. Keep description short in about 25 words. Return an array like this: [{\"heading\":\"heading1\",\"description\":\"description1\"},{\"heading\":\"heading2\",\"description\":\"description2\"} ...]"
         }
     },
     "listing_grid": {
@@ -98,7 +108,7 @@
         }
     },
     "posts_grid_without_pagination": {
-        "section_intent": "Use to display up to 6 curated posts. Never use for archives.",
+        "section_intent": "Use to display up to 6 latest curated posts or Popular/Latest Topics etc. Never use for archives.",
         "VALID_SLUGS": {
             "post-cards-with-image": "3-column grid of posts with featured image."
         },
@@ -120,6 +130,7 @@
     "testimonials": {
         "section_intent": "Use ONLY to show partner/client testimonials. Never for team or advisors.",
         "VALID_SLUGS": {
+            "testimonials-slider": "Slider layout for testimonials. title and slider in  50-50 column layout.",
             "testimonials-grid": "3-column grid layout for testimonials."
         },
         "content_needed": {
@@ -128,10 +139,20 @@
             "testimonials_array": "Generate 3 testimonials according to the section_title and website description. Use dummy names and designations for the testimonials. Return an array like this: [{\"title\":\"testimonial-title1\",\"description\":\"testimonial-description1\",\"designation\":\"designation1\"},{\"title\":\"testimonial-title2\",\"description\":\"testimonial-description2\",\"designation\":\"designation2\"} ...]"
         }
     },
-    "contact_section": {
+    "contact_form": {
         "section_intent": "Use ONLY for contact forms and inquiries.",
         "VALID_SLUGS": {
             "contact-form-centered": "Centered contact form with heading and description."
+        },
+        "content_needed": {
+            "heading": "Section Heading. Generate using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
+            "description": "Add a suitable description. Generate using: <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->"
+        }
+    },
+    "contact_information": {
+        "section_intent": "A section with contact deatails like number, email address, social links and map.",
+        "VALID_SLUGS": {
+            "contact-details-map": "A contact details module with heading, subheading and contact details with map in a 50-50 width layout."
         },
         "content_needed": {
             "heading": "Section Heading. Generate using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",

@@ -1,5 +1,12 @@
 (function($){
    $(function(){
+
+      //Wrap the heading content in a span for informational content section
+      if( $(".content-no-media").length ) {
+         $(".content-no-media .wp-block-heading").each(function() {
+            mySplitText = new SplitText( this, {type:"lines", tag: "span"} );
+         });
+      }
       
       if( $(".inner-page-hero, .banner-content-centered").length ) {
          $(".inner-page-hero, .banner-content-centered").each(function() {
