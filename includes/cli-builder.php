@@ -43,7 +43,7 @@ function aibuilder_generate_pages_cli($args, $assoc_args)
 
 
 
-    $images_array = fetch_images_from_unsplash($apiKey, "da9Lly5jwEjet62stUX0ebdL1BGQtYypRnQxmnht3DE", $search_keys, 30);
+    $images_array = fetch_images_from_unsplash($apiKey, "9SoUkm0hdm8hp6hSgyVtmOacsej82Zn7QFlvRvTyRbo", $search_keys, 30);
     
     //Set Global Title and Description for webiste
     update_option('blogname', $website_title);
@@ -689,7 +689,7 @@ function parse_generated_blocks($api_key, $blocks, $images_array, $website_descr
 
                         if( $type == "image" && $layout == "top" && !empty($listings_array) ) {
                             foreach ($listings_array as $listing) {
-                            $image_arr = fetch_images_from_unsplash("", "da9Lly5jwEjet62stUX0ebdL1BGQtYypRnQxmnht3DE", $website_description ." " . $listing->heading , 1);
+                            $image_arr = fetch_images_from_unsplash("", "9SoUkm0hdm8hp6hSgyVtmOacsej82Zn7QFlvRvTyRbo", $website_description ." " . $listing->heading , 1);
                             $image = $image_arr[0];
                             $image_url = $image['url'] . '&w=900&h=600&&fit=crop';
                             $listings_html .= '<!-- wp:group {"className":"card h-100 border-0"} -->
@@ -728,7 +728,7 @@ function parse_generated_blocks($api_key, $blocks, $images_array, $website_descr
                     $image_required = detect_image_tag($pattern_content);
                     if ($image_required['found']) {
                         if( isset( $output->content->search_terms ) ){
-                            $gallery_images_array = fetch_images_from_unsplash("", "da9Lly5jwEjet62stUX0ebdL1BGQtYypRnQxmnht3DE", $website_description ." " . $output->content->search_terms, 1);
+                            $gallery_images_array = fetch_images_from_unsplash("", "9SoUkm0hdm8hp6hSgyVtmOacsej82Zn7QFlvRvTyRbo", $website_description ." " . $output->content->search_terms, 1);
                         } else{
                             $gallery_images_array = $images_array;
                         }
@@ -750,7 +750,7 @@ function parse_generated_blocks($api_key, $blocks, $images_array, $website_descr
                     $gallery_required = detect_gallery_tag($pattern_content);
                     if ($gallery_required['found']) {
                         if( isset( $output->content->search_terms ) ) {
-                            $gallery_images_array = fetch_images_from_unsplash("", "da9Lly5jwEjet62stUX0ebdL1BGQtYypRnQxmnht3DE", $website_description ." " . $output->content->search_terms, 10);
+                            $gallery_images_array = fetch_images_from_unsplash("", "9SoUkm0hdm8hp6hSgyVtmOacsej82Zn7QFlvRvTyRbo", $website_description ." " . $output->content->search_terms, 10);
                         }else{
                             $gallery_images_array = $images_array;
                         }
@@ -1020,7 +1020,7 @@ function generate_website_posts($api_key, $website_title, $website_description, 
     if (!empty($posts_array)) {
         foreach ($posts_array as $post) {
             //Upload a dummy Image
-            $images_array = fetch_images_from_unsplash("", "da9Lly5jwEjet62stUX0ebdL1BGQtYypRnQxmnht3DE", $post->title, 1);
+            $images_array = fetch_images_from_unsplash("", "9SoUkm0hdm8hp6hSgyVtmOacsej82Zn7QFlvRvTyRbo", $post->title, 1);
             $randomKey = array_rand($images_array);
             $random_image = $images_array[$randomKey];
 
