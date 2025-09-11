@@ -325,7 +325,7 @@ function handle_openai_pattern_call_generation_cli($api_key, $website_title, $we
         if ($httpcode >= 200 && $httpcode < 300) {
             $responseData = json_decode($result, true);
             $responseContent = $responseData['choices'][0]['message']['content'] ?? 'Error: No content returned';
-            $responseHtml = parse_generated_blocks($api_key, $responseContent, $images_array);
+            $responseHtml = parse_generated_blocks($api_key, $responseContent, $images_array, $website_description);
             return $responseHtml;
         } else {
             return false;
@@ -337,7 +337,7 @@ function handle_openai_pattern_call_generation_cli($api_key, $website_title, $we
     return false; //Default Fallback
 }
 
-function parse_generated_blocks($api_key, $blocks, $images_array)
+function parse_generated_blocks($api_key, $blocks, $images_array, $website_description)
 {
     $cleaned_output = clean_ai_json_output($blocks);
     $final_html = '';
@@ -689,7 +689,7 @@ function parse_generated_blocks($api_key, $blocks, $images_array)
 
                         if( $type == "image" && $layout == "top" && !empty($listings_array) ) {
                             foreach ($listings_array as $listing) {
-                            $image_arr = fetch_images_from_unsplash("", "da9Lly5jwEjet62stUX0ebdL1BGQtYypRnQxmnht3DE", $listing->heading , 1);
+                            $image_arr = fetch_images_from_unsplash("", "da9Lly5jwEjet62stUX0ebdL1BGQtYypRnQxmnht3DE", $website_description ." " . $listing->heading , 1);
                             $image = $image_arr[0];
                             $image_url = $image['url'] . '&w=900&h=600&&fit=crop';
                             $listings_html .= '<!-- wp:group {"className":"card h-100 border-0"} -->
@@ -728,7 +728,7 @@ function parse_generated_blocks($api_key, $blocks, $images_array)
                     $image_required = detect_image_tag($pattern_content);
                     if ($image_required['found']) {
                         if( isset( $output->content->search_terms ) ){
-                            $gallery_images_array = fetch_images_from_unsplash("", "da9Lly5jwEjet62stUX0ebdL1BGQtYypRnQxmnht3DE", $output->content->search_terms, 1);
+                            $gallery_images_array = fetch_images_from_unsplash("", "da9Lly5jwEjet62stUX0ebdL1BGQtYypRnQxmnht3DE", $website_description ." " . $output->content->search_terms, 1);
                         } else{
                             $gallery_images_array = $images_array;
                         }
@@ -750,7 +750,7 @@ function parse_generated_blocks($api_key, $blocks, $images_array)
                     $gallery_required = detect_gallery_tag($pattern_content);
                     if ($gallery_required['found']) {
                         if( isset( $output->content->search_terms ) ) {
-                            $gallery_images_array = fetch_images_from_unsplash("", "da9Lly5jwEjet62stUX0ebdL1BGQtYypRnQxmnht3DE", $output->content->search_terms, 10);
+                            $gallery_images_array = fetch_images_from_unsplash("", "da9Lly5jwEjet62stUX0ebdL1BGQtYypRnQxmnht3DE", $website_description ." " . $output->content->search_terms, 10);
                         }else{
                             $gallery_images_array = $images_array;
                         }

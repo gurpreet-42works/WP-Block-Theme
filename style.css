@@ -816,6 +816,10 @@ i.testimonials-icon {
   color: #fff !important;
 }
 
+.content-no-media .container {
+    max-width: 1400px !important;
+}
+
 /** Responsive */
 
 @media (max-width: 991px) {
