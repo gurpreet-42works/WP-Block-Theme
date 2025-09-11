@@ -36,7 +36,7 @@
                     <!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|40"}},"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"left"}} -->
                     <div class="wp-block-group">
                         <!-- wp:image {"width":"35px","height":"35px","scale":"cover","sizeSlug":"large","linkDestination":"none"} -->
-                        <figure class="wp-block-image size-large is-resized"><img src="/wp-content/themes/bloxby-wp/assets/icons/phone.svg" alt="Phone" style="object-fit:cover;width:35px;height:35px"/></figure>
+                        <figure class="wp-block-image size-large is-resized"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/icons/phone.svg" alt="Phone" style="object-fit:cover;width:35px;height:35px"/></figure>
                         <!-- /wp:image -->
                         <!-- wp:paragraph -->
                         <p><a href="tel:+1XXXXXXXXXX">+1 XXX XX-XX-XX</a></p>
@@ -46,7 +46,7 @@
                     <!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|40"}},"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"left"}} -->
                     <div class="wp-block-group">
                         <!-- wp:image {"width":"35px","height":"35px","scale":"cover","sizeSlug":"large","linkDestination":"none"} -->
-                        <figure class="wp-block-image size-large is-resized"><img src="/wp-content/themes/bloxby-wp/assets/icons/at-sign.svg" alt="Email" style="object-fit:cover;width:35px;height:35px"/></figure>
+                        <figure class="wp-block-image size-large is-resized"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/icons/at-sign.svg" alt="Email" style="object-fit:cover;width:35px;height:35px"/></figure>
                         <!-- /wp:image -->
                         <!-- wp:paragraph -->
                         <p><a href="mailto:admin@mail.com">admin@mail.com</a></p>
