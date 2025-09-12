@@ -72,6 +72,19 @@
             "listings_array": "This field is mandatory. Do not leave it empty. Generate heading and description array of upto 6 objects for this section like services, benefits, solutions, products or any highlight. Each description must be around 80 words. Use real service or project or products name avoid using dummy name. Return an array like this: [{\"heading\":\"heading1\",\"description\":\"description1\"},{\"heading\":\"heading2\",\"description\":\"description2\"} ...]"
         }
     },
+    "features_detail": {
+        "section_intent": "Use when the section focuses on a single feature or highlight and provides a detailed explanation.",
+        "VALID_SLUGS": {
+            "feature-detail-block-left": "",
+            "feature-detail-block-right": ""
+        },
+        "content_needed": {
+            "heading": "A small label heading (e.g., 'Facts & Numbers'). Use <!-- wp:heading {\"level\":2,\"className\":\"mb-2\"} -->",
+            "description": "Generate 2-3 paragraphs of descriptive text (40–60 words each). Use <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->",
+            "feature_title": "A bold short feature title (e.g., '80%', 'Trusted by 10K+', 'Seamless Operations') supporting this section description. Generate using: <!-- wp:paragraph {\"className\":\"mb-0\",\"fontSize\":\"medium\"} -->",
+            "feature_description": "A short supporting line (20–25 words) explaining the feature title. Generate using: <!-- wp:paragraph {\"className\":\"m-0\",\"fontSize\":\"medium\"} -->"
+        }
+    },
     "social_cards": {
         "section_intent": "A section to show cards in a grid layout with image and social icons.Use ONLY for team, contributors, advisory board, speakers. Never for testimonials.",
         "VALID_SLUGS": {

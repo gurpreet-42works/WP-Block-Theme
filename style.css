@@ -55,6 +55,13 @@ p:empty {
     box-shadow: var(--bs-box-shadow);
 }
 
+.container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+    padding-right: calc(var(--bs-gutter-x) * .5) !important;
+    padding-left: calc(var(--bs-gutter-x) * .5) !important;
+    margin-right: auto !important;
+    margin-left: auto !important;
+}
+
 
 /****** Custom Overflowed Overrides *****/
 @media (min-width: 576px) {
@@ -640,6 +647,7 @@ i.testimonials-icon {
 
 .about-media-pattren .about-right-img img {
     aspect-ratio: 3/2;
+    object-fit: cover;
 }
 
 .about-media-pattren .wp-block-gallery .wp-block-image, .about-media-pattren .about-left-img {
@@ -820,7 +828,53 @@ i.testimonials-icon {
     max-width: 1400px !important;
 }
 
+.feature-detail-column__right {
+    background-color: rgba( var(--bs-secondary-bg-rgb), 0.3 );
+}
+
+.feature-details-columns > .wp-block-column {
+    height: auto !important;
+}
+
+.is-vertically-aligned-stretch > .wp-block-group {
+    height: 100%;
+}
+
+.feature-detail-column__left {
+    padding-right: 150px !important;
+    position: relative;
+    min-height: 350px;
+}
+
+.feature-detail-column__left * {
+    z-index: 1;
+    position: relative;
+}
+
+.feature-detail-column__left::after {
+    content: "";
+    background: #0000004a;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
 /** Responsive */
+
+
+
+@media (max-width: 1199px) {
+    .feature-detail-column__left {
+        padding-right: 50px !important;
+    }
+
+    .is-vertically-aligned-stretch > .wp-block-group {
+        height: auto;
+    }
+}
 
 @media (max-width: 991px) {
     .banner-height {
@@ -1047,6 +1101,10 @@ i.testimonials-icon {
     .basic-contact-details__content {
         padding-right: 10px;
     }
+
+    .feature-detail-column__left {
+        padding-right: 50px !important;
+    }
 }
 
 @media (max-width: 600px) {
@@ -1073,7 +1131,7 @@ i.testimonials-icon {
     }
     .banner-content-left .wp-block-media-text.is-stacked-on-mobile > .wp-block-media-text__content, 
     .banner-content-right .wp-block-media-text.is-stacked-on-mobile > .wp-block-media-text__content {
-        padding: 60px 10px !important;
+        padding: 60px 20px !important;
         border-radius: 0;
     }
     .wp-block-media-text.is-stacked-on-mobile {
@@ -1121,6 +1179,10 @@ i.testimonials-icon {
 
     .listing-cards-grid {
         grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+    }
+
+    .feature-detail-column__left, .feature-detail-column__right {
+        padding: 35px !important;
     }
 }
 

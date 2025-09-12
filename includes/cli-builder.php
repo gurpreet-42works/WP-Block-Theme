@@ -367,6 +367,34 @@ function parse_generated_blocks($api_key, $blocks, $images_array, $website_descr
                         );
                     }
 
+                    if (isset($output->content->feature_title)) {
+                        $pattern_content = str_replace(
+                            '<!--feature-title-->',
+                            $output->content->feature_title,
+                            $pattern_content
+                        );
+                    } else {
+                        $pattern_content = str_replace(
+                            '<!--feature-title-->',
+                            '',
+                            $pattern_content
+                        );
+                    }
+
+                    if (isset($output->content->feature_description)) {
+                        $pattern_content = str_replace(
+                            '<!--feature-description-->',
+                            $output->content->feature_description,
+                            $pattern_content
+                        );
+                    } else {
+                        $pattern_content = str_replace(
+                            '<!--feature-description-->',
+                            '',
+                            $pattern_content
+                        );
+                    }
+
                     if (isset($output->content->subheading)) {
                         $pattern_content = str_replace(
                             '<!--section-sub-heading-->',
