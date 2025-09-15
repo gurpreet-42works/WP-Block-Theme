@@ -678,19 +678,53 @@ function parse_generated_blocks($api_key, $blocks, $images_array, $website_descr
                         $features_array = json_decode($output->content->features_array);
                         $feature_cards_html = '';
                         if (!empty($features_array)) {
-                            foreach ($features_array as $feature) {
-                                $feature_cards_html .= '
-                                    <!-- wp:group {"className":"card feature-card px-4 py-4","layout":{"type":"constrained","justifyContent":"left"}} -->
-                                    <div class="wp-block-group card feature-card px-4 py-4">
-                                        <!-- wp:heading {"level":3} -->
-                                        <h3 class="wp-block-heading">' . $feature->heading . '</h3>
-                                        <!-- /wp:heading -->
+                            if( $pattern_slug == "featured-cards-stacked-fullwidth" ) {
+                                foreach ($features_array as $feature) {
+                                    $image_arr = fetch_images_from_unsplash("", "9SoUkm0hdm8hp6hSgyVtmOacsej82Zn7QFlvRvTyRbo", $website_description ." " . $feature->heading, 1);
+                                    $image = $image_arr[0];
+                                    $image_url = $image['url'] . '&w=900&h=600&&fit=crop';
+                                    $feature_cards_html .= '
+                                        <!-- wp:columns {"verticalAlignment":"center","className":"featured-cards-full__card rounded-2"} -->
+                                        <div class="wp-block-columns are-vertically-aligned-center featured-cards-full__card rounded-2">
+                                            <!-- wp:column {"verticalAlignment":"center"} -->
+                                            <div class="wp-block-column is-vertically-aligned-center">
+                                                <!-- wp:group {"className":"featured-cards-full__card-content","layout":{"type":"constrained"}} -->
+                                                <div class="wp-block-group featured-cards-full__card-content">
+                                                    <!-- wp:heading -->
+                                                    <h2 class="wp-block-heading">' . $feature->heading . '</h2>
+                                                    <!-- /wp:heading -->
+                                                    <!-- wp:paragraph -->
+                                                    <p>' . $feature->description . '</p>
+                                                    <!-- /wp:paragraph -->
+                                                </div>
+                                                <!-- /wp:group -->
+                                            </div>
+                                            <!-- /wp:column -->
+                                            <!-- wp:column {"verticalAlignment":"center"} -->
+                                            <div class="wp-block-column is-vertically-aligned-center">
+                                                <!-- wp:image {"sizeSlug":"full","linkDestination":"none","className":"featured-cards-full__card-media media-rounded"} -->
+                                                <figure class="wp-block-image size-full featured-cards-full__card-media media-rounded"><img src="'. $image_url .'" alt=""/></figure>
+                                                <!-- /wp:image -->
+                                            </div>
+                                            <!-- /wp:column -->
+                                        </div>
+                                        <!-- /wp:columns -->';
+                                }
+                            } else {
+                                foreach ($features_array as $feature) {
+                                    $feature_cards_html .= '
+                                        <!-- wp:group {"className":"card feature-card px-4 py-4","layout":{"type":"constrained","justifyContent":"left"}} -->
+                                        <div class="wp-block-group card feature-card px-4 py-4">
+                                            <!-- wp:heading {"level":3} -->
+                                            <h3 class="wp-block-heading">' . $feature->heading . '</h3>
+                                            <!-- /wp:heading -->
 
-                                        <!-- wp:paragraph {"className":"mt-2"} -->
-                                        <p class="mt-2">' . $feature->description . '</p>
-                                        <!-- /wp:paragraph -->
-                                    </div>
-                                    <!-- /wp:group -->';
+                                            <!-- wp:paragraph {"className":"mt-2"} -->
+                                            <p class="mt-2">' . $feature->description . '</p>
+                                            <!-- /wp:paragraph -->
+                                        </div>
+                                        <!-- /wp:group -->';
+                                }
                             }
                         }
                         $pattern_content = str_replace(

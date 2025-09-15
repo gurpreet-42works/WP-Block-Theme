@@ -1,6 +1,6 @@
 (function($){
+   let mm = gsap.matchMedia();
    $(function(){
-
       //Wrap the heading content in a span for informational content section
       if( $(".content-no-media").length ) {
          $(".content-no-media .wp-block-heading").each(function() {
@@ -133,7 +133,7 @@
                stagger: 0.1,
                scrollTrigger: this,
             });
-         })
+         });
       }
 
       if( $(".content-with-media-section").length ) {
@@ -147,7 +147,7 @@
                ease: "power1.out",
             });
 
-            gsap.to( $(this).find(".wp-block-media-text__content") , {
+            gsap.to( $(this).find(".wp-block-media-text__content"), {
                x: 0,
                opacity: 1,
                duration: 1,
@@ -155,10 +155,50 @@
                scrollTrigger: this,
                ease: "power1.out",
             });
-         })
+         });
       }
 
 
+      if( $(".featured-cards-full-wrapper").length ) {
+         mm.add("(min-width: 991px)", () => {
+            $(".featured-cards-full-wrapper").each(function() {
+               let $cards = $(this).find(".featured-cards-full__card"),
+                  sectionHeight = $(this).innerHeight();
+               if( $cards.length ) {
+                  const cards = gsap.utils.toArray($cards);
 
+                  cards.forEach((card, index) => {
+                     let cardHeight = card.clientHeight;
+                     console.log( "clientHeight", cardHeight * (index) );
+                     if (index === 0) return;
+
+                     gsap.set(card, { top: cardHeight * index });
+
+                     gsap.to(card, {
+                        top: 0,
+                        scrollTrigger: {
+                           trigger: card,
+                           start: `top bottom-=${ cardHeight }`,
+                           end: `+=${ cardHeight }`,
+                           endTrigger: card,
+                           scrub: true,
+                           invalidateOnRefresh: true
+                        }
+                     })
+                  });
+               }
+
+               ScrollTrigger.create({
+                  trigger: $(this),
+                  start: `top top+=100`,
+                  end: `+=${ $cards.length ? $cards.length * $cards[0].clientHeight : 0 }`,
+                  pin: true,
+                  pinSpacing: true,
+                  invalidateOnRefresh: true,
+               });
+            });
+         });
+         
+      }
    });
 })(jQuery);

@@ -200,7 +200,7 @@ add_action( 'wp_head', function () {
          color: inherit;
       }
       .bg-body-secondary {
-         --bs-bg-opacity: 0.4;
+         --bs-bg-opacity: 0.3;
       }
 
       .btn-primary {

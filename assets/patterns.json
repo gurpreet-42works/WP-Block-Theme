@@ -2,8 +2,8 @@
     "hero_banner": {
         "section_intent": "A hero section to be used only on page with title home. Else use inner_banner",
         "VALID_SLUGS": {
-            "hero-banner-center-aligned": "",
             "hero-banner-left-aligned": "",
+            "hero-banner-center-aligned": "",
             "hero-banner-right-aligned": ""
         },
         "content_needed": {
@@ -50,6 +50,7 @@
     "features_listing": {
         "section_intent": "Use for service listings, feature highlights, benefits, or process overviews.",
         "VALID_SLUGS": {
+            "featured-cards-stacked-fullwidth": "Text content, description + button on top, feature grid cards on bottom in ful width.",
             "feature-card-grid-right": "Text content + button on left, feature grid on right",
             "feature-card-grid-left": "Text content + button on right, feature grid on left."
         },

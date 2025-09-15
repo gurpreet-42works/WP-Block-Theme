@@ -12,8 +12,8 @@
  */
 ?>
 
-<!-- wp:group {"metadata":{"categories":["about"],"patternName":"bloxbywp/about-overlap-image-left","name":"About section with overllaped images on left"},"className":"common-padding about-media-pattren bg-light","layout":{"type":"flex","justifyContent":"center"}} -->
-<div class="wp-block-group common-padding about-media-pattren bg-light">
+<!-- wp:group {"className":"common-padding about-media-pattren","layout":{"type":"flex","justifyContent":"center"}} -->
+<div class="wp-block-group common-padding about-media-pattren">
     <!-- wp:columns {"className":"container m-auto are-vertically-aligned-center"} -->
     <div class="wp-block-columns container m-auto are-vertically-aligned-center">
         <!-- wp:column {"verticalAlignment":"center","width":"50%","className":"media-about-sec"} -->
