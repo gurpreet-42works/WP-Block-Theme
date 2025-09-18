@@ -158,10 +158,10 @@ add_shortcode( 'bloxby_header_ctas', function() {
         if( count($primary_ctas) === 1 ) {
             $cta_html .= '<div class="header-cta cta-single m-0">';
 
-            if( $primary_ctas[0] == 'phone' ) {
+            if( $primary_ctas[0] == 'phone' && !empty( $contact['phone_number'] ) ) {
                 $cta_html .= '<a class="cta-link cta-phone btn btn-outline-primary m-0" href="tel:'. $contact['phone_number'] .'"><i class="fa-solid fa-phone"></i><span class="cta-text"><span>Call Us:</span>'. $contact['phone_number'] .'</span></a>';
             }
-            if( $primary_ctas[0] == 'email' ) {
+            if( $primary_ctas[0] == 'email' && !empty( $contact['email'] ) ) {
                 $cta_html .= '<a class="cta-link cta-email btn btn-outline-primary m-0" href="mailto:'. $contact['email'] .'"><i class="fa-solid fa-envelope"></i><span class="cta-text">Get in Touch</span></a>';
             }
 
