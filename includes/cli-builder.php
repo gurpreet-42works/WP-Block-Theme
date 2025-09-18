@@ -50,10 +50,10 @@ function aibuilder_generate_pages_cli($args, $assoc_args)
 
    
     //Set a sitelogo and set it globally
-    generate_website_logo($apiKey, $website_title, $website_description, $user_logo, $site_colors);
+    // generate_website_logo($apiKey, $website_title, $industry, $user_logo, $site_colors);
 
     //Generate some blog posts for the website
-    generate_website_posts($apiKey, $website_title, $website_description, $images_array);
+    // generate_website_posts($apiKey, $website_title, $industry, $images_array);
 
     //Add CF7 Contact forms
     create_bloxby_contact_form();
@@ -110,7 +110,7 @@ function aibuilder_generate_pages_cli($args, $assoc_args)
         }
 
         $section_json = json_encode($sections_array, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-        $html = handle_openai_pattern_call_generation_cli($apiKey, $website_title, $website_description, $allPages, $page_title, $page_description, $section_json, $images_array); // now returns HTML
+        $html = handle_openai_pattern_call_generation_cli($apiKey, $website_title, $website_description, $industry, $allPages, $page_title, $page_description, $section_json, $images_array); // now returns HTML
 
         if (!$html) {
             WP_CLI::warning("Failed to create page section: $section");
@@ -161,7 +161,7 @@ function aibuilder_generate_pages_cli($args, $assoc_args)
  * Functions for creating blocks using Structured output
  * 
  */
-function handle_openai_pattern_call_generation_cli($api_key, $website_title, $website_description, $allPages, $page_title, $page_description, $section_json, $images_array)
+function handle_openai_pattern_call_generation_cli($api_key, $website_title, $website_description, $industry, $allPages, $page_title, $page_description, $section_json, $images_array)
 {
     $patterns_string = file_get_contents(get_stylesheet_directory() . '/assets/patterns.json');
 
@@ -325,7 +325,7 @@ function handle_openai_pattern_call_generation_cli($api_key, $website_title, $we
         if ($httpcode >= 200 && $httpcode < 300) {
             $responseData = json_decode($result, true);
             $responseContent = $responseData['choices'][0]['message']['content'] ?? 'Error: No content returned';
-            $responseHtml = parse_generated_blocks($api_key, $responseContent, $images_array, $website_description);
+            $responseHtml = parse_generated_blocks($api_key, $responseContent, $images_array, $industry);
             return $responseHtml;
         } else {
             return false;
@@ -712,9 +712,17 @@ function parse_generated_blocks($api_key, $blocks, $images_array, $website_descr
                                 }
                             } else {
                                 foreach ($features_array as $feature) {
+                                    $icon = fetch_svg_icon_freepik('FPSX5bac91a2282c281a02fb0d5678d70aca', $feature->heading, 5);
+                                    $icon_html = "";
+                                    if( $icon ){
+                                        $icon_html = '<!-- wp:image {"sizeSlug":"large"} -->
+                                            <figure class="wp-block-image size-large"><img src="'.$icon.'" alt=""/></figure>
+                                            <!-- /wp:image -->';
+                                    }
                                     $feature_cards_html .= '
                                         <!-- wp:group {"className":"card feature-card px-4 py-4","layout":{"type":"constrained","justifyContent":"left"}} -->
                                         <div class="wp-block-group card feature-card px-4 py-4">
+                                            '.$icon_html.'
                                             <!-- wp:heading {"level":3} -->
                                             <h3 class="wp-block-heading">' . $feature->heading . '</h3>
                                             <!-- /wp:heading -->
@@ -1178,6 +1186,10 @@ function generate_post($api_key, $post_title, $post_desc, $attach_id, $post_type
     }
 }
 
+/**
+ * Helpers
+ */
+
 function fetch_images_from_unsplash($api_key, $unsplash_key, $search_keys, $limit)
 {
     if ($search_keys) {
@@ -1235,9 +1247,44 @@ function fetch_images_from_unsplash($api_key, $unsplash_key, $search_keys, $limi
     }
 }
 
-/**
- * Helpers
- */
+function fetch_svg_icon_freepik($api_key, $title, $limit = 5) {
+
+    $ch = curl_init( "https://api.freepik.com/v1/icons?term=" . urlencode("line art " . $title) . "&per_page=5&order=relevance" );
+
+    $data = [
+        "term" => "line art " . $title,
+        "per_page" => $limit,
+        "order" => "relevance"
+    ];
+
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        "Accept-Language: en-US",
+        "x-freepik-api-key: {$api_key}"
+    ]);
+
+    // Execute the request
+    $response = curl_exec($ch);
+
+    if (curl_errno($ch)) {
+        return false;
+    }
+
+    curl_close($ch);
+
+    // Parse the response
+
+    $result = json_decode($response);
+    if( !empty( $response ) && $result->data ) {
+        return $result->data[0]->thumbnails[0]->url ;
+    } else{
+        return false;
+    }
+
+    return false;
+}
+
 function upload_media_to_library($image_url, $image_name)
 {
     //Upload the Image
@@ -1292,6 +1339,17 @@ function clean_ai_html_output($raw_output)
     return trim(str_replace('```', '', $cleaned));
 }
 
+function clean_ai_svg_output($raw_output)
+{
+    // Try to extract content within ```svg ... ```
+    if (preg_match('/```svg\s*(.*?)```/is', $raw_output, $matches)) {
+        return trim($matches[1]);
+    }
+
+    $cleaned = preg_replace('/```(?:svg)?/i', '', $raw_output);
+    return trim(str_replace('```', '', $cleaned));
+}
+
 function detect_listings_grid($input) {
     $pattern = '/<!--listings-grid\s*\{type\}(.*?)\{\/type\}\s*\{layout\}(.*?)\{\/layout\}\s*-->/';
     // Regex to capture the whole comment and both parameters
@@ -1343,3 +1401,5 @@ function detect_gallery_tag($pattern_content)
 
     return ['found' => false];
 }
+
+

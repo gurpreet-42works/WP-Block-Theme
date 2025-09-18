@@ -141,3 +141,45 @@ add_shortcode( 'bloxby_website_description', function() {
 
     return ob_get_clean();
 } );
+
+
+add_shortcode( 'bloxby_header_ctas', function() {
+    ob_start();
+    
+    $site_data = get_option('sitedata', '');
+    $cta_html = '';
+
+    if (!empty($site_data)) {
+        $data_array = unserialize(base64_decode($site_data));
+        
+        $contact = $data_array['contact_details'];
+        $primary_ctas = $contact['primary_cta'];
+
+        if( count($primary_ctas) === 1 ) {
+            $cta_html .= '<div class="header-cta cta-single m-0">';
+
+            if( $primary_ctas[0] == 'phone' ) {
+                $cta_html .= '<a class="cta-link cta-phone btn btn-outline-primary m-0" href="tel:'. $contact['phone_number'] .'"><i class="fa-solid fa-phone"></i><span class="cta-text"><span>Call Us:</span>'. $contact['phone_number'] .'</span></a>';
+            }
+            if( $primary_ctas[0] == 'email' ) {
+                $cta_html .= '<a class="cta-link cta-email btn btn-outline-primary m-0" href="mailto:'. $contact['email'] .'"><i class="fa-solid fa-envelope"></i><span class="cta-text">Get in Touch</span></a>';
+            }
+
+            $cta_html .= '</div>';
+        } else{
+            $cta_html .= '<div class="header-cta cta-group m-0">';
+
+            if( !empty( $contact['phone_number'] ) ) {
+                $cta_html .= '<a class="cta-link cta-phone btn btn-outline-primary m-0" href="tel:'. $contact['phone_number'] .'"><i class="fa-solid fa-phone"></i></a>';
+            }
+            if( !empty( $contact['email'] ) ) {
+                $cta_html .= '<a class="cta-link cta-email btn btn-outline-primary m-0" href="mailto:'. $contact['email'] .'"><i class="fa-solid fa-envelope"></i></a>';
+            }
+
+            $cta_html .= '</div>';
+        }
+
+    }    
+    echo $cta_html;
+    return ob_get_clean(); 
+} );

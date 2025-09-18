@@ -1,5 +1,6 @@
 (function($){
    let mm = gsap.matchMedia();
+   
    $(function(){
       //Wrap the heading content in a span for informational content section
       if( $(".content-no-media").length ) {
@@ -158,6 +159,19 @@
          });
       }
 
+      if( $(".feature-details-columns").length ) {
+         $(".feature-details-columns").each(function() {
+            gsap.to( $(this).find(".feature-detail-column__left, .feature-detail-column__right") , {
+               x: 0,
+               opacity: 1,
+               delay: 0.5, 
+               duration: 1,
+               scrollTrigger: this,
+               ease: "power1.out",
+            });
+         });
+      }
+
 
       if( $(".featured-cards-full-wrapper").length ) {
          mm.add("(min-width: 991px)", () => {
@@ -188,6 +202,7 @@
                   });
                }
 
+
                ScrollTrigger.create({
                   trigger: $(this),
                   start: `top top+=100`,
@@ -200,5 +215,10 @@
          });
          
       }
+   });
+
+
+   $(window).on("load", () => {
+     ScrollTrigger.refresh();
    });
 })(jQuery);

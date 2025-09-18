@@ -80,3 +80,15 @@
     transform: translateY(50px);
     opacity: 0;
 }
+
+.feature-details-block-left .feature-detail-column__right,
+.feature-details-block-right .feature-detail-column__left {
+    transform: translateX(-50px);
+    opacity: 0;
+}
+
+.feature-details-block-left .feature-detail-column__left,
+.feature-details-block-right .feature-detail-column__right {
+    transform: translateX(50px);
+    opacity: 0;
+}

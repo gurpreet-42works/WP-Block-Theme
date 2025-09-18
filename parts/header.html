@@ -12,9 +12,17 @@
 			<!-- /wp:group -->
 			<!-- wp:group {"className": "col-md-10 col-6 navigation-main m-0"} -->
 				<div class="wp-block-group col-md-10 col-6 navigation-main m-0">
-					<!-- wp:shortcode -->
-					[get_header_menu]
-					<!-- /wp:shortcode -->
+					<!-- wp:group {"className": "navigation-main-wrap m-0"} -->
+					<div class="wp-block-group navigation-main-wrap m-0">
+						<!-- wp:shortcode -->
+						[get_header_menu]
+						<!-- /wp:shortcode -->
+
+						<!-- wp:shortcode -->
+						[bloxby_header_ctas]
+						<!-- /wp:shortcode -->
+					</div>
+					<!-- /wp:group -->
 				</div>
 			<!-- /wp:group -->
 		</div>
