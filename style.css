@@ -241,6 +241,7 @@ header.wp-block-template-part {
   line-height: 1;
   gap: 5px;
   letter-spacing: 1px;
+  font-variant-numeric: lining-nums;
 }
 
 .navigation-main-wrap .cta-single .cta-text span {
@@ -413,7 +414,7 @@ figure.wp-block-media-text__media img {
 }
 
 .position-sticky.single-sidebar {
-    top: 150px;
+    top: 120px;
 }
 
 .wp-block-query-no-results {
@@ -1273,6 +1274,11 @@ i.testimonials-icon {
         transform-origin: 30% 50%;
     }
 
+    .navigation-main-wrap {
+        flex-direction: row-reverse;
+        gap: 0;
+    }
+
     ul.wp-block-post-template {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -1599,6 +1605,14 @@ i.testimonials-icon {
 
     .banner-image-scroll-row-2 h1 {
         font-size: 36px;
+    }
+
+    .navigation-main-wrap .cta-single .cta-text {
+        font-size: 18px;
+    }
+    
+    .navigation-main-wrap .cta-single .cta-text span {
+        font-size: 14px;
     }
 }
 

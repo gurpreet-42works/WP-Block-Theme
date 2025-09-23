@@ -1256,9 +1256,10 @@ function fetch_images_from_unsplash($api_key, $search_keys, $limit)
 
 function fetch_svg_icon_freepik($api_key, $title, $limit = 5) {
     $data = [
-        "term" => $title,
+        "term" => "Line Art " . $title,
         "per_page" => $limit,
-        "style" => "outline",
+        "style" => "lineal",
+        "type" => "icon",
         "order" => "relevance"
     ];
 
