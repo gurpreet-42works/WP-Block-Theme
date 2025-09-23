@@ -90,6 +90,8 @@ add_action( 'wp_head', function () {
       
       $site_theme = $data_array['theme'];
       $site_font = $data_array['fonts'];
+
+      // $site_theme = 'minimalistic';
       switch ($site_theme) {
          case 'classic':
             $font_primary = 'https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap';
