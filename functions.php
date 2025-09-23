@@ -92,8 +92,8 @@ add_action( 'wp_head', function () {
       $site_font = $data_array['fonts'];
       switch ($site_theme) {
          case 'classic':
-            $font_primary = 'https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap';
-            $font_primary_family = '"Poppins", sans-serif';
+            $font_primary = 'https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap';
+            $font_primary_family = '"Figtree", sans-serif';
             $font_secondary = 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap';
             $font_secondary_family = '"Cormorant Garamond", serif';
             $border_radius = '0px';
@@ -107,8 +107,8 @@ add_action( 'wp_head', function () {
          case 'material':
             $font_primary = 'https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap';
             $font_primary_family = '"Roboto", sans-serif';
-            $font_secondary = 'https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap';
-            $font_secondary_family = '"Montserrat", sans-serif';
+            $font_secondary = 'https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap';
+            $font_secondary_family = '"Raleway", sans-serif';
             $border_radius = '10px';
             $border_radius_sm = '5px';
             $border_radius_lg = '10px';
@@ -182,6 +182,10 @@ add_action( 'wp_head', function () {
          --bs-border-radius-sm: <?php echo $border_radius_sm ?>;
          --bs-border-radius-lg: <?php echo $border_radius_lg ?>;
          --bs-border-radius-xl: <?php echo $border_radius ?>;
+
+         /* Font Families  */
+         --family-primary: <?php echo $font_primary_family; ?>;
+         --family-secondary: <?php echo $font_secondary_family; ?>;
 
       }
       /* Wordpress Defaults */

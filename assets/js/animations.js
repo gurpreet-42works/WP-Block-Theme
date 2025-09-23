@@ -2,6 +2,75 @@
    let mm = gsap.matchMedia();
    
    $(function(){
+      /**** Pinned Scroll Trigger Sections ****/
+      if( $(".featured-cards-full-wrapper").length ) {
+         mm.add("(min-width: 991px)", () => {
+            $(".featured-cards-full-wrapper").each(function() {
+               let $cards = $(this).find(".featured-cards-full__card"),
+                  sectionHeight = $(this).innerHeight();
+               if( $cards.length ) {
+                  const cards = gsap.utils.toArray($cards);
+
+                  cards.forEach((card, index) => {
+                     let cardHeight = card.clientHeight;
+                     console.log( "clientHeight", cardHeight * (index) );
+                     if (index === 0) return;
+
+                     gsap.set(card, { top: ((cardHeight * index) + 65) });
+
+                     gsap.to(card, {
+                        top: 0,
+                        scrollTrigger: {
+                           trigger: card,
+                           start: `top bottom-=${ cardHeight }`,
+                           end: `+=${ cardHeight }`,
+                           endTrigger: card,
+                           scrub: true,
+                           invalidateOnRefresh: true
+                        }
+                     })
+                  });
+               }
+
+
+               ScrollTrigger.create({
+                  trigger: $(this),
+                  start: `top top+=90`,
+                  end: `+=${ $cards.length ? $cards.length * $cards[0].clientHeight : 0 }`,
+                  pin: true,
+                  pinSpacing: true,
+                  invalidateOnRefresh: true,
+               });
+            });
+         });
+      }
+
+
+      //Scrolling Banner Animation
+      if( $(".banner-image-scroll-main").length ) {
+         mm.add("(min-width: 991px)", () => {
+            let homeTl = gsap.timeline({
+                 scrollTrigger: {
+                     trigger: '.banner-image-scroll-main .container',
+                     pin: true,
+                     pinSpacing: true,
+                     start: 'top-=90',
+                     end: 'bottom',
+                     scrub: 1.2,
+                 },
+            });
+
+            homeTl.to('.banner-image-scroll-media img', { left: 0, right: 0, top: 0, bottom: 60 });
+            homeTl.to('.banner-image-scroll-text', { opacity: 0, y: '-50' }, "<");
+            homeTl.to('.banner-image-scroll-row-2', { opacity: 0, y: '-50' }, "<");
+             
+            homeTl.to('.banner-image-scroll-media img', { width: '100%', height: 'calc(100% - 120px)' });
+         });
+      }
+
+      /**** Pinned Scroll Trigger Sections ****/
+
+
       //Wrap the heading content in a span for informational content section
       if( $(".content-no-media").length ) {
          $(".content-no-media .wp-block-heading").each(function() {
@@ -172,49 +241,6 @@
          });
       }
 
-
-      if( $(".featured-cards-full-wrapper").length ) {
-         mm.add("(min-width: 991px)", () => {
-            $(".featured-cards-full-wrapper").each(function() {
-               let $cards = $(this).find(".featured-cards-full__card"),
-                  sectionHeight = $(this).innerHeight();
-               if( $cards.length ) {
-                  const cards = gsap.utils.toArray($cards);
-
-                  cards.forEach((card, index) => {
-                     let cardHeight = card.clientHeight;
-                     console.log( "clientHeight", cardHeight * (index) );
-                     if (index === 0) return;
-
-                     gsap.set(card, { top: cardHeight * index });
-
-                     gsap.to(card, {
-                        top: 0,
-                        scrollTrigger: {
-                           trigger: card,
-                           start: `top bottom-=${ cardHeight }`,
-                           end: `+=${ cardHeight }`,
-                           endTrigger: card,
-                           scrub: true,
-                           invalidateOnRefresh: true
-                        }
-                     })
-                  });
-               }
-
-
-               ScrollTrigger.create({
-                  trigger: $(this),
-                  start: `top top+=100`,
-                  end: `+=${ $cards.length ? $cards.length * $cards[0].clientHeight : 0 }`,
-                  pin: true,
-                  pinSpacing: true,
-                  invalidateOnRefresh: true,
-               });
-            });
-         });
-         
-      }
    });
 
 

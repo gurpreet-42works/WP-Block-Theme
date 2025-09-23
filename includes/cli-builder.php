@@ -6,10 +6,13 @@
  */
 if (defined('WP_CLI') && WP_CLI) {
     WP_CLI::add_command('aibuilder generate-pages', 'aibuilder_generate_pages_cli');
+    define('UNSPLASH_API_KEY', "9SoUkm0hdm8hp6hSgyVtmOacsej82Zn7QFlvRvTyRbo");
+    define('FREEPIK_API_KEY', "FPSX5bac91a2282c281a02fb0d5678d70aca");
 }
 
 function aibuilder_generate_pages_cli($args, $assoc_args)
 {
+
     $json_path = get_option('sitedata', '');
     $apiKey = isset($assoc_args['apikey']) ? $assoc_args['apikey'] : '';
 
@@ -43,7 +46,7 @@ function aibuilder_generate_pages_cli($args, $assoc_args)
 
 
 
-    $images_array = fetch_images_from_unsplash($apiKey, "9SoUkm0hdm8hp6hSgyVtmOacsej82Zn7QFlvRvTyRbo", $search_keys, 30);
+    $images_array = fetch_images_from_unsplash(UNSPLASH_API_KEY, $search_keys, 30);
     
     //Set Global Title and Description for webiste
     update_option('blogname', $website_title);
@@ -69,7 +72,7 @@ function aibuilder_generate_pages_cli($args, $assoc_args)
 
     // $page = $json['pages'][0];
     // if (!empty($page)) {
-        foreach ($json['pages'] as $page) {
+    foreach ($json['pages'] as $page) {
 
         $page_title = $page['page_title'];
         $page_description = $page['page_description'];
@@ -680,7 +683,7 @@ function parse_generated_blocks($api_key, $blocks, $images_array, $website_descr
                         if (!empty($features_array)) {
                             if( $pattern_slug == "featured-cards-stacked-fullwidth" ) {
                                 foreach ($features_array as $feature) {
-                                    $image_arr = fetch_images_from_unsplash("", "9SoUkm0hdm8hp6hSgyVtmOacsej82Zn7QFlvRvTyRbo", $website_description ." " . $feature->heading, 1);
+                                    $image_arr = fetch_images_from_unsplash(UNSPLASH_API_KEY, $search_keys ." " . $feature->heading, 1);
                                     $image = $image_arr[0];
                                     $image_url = $image['url'] . '&w=900&h=600&&fit=crop';
                                     $feature_cards_html .= '
@@ -712,7 +715,7 @@ function parse_generated_blocks($api_key, $blocks, $images_array, $website_descr
                                 }
                             } else {
                                 foreach ($features_array as $feature) {
-                                    $icon = fetch_svg_icon_freepik('FPSX5bac91a2282c281a02fb0d5678d70aca', $feature->heading, 5);
+                                    $icon = fetch_svg_icon_freepik( FREEPIK_API_KEY, $feature->heading );
                                     $icon_html = "";
                                     if( $icon ){
                                         $icon_html = '<!-- wp:image {"sizeSlug":"large"} -->
@@ -758,33 +761,37 @@ function parse_generated_blocks($api_key, $blocks, $images_array, $website_descr
                         $listings_html = '';
 
                         if( $type == "image" && $layout == "top" && !empty($listings_array) ) {
+                            $listings_html .= '<!-- wp:group {"className":"listing-cards-grid","layout":{"type":"grid","columnCount":'.( count($listings_array) == 4 ? 2 : 3 ).',"minimumColumnWidth":null}} -->
+                                    <div class="wp-block-group listing-cards-grid">';
                             foreach ($listings_array as $listing) {
-                            $image_arr = fetch_images_from_unsplash("", "9SoUkm0hdm8hp6hSgyVtmOacsej82Zn7QFlvRvTyRbo", $website_description ." " . $listing->heading , 1);
-                            $image = $image_arr[0];
-                            $image_url = $image['url'] . '&w=900&h=600&&fit=crop';
-                            $listings_html .= '<!-- wp:group {"className":"card h-100 border-0"} -->
-                                <div class="wp-block-group card h-100 border-0">
-                                    <!-- wp:image {"sizeSlug":"full","linkDestination":"none","className":"card-img-top rounded shadow-sm"} -->
-                                    <figure class="wp-block-image size-full card-img-top rounded shadow-sm"><img
-                                            src="'.$image_url.'"
-                                            alt="" />
-                                    </figure>
-                                    <!-- /wp:image -->
+                                $image_arr = fetch_images_from_unsplash(UNSPLASH_API_KEY, $website_description ." " . $listing->heading , 1);
+                                $image = $image_arr[0];
+                                $image_url = $image['url'] . '&w=900&h=600&&fit=crop';
+                                $listings_html .= '<!-- wp:group {"className":"card h-100 border-0"} -->
+                                    <div class="wp-block-group card h-100 border-0">
+                                        <!-- wp:image {"sizeSlug":"full","linkDestination":"none","className":"card-img-top rounded shadow-sm"} -->
+                                        <figure class="wp-block-image size-full card-img-top rounded shadow-sm"><img
+                                                src="'.$image_url.'"
+                                                alt="" />
+                                        </figure>
+                                        <!-- /wp:image -->
 
-                                    <!-- wp:group {"className":"card-body p-0"} -->
-                                    <div class="wp-block-group card-body p-0">
-                                        <!-- wp:heading {"level":3,"className":"mb-2"} -->
-                                        <h3 class="wp-block-heading mb-2">'.$listing->heading.'</h3>
-                                        <!-- /wp:heading -->
+                                        <!-- wp:group {"className":"card-body p-0"} -->
+                                        <div class="wp-block-group card-body p-0">
+                                            <!-- wp:heading {"level":3,"className":"mb-2"} -->
+                                            <h3 class="wp-block-heading mb-2">'.$listing->heading.'</h3>
+                                            <!-- /wp:heading -->
 
-                                        <!-- wp:paragraph {"className":"mt-0"} -->
-                                        <p class="mt-0">'.$listing->description.'</p>
-                                        <!-- /wp:paragraph -->
+                                            <!-- wp:paragraph {"className":"mt-0"} -->
+                                            <p class="mt-0">'.$listing->description.'</p>
+                                            <!-- /wp:paragraph -->
+                                        </div>
+                                        <!-- /wp:group -->
                                     </div>
-                                    <!-- /wp:group -->
-                                </div>
                                 <!-- /wp:group -->';
                             }
+                            $listings_html .= '</div>
+                                    <!-- /wp:group -->';
                         }
 
                         $pattern_content = str_replace(
@@ -798,7 +805,7 @@ function parse_generated_blocks($api_key, $blocks, $images_array, $website_descr
                     $image_required = detect_image_tag($pattern_content);
                     if ($image_required['found']) {
                         if( isset( $output->content->search_terms ) ){
-                            $gallery_images_array = fetch_images_from_unsplash("", "9SoUkm0hdm8hp6hSgyVtmOacsej82Zn7QFlvRvTyRbo", $website_description ." " . $output->content->search_terms, 1);
+                            $gallery_images_array = fetch_images_from_unsplash(UNSPLASH_API_KEY, $website_description ." " . $output->content->search_terms, 1);
                         } else{
                             $gallery_images_array = $images_array;
                         }
@@ -820,7 +827,7 @@ function parse_generated_blocks($api_key, $blocks, $images_array, $website_descr
                     $gallery_required = detect_gallery_tag($pattern_content);
                     if ($gallery_required['found']) {
                         if( isset( $output->content->search_terms ) ) {
-                            $gallery_images_array = fetch_images_from_unsplash("", "9SoUkm0hdm8hp6hSgyVtmOacsej82Zn7QFlvRvTyRbo", $website_description ." " . $output->content->search_terms, 10);
+                            $gallery_images_array = fetch_images_from_unsplash(UNSPLASH_API_KEY, $website_description ." " . $output->content->search_terms, 10);
                         }else{
                             $gallery_images_array = $images_array;
                         }
@@ -1090,7 +1097,7 @@ function generate_website_posts($api_key, $website_title, $website_description, 
     if (!empty($posts_array)) {
         foreach ($posts_array as $post) {
             //Upload a dummy Image
-            $images_array = fetch_images_from_unsplash("", "9SoUkm0hdm8hp6hSgyVtmOacsej82Zn7QFlvRvTyRbo", $post->title, 1);
+            $images_array = fetch_images_from_unsplash(UNSPLASH_API_KEY, $post->title, 1);
             $randomKey = array_rand($images_array);
             $random_image = $images_array[$randomKey];
 
@@ -1190,11 +1197,11 @@ function generate_post($api_key, $post_title, $post_desc, $attach_id, $post_type
  * Helpers
  */
 
-function fetch_images_from_unsplash($api_key, $unsplash_key, $search_keys, $limit)
+function fetch_images_from_unsplash($api_key, $search_keys, $limit)
 {
     if ($search_keys) {
         $url = "https://api.unsplash.com/photos/random?" . http_build_query([
-            'client_id' => $unsplash_key,
+            'client_id' => $api_key,
             'query' => $search_keys,
             'count' => $limit,
             'orientation' => "landscape"
@@ -1248,14 +1255,17 @@ function fetch_images_from_unsplash($api_key, $unsplash_key, $search_keys, $limi
 }
 
 function fetch_svg_icon_freepik($api_key, $title, $limit = 5) {
-
-    $ch = curl_init( "https://api.freepik.com/v1/icons?term=" . urlencode("line art " . $title) . "&per_page=5&order=relevance" );
-
     $data = [
-        "term" => "line art " . $title,
+        "term" => $title,
         "per_page" => $limit,
+        "style" => "outline",
         "order" => "relevance"
     ];
+
+
+    $ch = curl_init( "https://api.freepik.com/v1/icons?" . http_build_query($data) );
+
+    
 
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
@@ -1276,6 +1286,7 @@ function fetch_svg_icon_freepik($api_key, $title, $limit = 5) {
     // Parse the response
 
     $result = json_decode($response);
+    
     if( !empty( $response ) && $result->data ) {
         return $result->data[0]->thumbnails[0]->url ;
     } else{
@@ -1401,5 +1412,3 @@ function detect_gallery_tag($pattern_content)
 
     return ['found' => false];
 }
-
-

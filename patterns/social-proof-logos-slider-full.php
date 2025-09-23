@@ -1,0 +1,81 @@
+<?php
+
+/**
+ * Title: A Social Proof - Logos Grid
+ * Slug: bloxbywp/social-proof-logos-slider-full
+ * Categories: section
+ * Description: A Social Proof with logos in a slider layout in full width layout.
+ *
+ * @package WordPress
+ * @subpackage Bloxby_WP
+ * @since 1.0
+ */
+?>
+
+<!-- wp:group {"align":"full","className":"social-proof-logos-slider common-padding"} -->
+<div class="wp-block-group alignfull social-proof-logos-slider common-padding">
+   <!-- wp:group {"className":"container"} -->
+   <div class="wp-block-group container">
+      <!-- wp:group {"className":"section-heading-wrap text-center"} -->
+      <div class="wp-block-group section-heading-wrap text-center">
+         <!-- wp:heading {"className":"mb-3"} -->
+         <h2 class="wp-block-heading mb-3">Title Goes Here</h2>
+         <!-- /wp:heading -->
+         <!-- wp:paragraph {"className":"mb-4","fontSize":"medium"} -->
+         <p class="mb-4 has-medium-font-size">Lorem ipsum dolor sit amet consectetur. Id viverra praesent in tellus lectus fusce dictum. <br>Risus gravida aliquam sed vestibulum nec.</p>
+         <!-- /wp:paragraph -->
+      </div>
+      <!-- /wp:group -->
+      <!-- wp:gallery {"columns":7,"imageCrop":false,"linkTo":"none","className":"social-logos-gallery mt-5"} -->
+      <figure class="wp-block-gallery has-nested-images columns-7 social-logos-gallery mt-5">
+         <!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
+         <figure class="wp-block-image size-large">
+         	<img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/icons/logoipsum-1.svg" alt=""/>
+         </figure>
+         <!-- /wp:image -->
+         <!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
+         <figure class="wp-block-image size-large">
+         	<img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/icons/logoipsum-2.svg" alt=""/>
+         </figure>
+         <!-- /wp:image -->
+         <!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
+         <figure class="wp-block-image size-large">
+         	<img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/icons/logoipsum-3.svg" alt=""/>
+         </figure>
+         <!-- /wp:image -->
+         <!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
+         <figure class="wp-block-image size-large">
+         	<img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/icons/logoipsum-4.svg" alt=""/>
+         </figure>
+         <!-- /wp:image -->
+         <!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
+         <figure class="wp-block-image size-large">
+         	<img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/icons/logoipsum-5.svg" alt=""/>
+         </figure>
+         <!-- /wp:image -->
+         <!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
+         <figure class="wp-block-image size-large">
+         	<img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/icons/logoipsum-6.svg" alt=""/>
+         </figure>
+         <!-- /wp:image -->
+         <!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
+         <figure class="wp-block-image size-large">
+         	<img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/icons/logoipsum-7.svg" alt=""/>
+         </figure>
+         <!-- /wp:image -->
+         <!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
+         <figure class="wp-block-image size-large">
+         	<img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/icons/logoipsum-8.svg" alt=""/>
+         </figure>
+         <!-- /wp:image -->
+         <!-- wp:image {"sizeSlug":"large","linkDestination":"none"} -->
+         <figure class="wp-block-image size-large">
+         	<img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/icons/logoipsum-9.svg" alt=""/>
+         </figure>
+         <!-- /wp:image -->
+      </figure>
+      <!-- /wp:gallery -->
+   </div>
+   <!-- /wp:group -->
+</div>
+<!-- /wp:group -->

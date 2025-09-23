@@ -35,6 +35,43 @@
             });
         }
 
+        //Logos Slider
+        if( $(".social-logos-gallery").length ){
+            jQuery('.social-logos-gallery').slick({
+                speed: 5000,
+                autoplay: true,
+                autoplaySpeed: 0,
+                centerMode: true,
+                cssEase: 'linear',
+                slidesToShow: 6,
+                slidesToScroll: 1,
+                infinite: true,
+                initialSlide: 1,
+                arrows: false,
+                buttons: false,
+                responsive: [
+                {
+                  breakpoint: 1600,
+                  settings: {
+                    slidesToShow: 5
+                  }
+                },
+                {
+                  breakpoint: 1200,
+                  settings: {
+                    slidesToShow: 4
+                  }
+                },
+                {
+                  breakpoint: 768,
+                  settings: {
+                    slidesToShow: 3
+                  }
+                }
+              ]
+            });
+        }
+
 
         // Init fancybox
         Fancybox.bind("[data-fancybox='gallery']", {

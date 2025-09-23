@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Title: Listing Card 3x3 Grid with image
- * Slug: bloxbywp/listing-image-card-3x3-grid
+ * Title: Listing Card 2x2 Grid with image
+ * Slug: bloxbywp/listing-image-card-2x2-grid
  * Categories: section
- * Description: A listing section of 3 columns with image cards in grid.
+ * Description: A listing section of 2 columns with image cards in grid.
  *
  * @package WordPress
  * @subpackage Bloxby_WP
@@ -26,52 +26,8 @@
         </div>
         <!-- /wp:group -->
 
-        <!-- wp:group {"className":"listing-cards-grid","layout":{"type":"grid","columnCount":3,"minimumColumnWidth":null}} -->
+        <!-- wp:group {"className":"listing-cards-grid","layout":{"type":"grid","columnCount":2,"minimumColumnWidth":null}} -->
         <div class="wp-block-group listing-cards-grid">
-            <!-- wp:group {"className":"card h-100 border-0"} -->
-            <div class="wp-block-group card h-100 border-0">
-                <!-- wp:image {"sizeSlug":"full","linkDestination":"none","className":"card-img-top rounded shadow-sm"} -->
-                <figure class="wp-block-image size-full card-img-top rounded shadow-sm"><img
-                        src="https://placehold.co/900x600"
-                        alt="" />
-                </figure>
-                <!-- /wp:image -->
-
-                <!-- wp:group {"className":"card-body p-0"} -->
-                <div class="wp-block-group card-body p-0"><!-- wp:heading {"level":3,"className":"mb-2"} -->
-                    <h3 class="wp-block-heading mb-2">Lorem Ipsum</h3>
-                    <!-- /wp:heading -->
-
-                    <!-- wp:paragraph {"className":"mt-0"} -->
-                    <p class="mt-0">Lorem ipsum dolor sit amet consectetur. Id viverra praesent in tellus lectus fusce
-                        dictum.<br>Risus gravida aliquam sed vestibulum nec.</p>
-                    <!-- /wp:paragraph -->
-                </div>
-                <!-- /wp:group -->
-            </div>
-            <!-- /wp:group -->
-            <!-- wp:group {"className":"card h-100 border-0"} -->
-            <div class="wp-block-group card h-100 border-0">
-                <!-- wp:image {"sizeSlug":"full","linkDestination":"none","className":"card-img-top rounded shadow-sm"} -->
-                <figure class="wp-block-image size-full card-img-top rounded shadow-sm"><img
-                        src="https://placehold.co/900x600"
-                        alt="" />
-                </figure>
-                <!-- /wp:image -->
-
-                <!-- wp:group {"className":"card-body p-0"} -->
-                <div class="wp-block-group card-body p-0"><!-- wp:heading {"level":3,"className":"mb-2"} -->
-                    <h3 class="wp-block-heading mb-2">Lorem Ipsum</h3>
-                    <!-- /wp:heading -->
-
-                    <!-- wp:paragraph {"className":"mt-0"} -->
-                    <p class="mt-0">Lorem ipsum dolor sit amet consectetur. Id viverra praesent in tellus lectus fusce
-                        dictum.<br>Risus gravida aliquam sed vestibulum nec.</p>
-                    <!-- /wp:paragraph -->
-                </div>
-                <!-- /wp:group -->
-            </div>
-            <!-- /wp:group -->
             <!-- wp:group {"className":"card h-100 border-0"} -->
             <div class="wp-block-group card h-100 border-0">
                 <!-- wp:image {"sizeSlug":"full","linkDestination":"none","className":"card-img-top rounded shadow-sm"} -->

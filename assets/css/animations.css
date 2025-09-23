@@ -92,3 +92,24 @@
     transform: translateX(50px);
     opacity: 0;
 }
+
+
+.banner-image-scroll-main .banner-image-scroll-media {
+    padding-top: 380px;
+}
+
+.banner-image-scroll-media .wp-block-image img {
+    position: absolute;
+}
+
+@media (max-width: 1199px) {
+     .banner-image-scroll-main .banner-image-scroll-media {
+        padding-top: 330px;
+    }
+}
+
+@media (max-width: 991px) {
+    .banner-image-scroll-main .banner-image-scroll-media {
+        padding-top: 280px;
+    }
+}
