@@ -98,6 +98,17 @@
             "social_cards_array": "Generate 3 cards according to the section_title, section_prompt and website description. Use dummy names and designations for the social cards. Return an array like this: [{\"name\":\"name1\",\"description\":\"description1\",\"designation\":\"designation1\"},{\"name\":\"name2\",\"description\":\"description2\",\"designation\":\"designation2\"} ...]"
         }
     },
+    "partners_logos": {
+        "section_intent": "A section to show logos slider. Use in sections to display partner, award, or 'as seen on' where we need to show a list of logos.",
+        "VALID_SLUGS": {
+            "social-proof-logos-slider-full": "Logos in a slider layout in full width layout.",
+            "social-proof-logos-slider-row": "Logos in a slider layout in a flex layout."
+        },
+        "content_needed": {
+            "heading": "Section Heading. Generate using: <!-- wp:heading {\"level\":2,\"className\":\"mb-3\"} -->",
+            "description": "Add a suitable description. Generate using: <!-- wp:paragraph {\"className\":\"mb-4\",\"fontSize\":\"medium\"} -->",
+        }
+    },
     "media_and_text": {
         "section_intent": "Use for about sections, feature explanations, or service details requiring image + text.",
         "VALID_SLUGS": {
