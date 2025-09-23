@@ -89,9 +89,8 @@ add_action( 'wp_head', function () {
       $data_array = unserialize(base64_decode($site_data));
       
       $site_theme = $data_array['theme'];
-
-      $site_theme = 'soft';
       $site_font = $data_array['fonts'];
+      
       switch ($site_theme) {
          case 'classic':
             $font_primary = 'https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap';
@@ -246,7 +245,8 @@ add_action( 'wp_head', function () {
    }
 } );
 
-if( file_exists('includes/cli-builder.php') ) {
+
+if( file_exists( ABSPATH . '/wp-content/themes/wp-block-theme/includes/cli-builder.php' ) ) {
    include_once 'includes/cli-builder.php';
 }
 include_once 'includes/shortcodes.php';

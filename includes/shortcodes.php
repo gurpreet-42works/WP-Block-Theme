@@ -154,6 +154,8 @@ add_shortcode( 'bloxby_header_ctas', function() {
         
         $contact = $data_array['contact_details'];
         $primary_cta = $contact['primary_cta'];
+
+        
         if( !empty( $contact['phone_number'] ) || !empty( $contact['email'] ) ) {
             $cta_html .= '<div class="header-cta cta-single m-0">';
 
