@@ -173,7 +173,7 @@ header.wp-block-template-part {
 }
 
 footer.wp-block-template-part {
-    background: rgba(var(--bs-secondary-bg-rgb),0.01) !important;
+    background: rgba(var(--bs-secondary-bg-rgb),0.05) !important;
     margin: 0;
 }
 
