@@ -48,7 +48,7 @@
                         <!-- wp:group {"className":"testimonial-slide__cite","layout":{"type":"flex","flexWrap":"nowrap"}} -->
                         <div class="wp-block-group testimonial-slide__cite">
                             <!-- wp:image {"width":"40px","height":"40px","scale":"cover","sizeSlug":"large"} -->
-                            <figure class="wp-block-image size-large is-resized"><img src="http://localhost/wp_installations/bloxby/wp-content/themes/bloxby-wp/assets/icons/user-alt.svg" alt="" style="object-fit:cover;width:40px;height:40px"/></figure>
+                            <figure class="wp-block-image size-large is-resized"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/icons/user-alt.svg" alt="" style="object-fit:cover;width:40px;height:40px"/></figure>
                             <!-- /wp:image -->
                             <!-- wp:paragraph -->
                             <p>Designation Goes Here</p>
@@ -68,7 +68,7 @@
                         <!-- wp:group {"className":"testimonial-slide__cite","layout":{"type":"flex","flexWrap":"nowrap"}} -->
                         <div class="wp-block-group testimonial-slide__cite">
                             <!-- wp:image {"width":"40px","height":"40px","scale":"cover","sizeSlug":"large"} -->
-                            <figure class="wp-block-image size-large is-resized"><img src="http://localhost/wp_installations/bloxby/wp-content/themes/bloxby-wp/assets/icons/user-alt.svg" alt="" style="object-fit:cover;width:40px;height:40px"/></figure>
+                            <figure class="wp-block-image size-large is-resized"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/icons/user-alt.svg" alt="" style="object-fit:cover;width:40px;height:40px"/></figure>
                             <!-- /wp:image -->
                             <!-- wp:paragraph -->
                             <p>Designation Goes Here</p>
@@ -88,7 +88,7 @@
                         <!-- wp:group {"className":"testimonial-slide__cite","layout":{"type":"flex","flexWrap":"nowrap"}} -->
                         <div class="wp-block-group testimonial-slide__cite">
                             <!-- wp:image {"width":"40px","height":"40px","scale":"cover","sizeSlug":"large"} -->
-                            <figure class="wp-block-image size-large is-resized"><img src="http://localhost/wp_installations/bloxby/wp-content/themes/bloxby-wp/assets/icons/user-alt.svg" alt="" style="object-fit:cover;width:40px;height:40px"/></figure>
+                            <figure class="wp-block-image size-large is-resized"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/icons/user-alt.svg" alt="" style="object-fit:cover;width:40px;height:40px"/></figure>
                             <!-- /wp:image -->
                             <!-- wp:paragraph -->
                             <p>Designation Goes Here</p>

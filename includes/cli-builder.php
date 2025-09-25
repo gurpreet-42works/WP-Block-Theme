@@ -113,7 +113,7 @@ function aibuilder_generate_pages_cli($args, $assoc_args)
         }
 
         $section_json = json_encode($sections_array, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-        $html = handle_openai_pattern_call_generation_cli($apiKey, $website_title, $website_description, $industry, $allPages, $page_title, $page_description, $section_json, $images_array); // now returns HTML
+        $html = handle_openai_pattern_call_generation_cli($apiKey, $website_title, $website_description, $industry, $allPages, $page_title, $page_description, $section_json, $images_array, $search_keys); // now returns HTML
 
         if (!$html) {
             WP_CLI::warning("Failed to create page section: $section");
@@ -164,7 +164,7 @@ function aibuilder_generate_pages_cli($args, $assoc_args)
  * Functions for creating blocks using Structured output
  * 
  */
-function handle_openai_pattern_call_generation_cli($api_key, $website_title, $website_description, $industry, $allPages, $page_title, $page_description, $section_json, $images_array)
+function handle_openai_pattern_call_generation_cli($api_key, $website_title, $website_description, $industry, $allPages, $page_title, $page_description, $section_json, $images_array, $search_keys)
 {
     $patterns_string = file_get_contents(get_stylesheet_directory() . '/assets/patterns.json');
 
@@ -761,8 +761,8 @@ function parse_generated_blocks($api_key, $blocks, $images_array, $website_descr
                         $listings_html = '';
 
                         if( $type == "image" && $layout == "top" && !empty($listings_array) ) {
-                            $listings_html .= '<!-- wp:group {"className":"listing-cards-grid","layout":{"type":"grid","columnCount":'.( count($listings_array) == 4 ? 2 : 3 ).',"minimumColumnWidth":null}} -->
-                                    <div class="wp-block-group listing-cards-grid">';
+                            $listings_html .= '<!-- wp:group {"className":"listing-cards-grid'.( count($listings_array) > 4 ? ' slider-grid' : '' ).'","layout":{"type":"grid","columnCount":'.( count($listings_array) == 4 ? 2 : 3 ).',"minimumColumnWidth":null}} -->
+                                    <div class="wp-block-group listing-cards-grid'.( count($listings_array) > 4 ? ' slider-grid' : '' ).'">';
                             foreach ($listings_array as $listing) {
                                 $image_arr = fetch_images_from_unsplash(UNSPLASH_API_KEY, $website_description ." " . $listing->heading , 1);
                                 $image = $image_arr[0];

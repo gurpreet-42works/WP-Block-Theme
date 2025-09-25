@@ -2,10 +2,10 @@
     "hero_banner": {
         "section_intent": "A hero section to be used only on page with title home. Else use inner_banner",
         "VALID_SLUGS": {
+            "hero-banner-image-scroll": "",
             "hero-banner-left-aligned": "",
             "hero-banner-center-aligned": "",
-            "hero-banner-right-aligned": "",
-            "hero-banner-image-scroll": ""
+            "hero-banner-right-aligned": ""
         },
         "content_needed": {
             "heading": "Add Main Heading. Generate using: <!-- wp:heading {\"level\":1,\"className\":\"mb-3\"} --> ",

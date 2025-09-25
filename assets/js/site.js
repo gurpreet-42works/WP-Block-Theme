@@ -35,6 +35,32 @@
             });
         }
 
+        if( $(".listing-cards-grid.slider-grid").length ){
+            $(".listing-cards-grid.slider-grid").slick({
+              slidesToShow: 3,
+              slidesToScroll: 1,
+              autoplay: true,
+              autoplaySpeed: 3000,
+              speed: 700,
+              dots: true,
+              arrows: false,
+              responsive: [
+                {
+                  breakpoint: 991,
+                  settings: {
+                    slidesToShow: 2
+                  }
+                },
+                {
+                  breakpoint: 650,
+                  settings: {
+                    slidesToShow: 1
+                  }
+                }
+              ]
+            });
+        }
+
         //Logos Slider
         if( $(".social-logos-gallery").length ){
             jQuery('.social-logos-gallery').slick({

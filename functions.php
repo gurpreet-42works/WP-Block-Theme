@@ -90,7 +90,10 @@ add_action( 'wp_head', function () {
       
       $site_theme = $data_array['theme'];
       $site_font = $data_array['fonts'];
-      
+
+      $heading_weight = '600';
+      $heading_letterspacing = 'normal';
+
       switch ($site_theme) {
          case 'classic':
             $font_primary = 'https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap';
@@ -106,10 +109,10 @@ add_action( 'wp_head', function () {
             $box_shadow_lg = '0 0 10px rgba(0, 0, 0, 0.2)';
             break;
          case 'material':
-            $font_primary = 'https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap';
-            $font_primary_family = '"Roboto", sans-serif';
-            $font_secondary = 'https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap';
-            $font_secondary_family = '"Raleway", sans-serif';
+            $font_primary = 'https://fonts.googleapis.com/css2?family=Zalando+Sans:ital,wght@0,200..900;1,200..900&display=swap';
+            $font_primary_family = '"Zalando Sans", sans-serif';
+            $font_secondary = 'https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap';
+            $font_secondary_family = '"Instrument Sans", sans-serif';
             $border_radius = '10px';
             $border_radius_sm = '5px';
             $border_radius_lg = '10px';
@@ -117,33 +120,36 @@ add_action( 'wp_head', function () {
          case 'minimalistic':
             $font_primary = 'https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap';
             $font_primary_family = '"Work Sans", sans-serif';
-            $font_secondary = 'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap';
-            $font_secondary_family = '"Plus Jakarta Sans", sans-serif';
+            $font_secondary = 'https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap';
+            $font_secondary_family = '"Josefin Sans", sans-serif';
             $border_radius = '0px';
             $border_radius_sm = '0px';
             $border_radius_lg = '0px';
+            $heading_weight = '500';
+            $heading_letterspacing = '-1px';
             break;
          case 'flat':
-            $font_primary = 'https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap';
-            $font_primary_family = '"Montserrat", sans-serif';
-            $font_secondary = 'https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap';
-            $font_secondary_family = '"Rubik", sans-serif';
+            $font_primary = 'https://fonts.googleapis.com/css2?family=Zalando+Sans:ital,wght@0,200..900;1,200..900&display=swap';
+            $font_primary_family = '"Zalando Sans", sans-serif';
+            $font_secondary = 'https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap';
+            $font_secondary_family = '"Manrope", sans-serif';
             $border_radius = '5px';
             $border_radius_sm = '5px';
             $border_radius_lg = '5px';
             break;
          case 'soft':
-            $font_primary = 'https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap';
-            $font_primary_family = '"DM Sans", sans-serif';
-            $font_secondary = 'https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap';
-            $font_secondary_family = '"Quicksand", sans-serif';
+            $font_primary = 'https://fonts.googleapis.com/css2?family=Fustat:wght@200..800&display=swap';
+            $font_primary_family = '"Fustat", sans-serif';
+            $font_secondary = 'https://fonts.googleapis.com/css2?family=Alan+Sans:wght@300..900&display=swap';
+            $font_secondary_family = '"Alan Sans", sans-serif';
             $border_radius = '25px';
             $border_radius_sm = '15px';
             $border_radius_lg = '35px';
+            $heading_weight = '500';
+            $heading_letterspacing = '-1px';
             break;
          
          default:
-            # code...
             $font_primary = 'https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap';
             $font_primary_family = '"Poppins", sans-serif';
             $font_secondary = 'https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap';
@@ -151,6 +157,8 @@ add_action( 'wp_head', function () {
             $border_radius = '5px';
             $border_radius_sm = '5px';
             $border_radius_lg = '5px';
+            $heading_weight = '600';
+            $heading_letterspacing = 'normal';
             break;
       }
       $site_colors = $data_array['colors'];
@@ -187,6 +195,8 @@ add_action( 'wp_head', function () {
          /* Font Families  */
          --family-primary: <?php echo $font_primary_family; ?>;
          --family-secondary: <?php echo $font_secondary_family; ?>;
+         --heading-weight: <?php echo $heading_weight; ?>;
+         --heading-spacing: <?php echo $heading_letterspacing; ?>;
 
       }
       /* Wordpress Defaults */
@@ -198,7 +208,7 @@ add_action( 'wp_head', function () {
       body {
          font-family: <?php echo $font_primary_family; ?>;
       }
-      h1,h2,h3,h4,h5,h6,.btn {
+      h1,h2,h3,h4,h5,h6 {
          font-family: <?php echo $font_secondary_family; ?>;
       }
       h1 a,h2 a,h3 a,h4 a,h5 a,h6 a{
